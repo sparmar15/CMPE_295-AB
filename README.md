@@ -33,7 +33,7 @@ Most carpooling systems are under the supervision of big agencies such as Waze C
 * [Individual Journals]()
 
 ## High-Level Architecture Diagram
-![Architecture Diagram](https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Architecture.png=20X100)
+![Architecture Diagram](https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Architecture.png)
 
 ## Sprint Details
 * [Sprint Task Sheet](https://docs.google.com/spreadsheets/d/1IDO-muoPfrz7nGbiX-NCL3QYRmmmM3Z5hmQhxfTsbh4/edit#gid=0)
