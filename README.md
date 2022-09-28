@@ -44,7 +44,9 @@ Sprint Task Sheet
 Sprint Burndown Chart
 
 <figure>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQot0QxKSkTFg4Ln0VY5xv8iNfA6tXyqnpjWoI6FNH5WAhtpYljjRxxo-jbNtaKYejz9Oa0YLtgBGpz/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQot0QxKSkTFg4Ln0VY5xv8iNfA6tXyqnpjWoI6FNH5WAhtpYljjRxxo-jbNtaKYejz9Oa0YLtgBGpz/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false">
+  </iframe>
+
 </figure>
 
 ## Kanban Details
