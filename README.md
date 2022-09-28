@@ -14,6 +14,10 @@ Dr. Wencen Wu
 ## Project Title: 
 Peer-to-Peer Carpooling using blockchain
 
+## Summary of Project
+
+## Key Features
+
 ## Project Resources
 * [Abstract](https://docs.google.com/document/d/11O3B8O6y_0S268Ni9-rdSvu4CeAaaujWDXDsE6z1G2w/edit?usp=sharing)
 * [Workbook](https://docs.google.com/document/d/16X5nwL20e_d37gVgTfMnCRzaFhGxktZ5doj7da78jUk/edit?usp=sharing)
@@ -24,7 +28,9 @@ Peer-to-Peer Carpooling using blockchain
 ## High-Level Architecture Diagram
 
 ## Sprint Details
+* [Sprint Task Sheet](https://docs.google.com/spreadsheets/d/1IDO-muoPfrz7nGbiX-NCL3QYRmmmM3Z5hmQhxfTsbh4/edit?usp=sharing)
+* [Sprint Burndown Chart](https://docs.google.com/spreadsheets/d/1IDO-muoPfrz7nGbiX-NCL3QYRmmmM3Z5hmQhxfTsbh4/edit#gid=500653002)
 
-
-## Kanban Board
+## Kanban Details
+* [Board]()
 
