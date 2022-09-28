@@ -1,7 +1,7 @@
 # CMPE_295A: Master's Project I
 **Project Advisor**: Wencen Wu
 **Team**:
-| Member                   | Enrollment No.|
+| Members                  | Enrollment No.|
 |--------------------------|---------------|
 | Rohitkumar Yadav         | 015222961     |
 | Rushi Sanjaykumar Sharma | 015947113     |
