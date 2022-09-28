@@ -37,6 +37,9 @@ One way to introduce more transparency to carpooling services is to implement a 
 ## High-Level Architecture Diagram
 ![Architecture Diagram](https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Architecture.png)
 
+## Project Plan and Progress
+![Gantt Chart](https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Tracker.png)
+
 ## Sprint Details
 * [Sprint Task Sheet](https://docs.google.com/spreadsheets/d/1IDO-muoPfrz7nGbiX-NCL3QYRmmmM3Z5hmQhxfTsbh4/edit#gid=0)
 * [Burndown Chart](https://docs.google.com/spreadsheets/d/1IDO-muoPfrz7nGbiX-NCL3QYRmmmM3Z5hmQhxfTsbh4/edit#gid=500653002)
