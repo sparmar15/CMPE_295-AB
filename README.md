@@ -35,10 +35,10 @@ One way to introduce more transparency to carpooling services is to implement a 
 * [Individual Journals]()
 
 ## High-Level Architecture Diagram
-![Architecture Diagram](https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Architecture.png=100x20)
+<img src="https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Architecture.png" width="80" height="120">
 
 ## System Design
-![System Design](https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20System%20Design.png=20x100)
+<img src="https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20System%20Design.png" width="120" height="80">
 
 ## Project Plan and Progress
 ![Gantt Chart](https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Tracker.png)
