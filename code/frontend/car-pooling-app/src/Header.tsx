@@ -7,7 +7,7 @@ export type HeaderProps = {
 }
 function Header(prop : HeaderProps) {
   return (
-    <div>Header</div>
+    <div>A Decentralized Solution</div>
   )
 }
 
