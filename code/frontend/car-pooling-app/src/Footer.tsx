@@ -7,7 +7,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 export class Footer extends React.Component {
   render() {
     return (
-      <footer>
+      <footer className="footer_wrapper">
+        <div className="top_footer_section">
         <div className="container-fluid footer">
           <div className="row">
             <div className="col-md-12">
@@ -21,6 +22,7 @@ export class Footer extends React.Component {
                 </li>
               </ul>
             </div>
+          </div>
           </div>
         </div>
       </footer>
