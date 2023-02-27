@@ -1,24 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import OnboardingScreen from "./screens/OnboardingScreen";
+import SplashScreen from "./screens/SplashScreen";
+
+const AppStack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-      {/* <Image
-          style={{width: '100%', height: '50%'}}
-          source={require('./../..images/295A Project Architecture.png')}
-      /> */}
-    </View>
+    <NavigationContainer>
+      <AppStack.Navigator screenOptions={{ headerShown: false }}>
+        {/* <AppStack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+        ></AppStack.Screen> */}
+        <AppStack.Screen
+          name="OnboardingScreen"
+          component={OnboardingScreen}
+        ></AppStack.Screen>
+        {/* <AppStack.Screen
+          name="LoginScreen"
+          componenet={LoginScreen}
+        ></AppStack.Screen> */}
+      </AppStack.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
