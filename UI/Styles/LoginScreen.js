@@ -32,7 +32,7 @@ export default StyleSheet.create({
     backgroundColor: 'white', // lighter blue input background color
     margin: 10,
     padding: 8,
-    color: '#FFFFFF',
+    color: '#000',
     borderRadius: 14,
     fontSize: 18,
     fontWeight: '500',
@@ -60,9 +60,11 @@ export default StyleSheet.create({
   },
 
   forgot: {
-    textAlign: 'right',
-    paddingRight: 20,
-    color: '#7b8393',
+    fontSize: 16,
+    textDecorationLine: 'underline',
+    marginTop: 10,
+    textAlign: 'left',
+    paddingLeft: 20,
   },
 
   label: {
@@ -73,5 +75,11 @@ export default StyleSheet.create({
     width: 350,
     marginLeft: 10,
     paddingLeft: 5,
+  },
+  error: {
+    fontSize: 14,
+    color: 'red',
+    marginBottom: 5,
+    // textAlign: 'center',
   },
 });
