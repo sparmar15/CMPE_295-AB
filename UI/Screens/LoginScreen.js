@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import styles from '../Styles/LoginScreen';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
@@ -50,7 +50,7 @@ const LoginScreen = () => {
   };
 
   const handleSignupPress = () => {
-    console.log('Signup pressed');
+    navigation.navigate('DriverRiderSelect');
   };
 
   return (
