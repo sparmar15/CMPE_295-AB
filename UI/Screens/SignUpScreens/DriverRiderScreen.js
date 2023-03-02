@@ -23,14 +23,14 @@ export default function DriverRiderScreen({navigation}) {
 
       <TouchableOpacity style={styles.optionButton}>
         <Image
-          source={require('../../Assets/driver.png')}
+          source={require('../../Assets/driver.jpg')}
           style={styles.image}
         />
         <Text style={styles.optionText}>I am a Driver</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.optionButton}>
         <Image
-          source={require('../../Assets/rider.png')}
+          source={require('../../Assets/rider.jpg')}
           style={styles.image}
         />
         <Text style={styles.optionText}>I am a Rider</Text>
