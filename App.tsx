@@ -11,7 +11,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import OnboardingScreen from './UI/Screens/OnboardingScreen';
 import LoginScreen from './UI/Screens/LoginScreen';
 import DriverRiderScreen from './UI/Screens/SignUpScreens/DriverRiderScreen';
-// import DriverSignupScreen from './UI/Screens/SignUpScreens/DriverSignupScreen';
+import RiderSignupScreen from './UI/Screens/SignUpScreens/RiderSignupScreen';
 
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
@@ -25,7 +25,7 @@ function App(): JSX.Element {
           name="DriverRiderSelect"
           component={DriverRiderScreen}
         />
-        {/* <AppStack.Screen name="DriverSignup" component={DriverSignupScreen} /> */}
+        <AppStack.Screen name="RiderSignup" component={RiderSignupScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
