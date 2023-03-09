@@ -1,9 +1,9 @@
-import IPFS from 'ipfs';
+import {create} from 'ipfs';
 import OrbitDB from 'orbit-db';
 
-async function main() {
+async function orbitDB() {
   const ipfsOptions = {repo: './ipfs'};
-  const ipfs = await IPFS.create(ipfsOptions);
+  const ipfs = await create(ipfsOptions);
   const orbitdb = await OrbitDB.createInstance(ipfs);
 
   const options = {
@@ -19,4 +19,4 @@ async function main() {
   return db;
 }
 
-export {main};
+export {orbitDB};

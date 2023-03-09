@@ -1,5 +1,5 @@
 import express from 'express';
-import {orbitDB} from '../orbitDB';
+import {orbitDB} from '../orbitDB.mjs';
 
 const orbitRouter = express.Router();
 
