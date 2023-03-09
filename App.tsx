@@ -5,9 +5,10 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import axios from 'axios';
 import OnboardingScreen from './UI/Screens/OnboardingScreen';
 import LoginScreen from './UI/Screens/LoginScreen';
 import DriverRiderScreen from './UI/Screens/SignUpScreens/DriverRiderScreen';
@@ -15,6 +16,17 @@ import RiderSignupScreen from './UI/Screens/SignUpScreens/RiderSignupScreen';
 
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/orbit/create')
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <NavigationContainer>
