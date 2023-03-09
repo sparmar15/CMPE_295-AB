@@ -10,6 +10,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import OnboardingScreen from './UI/Screens/OnboardingScreen';
 import LoginScreen from './UI/Screens/LoginScreen';
+import DriverRiderScreen from './UI/Screens/SignUpScreens/DriverRiderScreen';
+import RiderSignupScreen from './UI/Screens/SignUpScreens/RiderSignupScreen';
 
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
@@ -18,8 +20,12 @@ function App(): JSX.Element {
     <NavigationContainer>
       <AppStack.Navigator screenOptions={{headerShown: false}}>
         <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
-        <AppStack.Screen name="Signup" component={LoginScreen} />
         <AppStack.Screen name="Login" component={LoginScreen} />
+        <AppStack.Screen
+          name="DriverRiderSelect"
+          component={DriverRiderScreen}
+        />
+        <AppStack.Screen name="RiderSignup" component={RiderSignupScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
