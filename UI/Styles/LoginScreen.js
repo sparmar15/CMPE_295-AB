@@ -22,7 +22,7 @@ export default StyleSheet.create({
 
   logo: {
     height: 250,
-    widht: 250,
+    width: 250,
     alignSelf: 'center',
   },
 
