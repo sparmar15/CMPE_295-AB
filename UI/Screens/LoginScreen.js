@@ -99,7 +99,7 @@ const LoginScreen = ({navigation}) => {
     let DBusername;
     let DBpassword;
     axios
-      .get(`http://localhost:3000/orbit/get/${username}`)
+      .get(`http://localhost:4000/login`)
       .then(response => {
         console.log(response.data);
         DBusername = response.data.password;

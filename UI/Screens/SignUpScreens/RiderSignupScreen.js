@@ -100,7 +100,7 @@ export default function RiderSignupScreen({navigation}) {
         const username = userInfo.username;
         const password = userInfo.password;
         axios
-          .post('http://localhost:3000/orbit/put', {username, password})
+          .post('http://localhost:4000/user', {username, password})
           .then(response => {
             console.log(response.data);
           })
