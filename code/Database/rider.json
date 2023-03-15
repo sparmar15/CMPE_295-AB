@@ -1,0 +1,23 @@
+{
+  "_id": "rider_123",
+  "name": "John Doe",
+  "email": "john.doe@email.com",
+  "password": "hashed_password",
+  "phone": "+1 (123) 456-7890",
+  "profile_picture": "ipfs://Qmabc123",
+  "location": {
+    "latitude": 37.7749,
+    "longitude": -122.4194
+  },
+  "rating": 4.5,
+  "reviews_received": [
+    {
+      "review_id": "review_456",
+      "reviewer_id": "driver_789",
+      "reviewer_name": "Jane Smith",
+      "reviewer_profile_picture": "ipfs://Qmdef456",
+      "rating": 4,
+      "comment": "John was a great rider, on time and friendly."
+    }
+  ]
+}

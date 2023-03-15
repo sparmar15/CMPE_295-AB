@@ -1,5 +1,6 @@
 import {create as ipfsCreate} from 'ipfs-core';
 import OrbitDB from 'orbit-db';
+import util from 'util';
 
 // Connect to your existing IPFS instance
 const ipfs = await ipfsCreate({
@@ -11,12 +12,21 @@ const ipfs = await ipfsCreate({
 
 // Create an OrbitDB instance and load the database
 const orbitdb = await OrbitDB.createInstance(ipfs);
+
 // const options = {indexBy: 'doc'};
-const db = await orbitdb.docstore('carma-db');
 
-// Open Existing OrbittDB database
-// const address =
-//   '02199e712c5d4c62c64ba57b74a811970ba90e8936d4b2aa35d27116f71dc5cca0';
-// const db = await OrbitDB.open(address);
+// create riders document
+const riders = await orbitdb.docstore('riders');
 
-export {db};
+// create drivers document
+const drivers = await orbitdb.docstore('drivers');
+
+// create reviews document
+const reviews = await orbitdb.docstore('reviews');
+
+// Logging database info
+console.log('ORBIT DB info');
+console.log('Address: ' + util.inspect(db.address, {colors: true}));
+console.log('Identity: ' + util.inspect(db.identity, {depth: 0, colors: true}));
+
+export {riders, drivers, reviews};
