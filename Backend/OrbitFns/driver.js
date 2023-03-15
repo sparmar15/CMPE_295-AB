@@ -15,7 +15,7 @@ async function getDriverById(driverId) {
 // update driver by id
 async function updateDriverById(driverId, driverData) {
   const driver = await getDriverById(driverId);
-  const newData = {...driver, ...driverData};
+  const newData = {...driver[0], ...driverData};
   const result = await drivers.put(newData);
   return result;
 }

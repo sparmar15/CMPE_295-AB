@@ -15,7 +15,7 @@ async function getReviewById(reviewId) {
 // update review by id
 async function updateReviewById(reviewId, reviewData) {
   const review = await getReviewById(reviewId);
-  const newData = {...review, ...reviewData};
+  const newData = {...review[0], ...reviewData};
   const result = await reviews.put(newData);
   return result;
 }

@@ -15,7 +15,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routing
-app.use('/driver', driverRoute);
+app.use('/drivers', driverRoute);
+app.use('/riders', riderRoute);
+app.use('/reviews', reviewRoute);
 
 // Start the server
 app.listen(port, () => {

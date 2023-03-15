@@ -17,17 +17,6 @@ import RiderSignupScreen from './UI/Screens/SignUpScreens/RiderSignupScreen';
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:3000/orbit/create')
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-
   return (
     <NavigationContainer>
       <AppStack.Navigator screenOptions={{headerShown: false}}>

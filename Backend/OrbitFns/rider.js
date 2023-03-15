@@ -15,7 +15,7 @@ async function getRiderById(riderId) {
 // update rider by id
 async function updateRiderById(riderId, riderData) {
   const rider = await getRiderById(riderId);
-  const newData = {...rider, ...riderData};
+  const newData = {...rider[0], ...riderData};
   const result = await riders.put(newData);
   return result;
 }

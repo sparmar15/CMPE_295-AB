@@ -15,6 +15,7 @@ import axios from 'axios';
 
 export default function RiderSignupScreen({navigation}) {
   const [userInfo, setUserInfo] = useState({
+    _id: '007',
     username: '',
     password: '',
     email: '',
@@ -97,10 +98,10 @@ export default function RiderSignupScreen({navigation}) {
     if (validateInputs()) {
       try {
         // here place your signup logic
-        const username = userInfo.username;
-        const password = userInfo.password;
+        // const username = userInfo.username;
+        // const password = userInfo.password;
         axios
-          .post('http://localhost:4000/user', {username, password})
+          .post('http://localhost:4000/riders/', userInfo)
           .then(response => {
             console.log(response.data);
           })

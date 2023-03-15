@@ -25,8 +25,17 @@ const drivers = await orbitdb.docstore('drivers');
 const reviews = await orbitdb.docstore('reviews');
 
 // Logging database info
-console.log('ORBIT DB info');
-console.log('Address: ' + util.inspect(db.address, {colors: true}));
-console.log('Identity: ' + util.inspect(db.identity, {depth: 0, colors: true}));
+console.log(
+  'Riders docstore address: ' + util.inspect(riders.address, {colors: true}),
+);
+console.log(
+  'Drivers docstore address: ' + util.inspect(drivers.address, {colors: true}),
+);
+console.log(
+  'Reviews docstore address: ' + util.inspect(reviews.address, {colors: true}),
+);
+// console.log(
+//   'Identity: ' + util.inspect(riders.identity, {depth: 0, colors: true}),
+// );
 
 export {riders, drivers, reviews};
