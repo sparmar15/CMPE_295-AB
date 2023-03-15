@@ -12,22 +12,30 @@ import OnboardingScreen from './UI/Screens/OnboardingScreen';
 import LoginScreen from './UI/Screens/LoginScreen';
 import DriverRiderScreen from './UI/Screens/SignUpScreens/DriverRiderScreen';
 import RiderSignupScreen from './UI/Screens/SignUpScreens/RiderSignupScreen';
+import {store, persistor} from './Redux/store';
+import {Provider} from 'react-redux';
+import {Text} from 'react-native';
+import {PersistGate} from 'redux-persist/integration/react';
 
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
 
   return (
-    <NavigationContainer>
-      <AppStack.Navigator screenOptions={{headerShown: false}}>
-        <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
-        <AppStack.Screen name="Login" component={LoginScreen} />
-        <AppStack.Screen
-          name="DriverRiderSelect"
-          component={DriverRiderScreen}
-        />
-        <AppStack.Screen name="RiderSignup" component={RiderSignupScreen} />
-      </AppStack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+        <NavigationContainer>
+          <AppStack.Navigator screenOptions={{headerShown: false}}>
+            <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
+            <AppStack.Screen name="Login" component={LoginScreen} />
+            <AppStack.Screen
+              name="DriverRiderSelect"
+              component={DriverRiderScreen}
+            />
+            <AppStack.Screen name="RiderSignup" component={RiderSignupScreen} />
+          </AppStack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 }
 
