@@ -10,9 +10,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import OnboardingScreen from './UI/Screens/OnboardingScreen';
 import LoginScreen from './UI/Screens/LoginScreen';
+import UserProfileScreen from './UI/Screens/UserProfileScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
+  Ionicons.loadFont().then();
 
   return (
     <NavigationContainer>
@@ -20,6 +23,7 @@ function App(): JSX.Element {
         <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
         <AppStack.Screen name="Signup" component={LoginScreen} />
         <AppStack.Screen name="Login" component={LoginScreen} />
+        <AppStack.Screen name="Profile" component={UserProfileScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
