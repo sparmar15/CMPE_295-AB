@@ -7,8 +7,26 @@ import {
   StyleSheet,
   SafeAreaView,
   FlatList,
+  Platform,
 } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import {launchImageLibrary} from 'react-native-image-picker';
+
+const createFormData = (photo, body = {}) => {
+  const data = new FormData();
+
+  data.append('photo', {
+    name: photo.fileName,
+    type: photo.type,
+    uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
+  });
+
+  Object.keys(body).forEach(key => {
+    data.append(key, body[key]);
+  });
+
+  return data;
+};
 
 const UserProfile = () => {
   const [editMode, setEditMode] = useState(false);
@@ -17,7 +35,15 @@ const UserProfile = () => {
   );
 
   const handleEditImage = () => {
-    setEditMode(true);
+    // setEditMode(true);
+    const options = {
+      noData: true,
+    };
+    launchImageLibrary(options, response => {
+      if (response.uri) {
+        this.setState({photo: response});
+      }
+    });
   };
 
   const handleSaveImage = () => {
