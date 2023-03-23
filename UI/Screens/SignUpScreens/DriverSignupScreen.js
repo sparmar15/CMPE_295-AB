@@ -9,9 +9,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import styles from '../../Styles/SignUpScreens/RiderSignupScreen';
+import styles from '../../Styles/SignUpScreens/DriverSignupScreen';
+import DriverSignupScreenTwo from './DriverSignupScreenTwo.js';
 
-export default function RiderSignupScreen({navigation}) {
+export default function DriverSignupScreen({navigation}) {
   const [userInfo, setUserInfo] = useState({
     name: '',
     username: '',
@@ -51,9 +52,9 @@ export default function RiderSignupScreen({navigation}) {
     let isValid = true;
 
     if (!userInfo.name) {
-      newErrors.name = 'A name is required';
-      isValid = false;
-    }
+        newErrors.name = 'A name is required';
+        isValid = false;
+      }
     if (!userInfo.username) {
       newErrors.username = 'Username is required';
       isValid = false;
@@ -96,19 +97,12 @@ export default function RiderSignupScreen({navigation}) {
     setErrors({...errors, [key]: null});
   };
 
-  const signUp = async () => {
+  const handleNextPress = () => {
     if (!userInfo.name || !userInfo.username || !userInfo.password || !userInfo.email || !userInfo.phone_number) {
       alert('Please fill all required fields!');
       return;
     }
-    if (validateInputs()) {
-      try {
-        // here place your signup logic
-        console.log('user successfully signed up!: ', userInfo);
-      } catch (err) {
-        console.log('error signing up: ', err);
-      }
-    }
+    navigation.navigate('DriverSignupTwo', {userInfo});
   };
 
   return (
@@ -182,9 +176,23 @@ export default function RiderSignupScreen({navigation}) {
           placeholderTextColor="#FFFFFF"
           onChangeText={val => onChangeText('phone_number', val)}
         />
-        <TouchableOpacity style={styles.button} onPress={signUp}>
+        {/* <TouchableOpacity style={styles.button} onPress={signUp}>
           <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+
+        <TouchableOpacity onPress={handleNextPress} style={styles.button}>
+        <Text style={styles.optionText}>Next</Text>
+      </TouchableOpacity>
+
+
+        {/* <TouchableOpacity style={styles.button}>
+          {userInfo ?
+            <DriverSignupScreenTwo/> :
+            <DriverSignupScreen/>
+          }
+        <Text style={styles.optionText}>Next</Text>
+      </TouchableOpacity> */}
+
       </ImageBackground>
     </SafeAreaView>
   );

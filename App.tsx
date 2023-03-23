@@ -12,6 +12,8 @@ import OnboardingScreen from './UI/Screens/OnboardingScreen';
 import LoginScreen from './UI/Screens/LoginScreen';
 import DriverRiderScreen from './UI/Screens/SignUpScreens/DriverRiderScreen';
 import RiderSignupScreen from './UI/Screens/SignUpScreens/RiderSignupScreen';
+import DriverSignupScreen from './UI/Screens/SignUpScreens/DriverSignupScreen';
+import DriverSignupScreenTwo from './UI/Screens/SignUpScreens/DriverSignupScreenTwo';
 
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
@@ -26,6 +28,8 @@ function App(): JSX.Element {
           component={DriverRiderScreen}
         />
         <AppStack.Screen name="RiderSignup" component={RiderSignupScreen} />
+        <AppStack.Screen name="DriverSignup" component={DriverSignupScreen} />
+        <AppStack.Screen name="DriverSignupTwo" component={DriverSignupScreenTwo} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

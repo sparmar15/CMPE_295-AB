@@ -11,6 +11,9 @@ import {HeaderBackButton} from '@react-navigation/elements';
 import styles from '../../Styles/SignUpScreens/DriverRiderScreen';
 
 export default function DriverRiderScreen({navigation}) {
+  const handleDriverPress = () => {
+    navigation.navigate('DriverSignup');
+  };
   const handleRiderPress = () => {
     navigation.navigate('RiderSignup');
   };
@@ -24,7 +27,7 @@ export default function DriverRiderScreen({navigation}) {
         />
       </View>
 
-      <TouchableOpacity style={styles.optionButton}>
+      <TouchableOpacity onPress={handleDriverPress} style={styles.optionButton}>
         <Image
           source={require('../../Assets/driver.jpg')}
           style={styles.image}
