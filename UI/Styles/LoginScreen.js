@@ -39,7 +39,7 @@ export default StyleSheet.create({
   },
 
   container: {
-    backgroundColor: '#fff',
+    // backgroundColor: 'none',
     height: '100%',
   },
 
