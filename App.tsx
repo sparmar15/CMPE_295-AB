@@ -15,6 +15,7 @@ import RiderSignupScreen from './UI/Screens/SignUpScreens/RiderSignupScreen';
 import SearchPage from './UI/Screens/SearchPage';
 import LandingPage from './UI/Screens/LandingPage';
 import SearchBar from './UI/Screens/SearchBar';
+import TripRoute from './UI/Screens/TripRoute';
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
 
@@ -28,7 +29,17 @@ function App(): JSX.Element {
           component={DriverRiderScreen}
         />
         <AppStack.Screen name="RiderSignup" component={RiderSignupScreen} />
-        <AppStack.Screen name="LandingPage" component={LandingPage} />
+        <AppStack.Screen
+          name="LandingPage"
+          component={LandingPage}
+          options={{
+            presentation: 'transparentModal',
+            transitionSpec: {
+              open: {animation: 'timing', config: {duration: 100}},
+              close: {animation: 'timing', config: {duration: 100}},
+            },
+          }}
+        />
         <AppStack.Screen
           name="SearchPage"
           component={SearchPage}
@@ -40,6 +51,7 @@ function App(): JSX.Element {
             },
           }}
         />
+        <AppStack.Screen name="TripRoute" component={TripRoute} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

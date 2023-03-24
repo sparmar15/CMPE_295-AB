@@ -12,8 +12,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SearchBar from './SearchBar';
 const LandingPage = ({navigation}) => {
-  const Log = logger.createLogger();
-  const GOOGLE_MAPS_API_KEY = 'AIzaSyDqLflunQA7crh0thU23kpQqQ5edQS_U-0';
   const [location, setLocation] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -26,24 +24,6 @@ const LandingPage = ({navigation}) => {
   });
 
   const [isDestination, setIsDestination] = useState(false);
-
-  const handleSearch = (data, details) => {
-    Log.info(data);
-    const location = details?.geometry?.location;
-    if (location) {
-      setLocation({
-        latitude: location.lat,
-        longitude: location.lng,
-        latitudeDelta: 0.015,
-        longitudeDelta: 0.0121,
-      });
-      setMarkerLocation({
-        latitude: location.lat,
-        longitude: location.lng,
-      });
-      setIsDestination(true);
-    }
-  };
 
   const handlePress = () => {
     navigation.navigate('SearchPage');
