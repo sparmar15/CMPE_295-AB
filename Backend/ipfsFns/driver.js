@@ -1,14 +1,30 @@
-import {drivers} from './db.js';
+import {ipfs} from '../index.js';
+import fetch from 'node-fetch';
 
 // insert new driver
 async function addDriver(driverData) {
-  const result = await drivers.put(driverData);
+  const file = {
+    path: '/',
+    content: JSON.stringify(driverData),
+  };
+  const result = await ipfs.pin.add(file);
+  console.log(result);
   return result;
 }
 
 // get driver by id
-async function getDriverById(driverId) {
-  const result = await drivers.get(driverId);
+async function getDriverById(cid) {
+  let url = 'https://ipfs.io/ipfs/' + cid;
+  // console.log(url);
+  let settings = {method: 'Get'};
+  const result = await fetch(url, settings)
+    .then(res => res.json())
+    .then(json => {
+      return json;
+    })
+    .catch(err => {
+      return err;
+    });
   return result;
 }
 
