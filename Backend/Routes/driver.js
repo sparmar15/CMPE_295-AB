@@ -1,73 +1,113 @@
 import express from 'express';
-import {pinata, ipfs} from '../index.js';
 import {
   addDriver,
-  getDriverById,
-  updateDriverById,
-  deleteDriverById,
+  getDriverByHash,
+  getFileHash,
+  deleteFileByHash,
 } from '../ipfsFns/driver.js';
 
 const driverRoute = express.Router();
-const options = {
-  pinataMetadata: {
-    name: 'drivers',
-  },
-  pinataOptions: {
-    cidVersion: 0,
-  },
-};
-const filter = {
-  metadata: {
-    name: 'drivers',
-  },
-};
 
 // Define endpoints for Rider document
 driverRoute.post('/addDriver', async (req, res) => {
-  pinata
-    .pinJSONToIPFS(req.body, options)
-    .then(result => {
-      //handle results here
-      console.log(result);
-      return res.status(200).send({
-        success: true,
-        message: 'Driver added successfully',
-        result: result,
-      });
-    })
-    .catch(err => {
-      //handle error here
-      console.log(err);
-      return res.status(200).send({
-        success: false,
-        message: 'Driver couldnt be added',
-        error: err,
-      });
+  // const options = {
+  //   pinataMetadata: {
+  //     name: 'MyCustomName',
+  //     keyvalues: {
+  //       _id: '008',
+  //       user_name: 'siodasf',
+  //     },
+  //   },
+  //   pinataOptions: {
+  //     cidVersion: 0,
+  //     wrapWithDirectory: true,
+  //   },
+  // };
+  try {
+    const result = await addDriver(req.body.data, req.body.options);
+    return res.status(200).send({
+      success: true,
+      message: 'Driver added successfully',
+      result: result,
     });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({
+      success: false,
+      message: 'Driver couldnt be added',
+      error: err,
+    });
+  }
 });
 
-driverRoute.get('/getDrivers', async (req, res) => {
-  const cid =
-    'Qmbb7kAhopTy68WLYNJdino7TtaTXSeNSua7LjVNqBzSGp/sampleReview.json';
-  const result = await getDriverById(cid);
-  console.log('====================================');
-  console.log(result);
-  console.log('====================================');
-  return res.status(200).send({
-    success: true,
-    message: 'Driver retrieved successful',
-    result: result,
-  });
+driverRoute.get('/getDriver', async (req, res) => {
+  try {
+    // const cid = 'Qmc9RYapT1qUvHerpZqpaLQsmucW7Evm3tM8ZrypvGMxX7';
+    const result = await getDriverByHash(req.query.cid);
+    return res.status(200).send({
+      success: true,
+      message: 'Driver data retrieved successfully',
+      result: result,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({
+      success: false,
+      message: 'Driver data couldnt be retrieved',
+      error: err,
+    });
+  }
 });
 
-driverRoute.put('/drivers/:id', async (req, res) => {
-  // const driver = await updateDriverById(req.params.id, req.body);
-  res.status(200).json(driver);
+driverRoute.get('/getFileHash', async (req, res) => {
+  // const filters = {
+  //   metadata: {
+  //     name: 'MyCustomName',
+  //     keyvalues: {
+  //       _id: {
+  //         value: '008',
+  //         op: 'eq',
+  //       },
+  //       user_name: {
+  //         value: 'siodasf',
+  //         op: 'eq',
+  //       },
+  //     },
+  //   },
+  // };
+  try {
+    const result = await getFileHash(req.body.filters);
+    return res.status(200).send({
+      success: true,
+      message: 'File hash retrieved successfully',
+      result: result,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({
+      success: false,
+      message: 'File hash couldnt be retrieved',
+      error: err,
+    });
+  }
 });
 
-driverRoute.delete('/drivers/:id', async (req, res) => {
-  // await deleteDriverById(req.params.id);
-  res.sendStatus(204);
+driverRoute.delete('/unpinFile', async (req, res) => {
+  try {
+    const result = await deleteFileByHash(req.query.cid);
+    return res.status(200).send({
+      success: true,
+      message: 'Driver deleted successfully',
+      result: result,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({
+      success: false,
+      message: 'Driver couldnt be deleted',
+      error: err,
+    });
+  }
 });
 
 export {driverRoute};

@@ -1,32 +1,84 @@
-// import express from 'express';
-// import {
-//   addReview,
-//   getReviewById,
-//   updateReviewById,
-//   deleteReviewById,
-// } from '../OrbitFns/review.js';
+import express from 'express';
+import {
+  addReview,
+  getReviewByHash,
+  getFileHash,
+  deleteFileByHash,
+} from '../ipfsFns/review.js';
 
-// const reviewRoute = express.Router();
+const reviewRoute = express.Router();
 
-// // Define endpoints for Review document
-// reviewRoute.post('/reviews', async (req, res) => {
-//   const review = await addReview(req.body);
-//   res.status(201).json(review);
-// });
+// Define endpoints for Review document
+reviewRoute.post('/addReview', async (req, res) => {
+  try {
+    const result = await addReview(req.body.data, req.body.options);
+    return res.status(200).send({
+      success: true,
+      message: 'Review added successfully',
+      result: result,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({
+      success: false,
+      message: 'Review couldnt be added',
+      error: err,
+    });
+  }
+});
 
-// reviewRoute.get('/reviews/:id', async (req, res) => {
-//   const review = await getReviewById(req.params.id);
-//   res.status(200).json(review);
-// });
+reviewRoute.get('/getReview', async (req, res) => {
+  try {
+    const result = await getReviewByHash(req.query.cid);
+    return res.status(200).send({
+      success: true,
+      message: 'Review data retrieved successfully',
+      result: result,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({
+      success: false,
+      message: 'Review data couldnt be retrieved',
+      error: err,
+    });
+  }
+});
 
-// reviewRoute.put('/reviews/:id', async (req, res) => {
-//   const review = await updateReviewById(req.params.id, req.body);
-//   res.status(200).json(review);
-// });
+reviewRoute.get('/getFileHash', async (req, res) => {
+  try {
+    const result = await getFileHash(req.body.filters);
+    return res.status(200).send({
+      success: true,
+      message: 'File hash retrieved successfully',
+      result: result,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({
+      success: false,
+      message: 'File hash couldnt be retrieved',
+      error: err,
+    });
+  }
+});
 
-// reviewRoute.delete('/reviews/:id', async (req, res) => {
-//   await deleteReviewById(req.params.id);
-//   res.sendStatus(204);
-// });
+reviewRoute.delete('/unpinFile', async (req, res) => {
+  try {
+    const result = await deleteFileByHash(req.query.cid);
+    return res.status(200).send({
+      success: true,
+      message: 'Review deleted successfully',
+      result: result,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({
+      success: false,
+      message: 'Review couldnt be deleted',
+      error: err,
+    });
+  }
+});
 
-// export {reviewRoute};
+export {reviewRoute};

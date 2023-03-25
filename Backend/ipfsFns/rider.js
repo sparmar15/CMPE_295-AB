@@ -1,29 +1,61 @@
-// import {riders} from './db.js';
+import fetch from 'node-fetch';
+import {pinata} from '../index.js';
 
-// // insert new rider
-// async function addRider(riderData) {
-//   const result = await riders.put(riderData);
-//   return result;
-// }
+// insert new rider
+async function addRider(riderData, options) {
+  const result = pinata
+    .pinJSONToIPFS(riderData, options)
+    .then(result => {
+      console.log(result);
+      return result;
+    })
+    .catch(err => {
+      // console.log(err);
+      return err;
+    });
+  return result;
+}
 
-// // get rider by id
-// async function getRiderById(riderId) {
-//   const result = await riders.get(riderId);
-//   return result;
-// }
+// get rider by id
+async function getRiderByHash(cid) {
+  const url = 'https://gateway.pinata.cloud/ipfs/' + cid;
+  // console.log(url);
+  let settings = {method: 'Get'};
+  const result = await fetch(url, settings)
+    .then(res => {
+      return res.json();
+    })
+    .catch(err => {
+      return err;
+    });
+  return result;
+}
 
-// // update rider by id
-// async function updateRiderById(riderId, riderData) {
-//   const rider = await getRiderById(riderId);
-//   const newData = {...rider[0], ...riderData};
-//   const result = await riders.put(newData);
-//   return result;
-// }
+// update rider by id
+async function getFileHash(filters) {
+  const result = pinata
+    .pinList(filters)
+    .then(result => {
+      return result.rows[0].ipfs_pin_hash;
+    })
+    .catch(err => {
+      return err;
+    });
+  return result;
+}
 
-// // delete rider by id
-// async function deleteRiderById(riderId) {
-//   const result = await riders.del(riderId);
-//   return result;
-// }
+// delete rider by id
+async function deleteFileByHash(cid) {
+  const result = await pinata
+    .unpin(cid)
+    .then(result => {
+      console.log(result);
+      return result;
+    })
+    .catch(err => {
+      return err;
+    });
+  return result;
+}
 
-// export {addRider, getRiderById, updateRiderById, deleteRiderById};
+export {addRider, getRiderByHash, getFileHash, deleteFileByHash};

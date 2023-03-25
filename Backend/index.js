@@ -1,18 +1,13 @@
 import express from 'express';
+import session from 'express-session';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-// import {ipfsClient} from './ipfs.js';
-import {driverRoute} from './Routes/driver.js';
-// import {riderRoute} from './Routes/rider.js';
-// import {reviewRoute} from './Routes/review.js';
-import create from 'ipfs-http-client';
 import pinataSDK from '@pinata/sdk';
-
-// import {create} from 'ipfs-core';
-import makeIpfsFetch from 'js-ipfs-fetch';
-
-const ipfs = await create('/ip4/127.0.0.1/tcp/5001');
-const fetch = await makeIpfsFetch({ipfs});
+import dotenv from 'dotenv';
+dotenv.config();
+import {driverRoute} from './Routes/driver.js';
+import {riderRoute} from './Routes/rider.js';
+import {reviewRoute} from './Routes/review.js';
 
 const app = express();
 const port = 4000;
@@ -23,13 +18,19 @@ app.use(bodyParser.json());
 // Enable CORS
 app.use(cors());
 
-// Initiating an IPFS instance
+// use express session
+app.use(
+  session({
+    secret: process.env.EXPRESS_SESSION_SECRET, // replace with your own secret key
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
 
 // initializing pinata SDK
-const pinata = new pinataSDK(
-  'b5b282c9373211864959',
-  'bb62504c48aa1df43baf5b73e961fa447c824ef97fd43f12f29fd08936bb6199',
-);
+const PINATA_API_KEY = process.env.PINATA_API_KEY;
+const PINATA_API_SECRET = process.env.PINATA_API_SECRET;
+const pinata = new pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
 
 pinata
   .testAuthentication()
@@ -47,12 +48,12 @@ pinata
 
 // Routing
 app.use('/drivers', driverRoute);
-// app.use('/riders', riderRoute);
-// app.use('/reviews', reviewRoute);
+app.use('/riders', riderRoute);
+app.use('/reviews', reviewRoute);
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-export {pinata, ipfs};
+export {pinata};
