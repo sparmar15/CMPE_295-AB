@@ -1,7 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
 async function ipfsClient() {
   const {create} = await import('ipfs-http-client');
   const projectIdAndSecret =
-    '2NCwUfTwoFruReI1zAN8UELE1KV:79b7dd39388d0b0bc75d2a81a5c3c364';
+    process.env.INFURA_PROJECT_ID + ':' + process.env.INFURA_SECRET_ID;
   const client = await create({
     host: 'ipfs.infura.io',
     port: 5001,
