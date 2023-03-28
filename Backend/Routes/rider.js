@@ -35,7 +35,7 @@ riderRoute.post('/addRider', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: 'Rider couldnt be added',
       error: err,
@@ -54,7 +54,7 @@ riderRoute.get('/getRider', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: 'Rider data couldnt be retrieved',
       error: err,
@@ -78,6 +78,7 @@ riderRoute.get('/getFileHash', async (req, res) => {
   };
   try {
     const result = await getFileHash(filters);
+
     req.session.riderHash = result;
     return res.status(200).send({
       success: true,
@@ -86,7 +87,7 @@ riderRoute.get('/getFileHash', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: 'File hash couldnt be retrieved',
       error: err,
@@ -104,7 +105,7 @@ riderRoute.delete('/unpinFile', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: 'Rider couldnt be deleted',
       error: err,

@@ -35,7 +35,7 @@ driverRoute.post('/addDriver', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: 'Driver couldnt be added',
       error: err,
@@ -54,7 +54,7 @@ driverRoute.get('/getDriver', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: 'Driver data couldnt be retrieved',
       error: err,
@@ -86,7 +86,7 @@ driverRoute.get('/getFileHash', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: 'File hash couldnt be retrieved',
       error: err,
@@ -104,7 +104,7 @@ driverRoute.delete('/unpinFile', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: 'Driver couldnt be deleted',
       error: err,
