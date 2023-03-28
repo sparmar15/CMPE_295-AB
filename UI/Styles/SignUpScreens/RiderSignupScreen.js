@@ -1,28 +1,18 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: '#FFFFFF',
-  },
   label: {
-    color: '#000000',
+    color: 'grey',
     fontSize: 18,
     fontWeight: '500',
-    textAlign: 'left',
+    alignSelf: 'flex-start',
     width: 350,
     marginLeft: 10,
+    paddingLeft: 5,
   },
   button: {
-    width: 350,
-    height: 55,
-    backgroundColor: '#FFFF', // white button background color
-    borderRadius: 14,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
+    color: '#007AFF',
+    paddingBottom: '20%',
   },
   buttonText: {
     color: '#1976D2', // blue button text color
@@ -30,15 +20,22 @@ export default StyleSheet.create({
     fontWeight: '500',
   },
   input: {
-    width: 350,
     height: 55,
-    backgroundColor: '#FFFFFF', // lighter blue input background color
-    margin: 10,
-    padding: 8,
-    color: '#000000',
+    backgroundColor: 'white', // lighter blue input background color
+    color: '#000',
     borderRadius: 14,
     fontSize: 18,
     fontWeight: '500',
+  },
+
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    height: '100%',
+    backgroundColor: '#FFFFFF',
+  },
+  after: {
+    height: 20,
   },
   error: {
     color: '#FF0000',
@@ -53,7 +50,23 @@ export default StyleSheet.create({
     top: 0,
     left: 0,
     zIndex: 1,
-    paddingHorizontal: 10,
-    paddingTop: 50,
+  },
+  title: {
+    fontFamily: 'Georgia',
+    fontWeight: 'bold',
+    fontSize: 36,
+    alignSelf: 'flex-start',
+  },
+
+  subtitle: {
+    fontFamily: 'Georgia',
+    fontWeight: 'normal',
+    fontSize: 18,
+    alignSelf: 'flex-start',
+    color: 'grey',
+  },
+  background: {
+    height: '100%',
+    padding: '5%',
   },
 });
