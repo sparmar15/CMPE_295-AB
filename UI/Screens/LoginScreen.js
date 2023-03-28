@@ -17,35 +17,47 @@ import Web3Auth, {
 } from '@web3auth/react-native-sdk';
 import RPC from '../../ethersRPC'; // for using ethers.js
 import axios from 'axios';
+import {logger} from 'react-native-logs';
 
-const scheme = 'carpool://auth'; // Or your desired app redirection scheme
+const scheme = 'carma://auth'; // Or your desired app redirection scheme
 const resolvedRedirectUrl = `${scheme}://openlogin`;
 const clientId =
-  'BG9JhziXn3TewAdwRyUyinmvLCmC8z8h_0TIWQ25C-PSXd875e_ocLjhk8eb10-JRQZ7mVOCASXN4WLBAjo8BAY';
+  'BEneIKfFtIuRYXdjU744zPdwgcW2Y2ScwUR6DZ4s1KA_tcqxqsOGmzQRlLSKUPs5_zzVQKH5ZEnpss2s9byptF4';
 
 const LoginScreen = ({navigation}) => {
   const [key, setKey] = useState('');
   const [userInfo, setUserInfo] = useState('');
   const [console, setConsole] = useState('');
+  const Log = logger.createLogger();
 
   const handleLoginGoogle = async () => {
     try {
       setConsole('Logging in');
       const web3auth = new Web3Auth(WebBrowser, {
         clientId,
-        network: OPENLOGIN_NETWORK.CYAN, // or other networks
+        network: OPENLOGIN_NETWORK.TESTNET, // or other networks
       });
+      // const openloginAdapter = new OpenloginAdapter({
+      //   adapterSettings: {
+      //     clientId, //Optional - Provide only if you haven't provided it in the Web3Auth Instantiation Code
+      //     network: 'testnet',
+      //   },
+      // });
+      // web3auth.configureAdapter(openloginAdapter);
+
       const info = await web3auth.login({
         loginProvider: LOGIN_PROVIDER.GOOGLE,
         redirectUrl: resolvedRedirectUrl,
         mfaLevel: 'default',
         curve: 'secp256k1',
       });
+      Log.info(info);
 
       setUserInfo(info);
       setKey(info.privKey);
       console.log('Logged In');
     } catch (e) {
+      Log.info(e);
       console.error(e);
     }
   };
@@ -132,7 +144,8 @@ const LoginScreen = ({navigation}) => {
   };
 
   const handleForgotPasswordPress = () => {
-    console.log('Forgot password pressed');
+    // console.log('Forgot password pressed');
+    navigation.navigate('Chat');
   };
 
   const handleSignupPress = () => {
