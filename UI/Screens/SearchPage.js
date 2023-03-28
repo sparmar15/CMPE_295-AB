@@ -22,15 +22,19 @@ function SearchPage({navigation}) {
     endLocLat: 0.0,
     endLocLong: 0.0,
   });
+  const [startPlace, setStartPlace] = useState('');
+  const [endPlace, setEndPlace] = useState('');
   const Log = logger.createLogger();
   const handleStartLocation = (data, details) => {
     // Log.info(details.geometry.location);
+    setStartPlace(data.description);
     setStartLocation({
       startLocLat: details.geometry.location.lat,
       startLocLong: details.geometry.location.lng,
     });
   };
   const handleEndLocation = (data, details) => {
+    setEndPlace(data.description);
     setEndLocation({
       endLocLat: details.geometry.location.lat,
       endLocLong: details.geometry.location.lng,
@@ -50,6 +54,8 @@ function SearchPage({navigation}) {
       navigation.navigate('TripRoute', {
         startLocation: startLocation,
         endLocation: endLocation,
+        startPlace: startPlace,
+        endPlace: endPlace,
       });
     }
     // Log.info(startLocation);

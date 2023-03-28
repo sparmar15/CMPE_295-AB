@@ -32,8 +32,8 @@ const LandingPage = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       <View style={{flex: 1}}>
-        <MapView style={styles.map} region={location}>
-          <Marker coordinate={markerLocation} />
+        <MapView style={styles.map} showsUserLocation={true} region={location}>
+          {/* <Marker coordinate={markerLocation} />npm ru */}
         </MapView>
       </View>
       <View style={styles.container}>
