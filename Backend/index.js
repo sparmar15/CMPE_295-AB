@@ -29,7 +29,7 @@ app.use(
   session({
     secret: process.env.EXPRESS_SESSION_SECRET, // replace with your own secret key
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   }),
 );
 

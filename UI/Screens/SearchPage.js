@@ -63,18 +63,6 @@ function SearchPage({navigation}) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.upperContainer}>
-        <TouchableOpacity onPress={handleBackPress}>
-          <SafeAreaView style={styles.backButton}>
-            <Icon
-              name="arrow-back"
-              size={30}
-              color="blue"
-              style={styles.backIcon}
-            />
-          </SafeAreaView>
-        </TouchableOpacity>
-      </View>
       <View style={styles.lowerContainer}>
         <View style={styles.selectAddressContainer}>
           <Text style={styles.selectAddressText}>Select Address</Text>

@@ -6,7 +6,7 @@ async function addDriver(driverData, options) {
   const result = pinata
     .pinJSONToIPFS(driverData, options)
     .then(result => {
-      console.log(result);
+      // console.log(result);
       return result;
     })
     .catch(err => {
