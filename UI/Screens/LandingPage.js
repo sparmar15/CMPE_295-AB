@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Pressable,
-} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {logger} from 'react-native-logs';
-import Icon from 'react-native-vector-icons/Ionicons';
+
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SearchBar from './SearchBar';
 const LandingPage = ({navigation}) => {
@@ -45,7 +39,7 @@ const LandingPage = ({navigation}) => {
             <SearchBar></SearchBar>
           </Pressable>
         </View>
-        <View style={styles.view3}>
+        {/* <View style={styles.view3}>
           <SafeAreaView style={styles.iconContainer}>
             <TouchableOpacity>
               <Icon name="rocket" size={30} color="blue" />
@@ -63,7 +57,7 @@ const LandingPage = ({navigation}) => {
               <Icon name="cog" size={30} color="blue" />
             </TouchableOpacity>
           </SafeAreaView>
-        </View>
+        </View> */}
       </View>
     </View>
   );
