@@ -1,74 +1,48 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  title: {
-    fontFamily: 'Georgia',
-    fontWeight: 'bold',
-    fontSize: 36,
-    alignSelf: 'flex-start',
-  },
-
-  subtitle: {
-    fontFamily: 'Georgia',
-    fontWeight: 'normal',
-    fontSize: 18,
-    alignSelf: 'flex-start',
-    color: 'grey',
-  },
-
-  logo: {
-    height: 250,
-    width: 250,
-    alignSelf: 'center',
-  },
-
-  input: {
-    height: 55,
-    backgroundColor: 'white', // lighter blue input background color
-    color: '#000',
-    borderRadius: 14,
-    fontSize: 18,
-    fontWeight: '500',
-  },
-
   container: {
-    // backgroundColor: 'none',
-    height: '100%',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#FFFFFF',
-    padding: '5%',
+    paddingHorizontal: 20, // Add padding to the sides to fill empty spaces
   },
-  after: {
-    height: 20,
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 50, // Move the logo up
   },
-
-  button: {
-    color: '#007AFF',
-  },
-
-  desc: {
-    fontFamily: 'Georgia',
-    alignSelf: 'center',
-    fontSize: 16,
-    color: '#7b8393',
-  },
-
-  forgot: {
-    fontSize: 16,
-    textDecorationLine: 'underline',
-    textAlign: 'left',
-  },
-
-  label: {
-    color: 'grey',
-    fontSize: 18,
-    fontWeight: '500',
+  welcomeText: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    marginBottom: 10,
     alignSelf: 'flex-start',
-    width: 350,
-    marginLeft: 10,
   },
-  error: {
-    fontSize: 14,
-    color: 'red',
-    marginBottom: 5,
+  descriptionText: {
+    fontSize: 22,
+    alignSelf: 'flex-start',
+    marginBottom: 40,
+    lineHeight: 24, // Increase the line height to create space between lines
+  },
+  signupText: {
+    fontSize: 18,
+    alignSelf: 'center',
+    marginTop: 40,
+    lineHeight: 24, // Increase the line height to create space between lines
+  },
+  googleSignInButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#4285F4',
+    borderRadius: 4,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  googleSignInButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    marginLeft: 10,
   },
 });
