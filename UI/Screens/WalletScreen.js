@@ -88,20 +88,23 @@ const renderItem = ({item}) => (
   <TouchableOpacity style={styles.option}>
     {item.type === 'Topup Wallet' ? (
       <View style={styles.optionIconContainer}>
-        <Ionicons name={'wallet-outline'} size={36} color="blue" />
+        <Ionicons name={'wallet-outline'} size={32} />
       </View>
     ) : (
       <View style={styles.optionIconContainer}>
-        <Ionicons name={'person-circle-outline'} size={36} color="blue" />
+        <Ionicons name={'person-circle-outline'} size={32} />
       </View>
     )}
     <View>
       <Text style={styles.nameContainer}>{item.name}</Text>
-      <Text>{item.time}</Text>
+      <Text style={styles.dateContainer}>
+        {new Date(item.time).toDateString()} |{' '}
+        {new Date(item.time).toLocaleTimeString()}
+      </Text>
     </View>
     <View style={styles.optionArrowContainer}>
       <Text style={styles.nameContainer}>${item.amount}</Text>
-      <Text>{item.type}</Text>
+      <Text style={styles.dateContainer}>{item.type}</Text>
     </View>
   </TouchableOpacity>
 );
@@ -121,7 +124,7 @@ const WalletScreen = () => {
       });
   }, []);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: 'white'}}>
       <View style={styles.headerContainer}>
         <Ionicons name={'card-outline'} size={36} color="blue" />
         <Text style={styles.header}>My E-Wallet</Text>
@@ -142,11 +145,12 @@ const WalletScreen = () => {
       </ImageBackground>
       <View>
         <Text style={styles.subHeader}>Transaction History</Text>
+        <FlatList
+          data={options}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          style={{overflow: 'scroll'}}></FlatList>
       </View>
-      <FlatList
-        data={options}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}></FlatList>
     </SafeAreaView>
   );
 };
@@ -157,18 +161,20 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',
     fontSize: 24,
-    marginLeft: 10,
+    marginLeft: 8,
   },
   subHeader: {
     fontWeight: 'bold',
     fontSize: 18,
     marginLeft: 8,
     marginBottom: 8,
+    paddingLeft: 8,
   },
   headerContainer: {
     flexDirection: 'row',
     paddingHorizontal: 8,
     alignItems: 'center',
+    marginLeft: 8,
   },
   optionsContainer: {
     width: '100%',
@@ -182,10 +188,12 @@ const styles = StyleSheet.create({
   optionIconContainer: {
     width: 50,
     alignItems: 'flex-start',
+    marginLeft: 8,
   },
   optionArrowContainer: {
     alignItems: 'flex-end',
     flexGrow: 1,
+    marginRight: 8,
   },
   nameContainer: {
     fontWeight: 'bold',
@@ -196,6 +204,10 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 20,
     overflow: 'hidden',
+  },
+  dateContainer: {
+    fontSize: 12,
+    color: 'gray',
   },
   cardHeader: {
     marginTop: 20,
