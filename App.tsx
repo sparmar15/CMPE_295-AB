@@ -21,7 +21,7 @@ import {store, persistor} from './Redux/store';
 import {Provider} from 'react-redux';
 import {Text} from 'react-native';
 import {PersistGate} from 'redux-persist/integration/react';
-
+import HomePage from './UI/Screens/HomePage';
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
 
@@ -31,6 +31,7 @@ function App(): JSX.Element {
         <NavigationContainer>
           <AppStack.Navigator screenOptions={{headerShown: false}}>
             <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
+            <AppStack.Screen name="HomePage" component={HomePage} />
             <AppStack.Screen name="Login" component={LoginScreen} />
             <AppStack.Screen
               name="DriverRiderSelect"
