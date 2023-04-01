@@ -10,7 +10,7 @@ import {store, persistor} from './Redux/store';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Text} from 'react-native';
-
+import HomePage from './UI/Screens/HomePage';
 function App(): JSX.Element {
   const Stack = createStackNavigator();
 

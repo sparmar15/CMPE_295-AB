@@ -3,6 +3,9 @@ import {View, Text, StyleSheet, Pressable} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {logger} from 'react-native-logs';
 import SearchBar from './SearchBar';
+
+import {useSelector} from 'react-redux';
+
 const LandingPage = ({navigation}) => {
   const [location, setLocation] = useState({
     latitude: 37.78825,
