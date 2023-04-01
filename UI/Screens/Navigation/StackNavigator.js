@@ -7,6 +7,11 @@ import SearchPage from '../HomeScreens/SearchPage';
 import LandingPage from '../HomeScreens/LandingPage';
 import TripRoute from '../HomeScreens/TripRoute';
 
+import SearchPage from '../SearchPage';
+import TripRoute from '../TripRoute';
+import LandingPage from '../LandingPage';
+import UserProfile from '../UserProfile';
+import WalletScreen from '../WalletScreen';
 // import Contact from '../screens/Contact';
 
 const Stack = createStackNavigator();
@@ -104,6 +109,14 @@ const WalletNavigator = () => {
           headerTitle: 'Top Up Wallet',
         })}
       />
+    </Stack.Navigator>
+  );
+};
+
+const WalletNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen name="Wallet" component={WalletScreen} />
     </Stack.Navigator>
   );
 };
