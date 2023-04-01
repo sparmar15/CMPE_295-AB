@@ -52,3 +52,6 @@ One way to introduce more transparency to carpooling services is to implement a 
 ## Kanban Details
 * [Board](https://github.com/users/sparmar15/projects/1)
 
+## API documentation
+* [Carma API doc](https://metal-astronaut-ade.notion.site/Carma-API-Documentation-93d7093d01bb4c6a9624c629e81dfdda)
+

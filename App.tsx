@@ -1,27 +1,19 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import axios from 'axios';
+import BottomTabNavigator from './UI/Screens/Navigation/TabNavigator';
 import OnboardingScreen from './UI/Screens/OnboardingScreen';
 import LoginScreen from './UI/Screens/LoginScreen';
 import DriverRiderScreen from './UI/Screens/SignUpScreens/DriverRiderScreen';
 import RiderSignupScreen from './UI/Screens/SignUpScreens/RiderSignupScreen';
-import SearchPage from './UI/Screens/SearchPage';
-import LandingPage from './UI/Screens/LandingPage';
-import SearchBar from './UI/Screens/SearchBar';
-import TripRoute from './UI/Screens/TripRoute';
 import {store, persistor} from './Redux/store';
 import {Provider} from 'react-redux';
-import {Text} from 'react-native';
 import {PersistGate} from 'redux-persist/integration/react';
 import HomePage from './UI/Screens/HomePage';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
+import LandingPage from './UI/Screens/LandingPage';
+import SearchPage from './UI/Screens/SearchPage';
+import TripRoute from './UI/Screens/TripRoute';
 function App(): JSX.Element {
   const AppStack = createStackNavigator();
 

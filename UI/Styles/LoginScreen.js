@@ -8,30 +8,26 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 20, // Add padding to the sides to fill empty spaces
   },
-  photo: {
-    width: '100%',
-    height: '30%',
-    paddingVertical: 10, // Move the logo up
-  },
   logo: {
     width: 200,
     height: 200,
-    paddingVertical: 10,
+    marginBottom: 50, // Move the logo up
   },
   welcomeText: {
     fontSize: 36,
     fontWeight: 'bold',
-    paddingVertical: 10,
+    marginBottom: 10,
     alignSelf: 'flex-start',
   },
   descriptionText: {
     fontSize: 22,
-    color: 'gray',
+    alignSelf: 'flex-start',
     marginBottom: 40,
     lineHeight: 24, // Increase the line height to create space between lines
   },
   signupText: {
     fontSize: 18,
+    alignSelf: 'center',
     marginTop: 40,
     lineHeight: 24, // Increase the line height to create space between lines
   },

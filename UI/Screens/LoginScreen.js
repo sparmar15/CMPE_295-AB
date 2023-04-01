@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Image, View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {logger} from 'react-native-logs';
@@ -54,14 +54,9 @@ const LoginScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../Assets/logo.png')} // Replace with the path to your app logo
+        source={require('../Assets/logo_transparent.png')} // Replace with the path to your app logo
         style={styles.logo}
       />
-      <Image
-        source={require('../Assets/onboarding3.jpg')} // Replace with the path to your app logo
-        style={styles.photo}
-      />
-
       <Text style={styles.welcomeText}>Welcome!</Text>
       <Text style={styles.descriptionText}>
         To the easiest way to share and earn Karma!
@@ -70,9 +65,7 @@ const LoginScreen = ({navigation}) => {
         <Icon name="google" size={24} color="#fff" />
         <Text style={styles.googleSignInButtonText}>Login with Google</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.signupText}>Not a member yet? Signup here!</Text>
-      </TouchableOpacity>
+      <Text style={styles.signupText}>Not a member yet? Signup here!</Text>
     </View>
   );
 };

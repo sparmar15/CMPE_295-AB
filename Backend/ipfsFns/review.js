@@ -15,18 +15,24 @@ async function addReview(reviewData, options) {
   return result;
 }
 
-// get review by id
-async function getReviewByHash(cid) {
-  const url = 'https://gateway.pinata.cloud/ipfs/' + cid;
-  let settings = {method: 'Get'};
-  const result = await fetch(url, settings)
-    .then(res => {
-      return res.json();
-    })
-    .catch(err => {
-      return err;
-    });
-  return result;
+// get review by ids
+async function getReviewsByHashes(cids) {
+  const fetchReview = async cid => {
+    const url = 'https://gateway.pinata.cloud/ipfs/' + cid;
+    let settings = {method: 'Get'};
+    const result = await fetch(url, settings)
+      .then(res => {
+        return res.json();
+      })
+      .catch(err => {
+        return err;
+      });
+    return result;
+  };
+
+  const requests = cids.map(fetchReview);
+  const results = await Promise.all(requests);
+  return results;
 }
 
 // update review by id
@@ -34,7 +40,7 @@ async function getFileHash(filters) {
   const result = pinata
     .pinList(filters)
     .then(result => {
-      return result.rows[0].ipfs_pin_hash;
+      return result;
     })
     .catch(err => {
       return err;
@@ -56,4 +62,4 @@ async function deleteFileByHash(cid) {
   return result;
 }
 
-export {addReview, getReviewByHash, getFileHash, deleteFileByHash};
+export {addReview, getReviewsByHashes, getFileHash, deleteFileByHash};

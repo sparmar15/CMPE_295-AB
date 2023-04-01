@@ -6,11 +6,9 @@ async function addRider(riderData, options) {
   const result = pinata
     .pinJSONToIPFS(riderData, options)
     .then(result => {
-      console.log(result);
       return result;
     })
     .catch(err => {
-      // console.log(err);
       return err;
     });
   return result;
@@ -19,7 +17,6 @@ async function addRider(riderData, options) {
 // get rider by id
 async function getRiderByHash(cid) {
   const url = 'https://gateway.pinata.cloud/ipfs/' + cid;
-  // console.log(url);
   let settings = {method: 'Get'};
   const result = await fetch(url, settings)
     .then(res => {
