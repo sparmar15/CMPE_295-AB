@@ -9,7 +9,7 @@ import {
   FlatList,
   Platform,
 } from 'react-native';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {launchImageLibrary} from 'react-native-image-picker';
 
 const createFormData = (photo, body = {}) => {
@@ -31,7 +31,7 @@ const createFormData = (photo, body = {}) => {
 const UserProfile = () => {
   const [editMode, setEditMode] = useState(false);
   const [profileImage, setProfileImage] = useState(
-    require('../Assets/logo.png'),
+    require('../Assets/portrait.jpg'),
   );
 
   const handleEditImage = () => {
@@ -55,43 +55,43 @@ const UserProfile = () => {
   };
 
   const options = [
-    {id: '1', name: 'Edit Profile', icon: 'account-circle'},
-    {id: '2', name: 'Address', icon: 'map'},
-    {id: '3', name: 'Notification', icon: 'notifications'},
-    {id: '4', name: 'Payment', icon: 'credit-card'},
-    {id: '5', name: 'Security', icon: 'security'},
-    {id: '6', name: 'Privacy Policy', icon: 'policy'},
-    {id: '7', name: 'Help Center', icon: 'help'},
-    {id: '8', name: 'Invite friends', icon: 'group'},
-    {id: '9', name: 'Logout', icon: 'logout'},
+    {id: '1', name: 'Edit Profile', icon: 'create-outline'},
+    {id: '2', name: 'Address', icon: 'navigate-outline'},
+    {id: '3', name: 'Notification', icon: 'notifications-outline'},
+    {id: '4', name: 'Payment', icon: 'card-outline'},
+    {id: '5', name: 'Security', icon: 'lock-closed-outline'},
+    {id: '6', name: 'Privacy Policy', icon: 'newspaper-outline'},
+    {id: '7', name: 'Help Center', icon: 'information-circle-outline'},
+    {id: '8', name: 'Invite friends', icon: 'people-outline'},
+    {id: '9', name: 'Logout', icon: 'log-out-outline'},
   ];
 
   const renderItem = ({item}) => (
     <TouchableOpacity style={styles.option}>
       <View style={styles.optionIconContainer}>
-        <MaterialIcon name={item.icon} size={24} color="#000" />
+        <Ionicons name={item.icon} size={24} color="#000" />
       </View>
       <Text style={styles.nameContainer}>{item.name}</Text>
 
       <View style={styles.optionArrowContainer}>
-        <MaterialIcon name="keyboard-arrow-right" size={24} color="#000" />
+        <Ionicons name="chevron-forward" size={24} color="#000" />
       </View>
     </TouchableOpacity>
   );
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <MaterialIcon name="perm-contact-cal" size={24} color="navy" />
         <Text style={styles.headerTitle}>Profile</Text>
-      </View>
+      </View> */}
 
       <View style={styles.profileContainer}>
         <View style={styles.imageWrapper}>
           <Image source={profileImage} style={styles.profileImage} />
 
           <TouchableOpacity onPress={handleEditImage} style={styles.editIcon}>
-            <MaterialIcon name="camera-alt" size={24} color="#FFF" />
+            <Ionicons name="camera-sharp" size={24} color="#FFF" />
           </TouchableOpacity>
         </View>
 
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   line: {
     height: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#c7c7c7',
     opacity: 50,
     width: '100%',
     marginTop: 15,

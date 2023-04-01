@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {logger} from 'react-native-logs';
-
-import {SafeAreaView} from 'react-native-safe-area-context';
 import SearchBar from './SearchBar';
 const LandingPage = ({navigation}) => {
   const [location, setLocation] = useState({
@@ -78,12 +76,11 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontWeight: 'bold',
-    fontFamily: 'cochin',
-    fontSize: 20,
+    fontSize: 24,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginLeft: 30,
-    marginTop: 10,
+    marginTop: 30,
   },
   map: {
     flex: 1,
@@ -102,10 +99,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   view1: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: 'white',
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
   view2: {
     flex: 1,

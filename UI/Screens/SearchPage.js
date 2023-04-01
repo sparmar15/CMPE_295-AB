@@ -62,7 +62,7 @@ function SearchPage({navigation}) {
   }, [startLocation, endLocation]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.lowerContainer}>
         <View style={styles.selectAddressContainer}>
           <Text style={styles.selectAddressText}>Select Address</Text>
@@ -117,7 +117,7 @@ function SearchPage({navigation}) {
           />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -201,10 +201,9 @@ const styles = StyleSheet.create({
   },
   selectAddressContainer: {
     paddingHorizontal: 20,
-    paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#e1e1e1',
-    height: 75,
+    height: 65,
     alignItems: 'center',
   },
   selectAddressText: {

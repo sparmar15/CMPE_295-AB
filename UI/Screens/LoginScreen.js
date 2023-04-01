@@ -9,6 +9,9 @@ import Web3Auth, {
   OPENLOGIN_NETWORK,
 } from '@web3auth/react-native-sdk';
 import LandingPage from './LandingPage';
+import {useDispatch} from 'react-redux';
+import {userLogin} from '../../Redux/Actions/UserActions';
+import {store} from '../../Redux/store';
 
 const scheme = 'carpool://auth'; // Or your desired app redirection scheme
 const resolvedRedirectUrl = `${scheme}://openlogin`;
@@ -21,29 +24,31 @@ const LoginScreen = ({navigation}) => {
   const [console, setConsole] = useState('');
   const Log = logger.createLogger();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
 
   const login = async () => {
     try {
-      setConsole('Logging in');
-      const web3auth = new Web3Auth(WebBrowser, {
-        clientId,
-        network: OPENLOGIN_NETWORK.CYAN, // or other networks
-      });
-      const info = await web3auth.login({
-        loginProvider: LOGIN_PROVIDER.GOOGLE,
-        redirectUrl: resolvedRedirectUrl,
-        mfaLevel: 'default',
-        curve: 'secp256k1',
-      });
+      navigation.navigate('HomeStack');
+      // setConsole('Logging in');
+      // const web3auth = new Web3Auth(WebBrowser, {
+      //   clientId,
+      //   network: OPENLOGIN_NETWORK.CYAN, // or other networks
+      // });
+      // const info = await web3auth.login({
+      //   loginProvider: LOGIN_PROVIDER.GOOGLE,
+      //   redirectUrl: resolvedRedirectUrl,
+      //   mfaLevel: 'default',
+      //   curve: 'secp256k1',
+      // });
 
-      const username = info.userInfo.email;
+      // const username = info.userInfo.email;
 
-      if (username === db.email) {
-        setIsLoggedIn(true);
-      }
+      // if (username === db.email) {
+      //   setIsLoggedIn(true);
+      // }
 
-      setUserInfo(info);
-      setKey(info.privKey);
+      // setUserInfo(info);
+      // setKey(info.privKey);
     } catch (e) {
       console.error(e);
     }
@@ -81,15 +86,22 @@ const LoginScreen = ({navigation}) => {
   // };
 
   const handleSignupPress = () => {
-    navigation.navigate('DriverRiderSelect');
+    // navigation.navigate('DriverRiderSelect');
+    // dispatch(userLogin({name: 'sid', pass: '123'}));
+    Log.info(store.getState());
   };
 
   return (
     <View style={styles.container}>
       <Image
-        source={require('../Assets/logo_transparent.png')} // Replace with the path to your app logo
+        source={require('../Assets/logo.png')} // Replace with the path to your app logo
         style={styles.logo}
       />
+      <Image
+        source={require('../Assets/onboarding3.jpg')} // Replace with the path to your app logo
+        style={styles.photo}
+      />
+
       <Text style={styles.welcomeText}>Welcome!</Text>
       <Text style={styles.descriptionText}>
         To the easiest way to share and earn Karma!
@@ -98,7 +110,9 @@ const LoginScreen = ({navigation}) => {
         <Icon name="google" size={24} color="#fff" />
         <Text style={styles.googleSignInButtonText}>Login with Google</Text>
       </TouchableOpacity>
-      <Text style={styles.signupText}>Not a member yet? Signup here!</Text>
+      <TouchableOpacity onPress={handleSignupPress}>
+        <Text style={styles.signupText}>Not a member yet? Signup here!</Text>
+      </TouchableOpacity>
     </View>
   );
 };
