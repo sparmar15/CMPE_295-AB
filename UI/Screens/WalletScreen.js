@@ -88,18 +88,22 @@ const renderItem = ({item}) => (
   <TouchableOpacity style={styles.option}>
     {item.type === 'Topup Wallet' ? (
       <View style={styles.optionIconContainer}>
-        <Ionicons name={'wallet-outline'} size={32} />
+        <Ionicons name={'wallet-outline'} size={32} color="grey" />
       </View>
     ) : (
       <View style={styles.optionIconContainer}>
-        <Ionicons name={'person-circle-outline'} size={32} />
+        <Ionicons name={'person-circle-outline'} size={32} color="grey" />
       </View>
     )}
     <View>
       <Text style={styles.nameContainer}>{item.name}</Text>
       <Text style={styles.dateContainer}>
         {new Date(item.time).toDateString()} |{' '}
-        {new Date(item.time).toLocaleTimeString()}
+        {new Date(item.time).toLocaleString('en-US', {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true,
+        })}
       </Text>
     </View>
     <View style={styles.optionArrowContainer}>
