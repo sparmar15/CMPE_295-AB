@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Button,
 } from 'react-native';
 import {HeaderBackButton} from '@react-navigation/elements';
 import styles from '../../Styles/SignUpScreens/DriverRiderScreen';
@@ -16,6 +17,10 @@ export default function DriverRiderScreen({navigation}) {
   };
   const handleRiderPress = () => {
     navigation.navigate('RiderSignup');
+  };
+
+  const handleHistoryPress = () => {
+    navigation.navigate('RideHistory');
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -41,6 +46,10 @@ export default function DriverRiderScreen({navigation}) {
         />
         <Text style={styles.optionText}>I am a Rider</Text>
       </TouchableOpacity>
+
+      <Button title="RideHistory"  onPress={handleHistoryPress}>
+        Ride Hisotry
+      </Button>
     </SafeAreaView>
   );
 }
