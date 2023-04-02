@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  Image,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {logger} from 'react-native-logs';
@@ -88,11 +89,11 @@ const renderItem = ({item}) => (
   <TouchableOpacity style={styles.option}>
     {item.type === 'Topup Wallet' ? (
       <View style={styles.optionIconContainer}>
-        <Ionicons name={'wallet-outline'} size={32} color="grey" />
+        <Ionicons name={'wallet-outline'} size={24} color="#000" />
       </View>
     ) : (
       <View style={styles.optionIconContainer}>
-        <Ionicons name={'person-circle-outline'} size={32} color="grey" />
+        <Ionicons name={'person-circle-outline'} size={24} color="#000" />
       </View>
     )}
     <View>
@@ -113,7 +114,7 @@ const renderItem = ({item}) => (
   </TouchableOpacity>
 );
 
-const WalletScreen = () => {
+const WalletScreen = ({navigation}) => {
   const Log = logger.createLogger();
   const [transactions, setTransaction] = useState('');
   useEffect(() => {
@@ -127,33 +128,46 @@ const WalletScreen = () => {
         Log.info(error);
       });
   }, []);
+  const addCash = () => {
+    navigation.navigate('Wallet/Topup');
+  };
   return (
-    <SafeAreaView style={{backgroundColor: 'white'}}>
-      <View style={styles.headerContainer}>
+    <SafeAreaView style={styles.container}>
+      {/* <View style={styles.headerContainer}>
         <Ionicons name={'card-outline'} size={36} color="blue" />
         <Text style={styles.header}>My E-Wallet</Text>
-      </View>
-      <ImageBackground
-        source={require('../Assets/card-bg.jpg')}
-        style={styles.cardContainer}>
-        <Text style={styles.cardHeader}>Carma Cash</Text>
-        <Text style={styles.cardAmount}>$14.00</Text>
-        <Text style={styles.cardDetails}>Plan ahead, budget easier</Text>
+      </View> */}
+      <View style={styles.walletContainer}>
+        <ImageBackground
+          source={require('../../Assets/card-bg.jpg')}
+          style={styles.cardContainer}>
+          <View style={styles.cardImageContainer}>
+            <View>
+              <Text style={styles.cardHeader}>Carma Cash</Text>
+              <Text style={styles.cardName}>Username</Text>
+            </View>
 
-        <TouchableOpacity style={styles.addCash}>
-          <Text style={styles.cardDetails}>
-            <Ionicons name={'add-circle'} size={16}></Ionicons>
-            Add Cash
-          </Text>
-        </TouchableOpacity>
-      </ImageBackground>
-      <View>
-        <Text style={styles.subHeader}>Transaction History</Text>
-        <FlatList
-          data={options}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          style={{overflow: 'scroll'}}></FlatList>
+            <Image
+              style={styles.cardLogo}
+              source={require('../../Assets/icon.png')}></Image>
+          </View>
+          <Text style={styles.cardAmount}>$14.00</Text>
+          <Text style={styles.cardDetails}>Plan ahead, budget easier</Text>
+          <TouchableOpacity onPress={addCash} style={styles.addCash}>
+            <Text style={styles.cardDetails}>
+              <Ionicons name={'add-circle'} size={16}></Ionicons>
+              Add Cash
+            </Text>
+          </TouchableOpacity>
+        </ImageBackground>
+        <View style={styles.line} />
+        <View>
+          <Text style={styles.subHeader}>Transaction History</Text>
+          <FlatList
+            data={options}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}></FlatList>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -162,6 +176,12 @@ const WalletScreen = () => {
 export default WalletScreen;
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: '#FFF'},
+  walletContainer: {
+    flex: 1,
+    // alignItems: 'center',
+    paddingHorizontal: 16,
+  },
   header: {
     fontWeight: 'bold',
     fontSize: 24,
@@ -170,7 +190,7 @@ const styles = StyleSheet.create({
   subHeader: {
     fontWeight: 'bold',
     fontSize: 18,
-    marginLeft: 8,
+    // marginLeft: 8,
     marginBottom: 8,
     paddingLeft: 8,
   },
@@ -190,22 +210,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8, // borderBottomWidth: 1, // borderBottomColor: '#E5E5E5',
   },
   optionIconContainer: {
-    width: 50,
+    width: 40,
     alignItems: 'flex-start',
-    marginLeft: 8,
+    // marginLeft: 8,
   },
   optionArrowContainer: {
     alignItems: 'flex-end',
     flexGrow: 1,
-    marginRight: 8,
+    // marginRight: 8,
   },
   nameContainer: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     fontSize: 16,
   },
   cardContainer: {
     height: 200,
-    margin: 20,
+    marginTop: 10,
+    margin: 5,
     borderRadius: 20,
     overflow: 'hidden',
   },
@@ -216,7 +237,7 @@ const styles = StyleSheet.create({
   cardHeader: {
     marginTop: 20,
     marginLeft: 20,
-    marginBottom: 10,
+    // marginBottom: 10,
     fontSize: 16,
     // fontWeight: 'bold',
     color: 'white',
@@ -237,5 +258,23 @@ const styles = StyleSheet.create({
   addCash: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  cardLogo: {
+    borderRadius: 50,
+    alignSelf: 'flex-end',
+    marginEnd: 8,
+    marginTop: 8,
+  },
+  cardImageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  line: {
+    height: 1,
+    backgroundColor: '#c7c7c7',
+    opacity: 50,
+    width: '100%',
+    marginTop: 10,
+    marginBottom: 10,
   },
 });

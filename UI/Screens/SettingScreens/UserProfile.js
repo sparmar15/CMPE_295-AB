@@ -31,7 +31,7 @@ const createFormData = (photo, body = {}) => {
 const UserProfile = () => {
   const [editMode, setEditMode] = useState(false);
   const [profileImage, setProfileImage] = useState(
-    require('../Assets/portrait.jpg'),
+    require('../../Assets/portrait.jpg'),
   );
 
   const handleEditImage = () => {
@@ -81,9 +81,9 @@ const UserProfile = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View style={styles.header}>
-        <MaterialIcon name="perm-contact-cal" size={24} color="navy" />
-        <Text style={styles.headerTitle}>Profile</Text>
+      {/* <View style={styles.headerContainer}>
+        <Ionicons name={'settings-outline'} size={36} color="blue" />
+        <Text style={styles.header}>Settings</Text>
       </View> */}
 
       <View style={styles.profileContainer}>
@@ -111,10 +111,9 @@ const UserProfile = () => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    marginTop: 16,
+    fontWeight: 'bold',
+    fontSize: 24,
+    marginLeft: 8,
   },
   headerTitle: {
     fontSize: 24,
@@ -122,6 +121,12 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     justifyContent: 'flex-start',
     textAlign: 'right',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 8,
+    alignItems: 'center',
+    marginLeft: 8,
   },
   container: {
     flex: 1,
@@ -176,7 +181,7 @@ const styles = StyleSheet.create({
   optionText: {
     flex: 1,
     fontSize: 16,
-    marginLeft: 8,
+    // marginLeft: 8,
   },
   optionArrowContainer: {
     flexDirection: 'row-reverse',

@@ -2,16 +2,15 @@ import React, {useState} from 'react';
 import {Image, View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {logger} from 'react-native-logs';
-import styles from '../Styles/LoginScreen';
+import styles from '../../Styles/LoginScreens/LoginScreen';
 import * as WebBrowser from '@toruslabs/react-native-web-browser';
 import Web3Auth, {
   LOGIN_PROVIDER,
   OPENLOGIN_NETWORK,
 } from '@web3auth/react-native-sdk';
-import LandingPage from './LandingPage';
 import {useDispatch} from 'react-redux';
-import {userLogin} from '../../Redux/Actions/UserActions';
-import {store} from '../../Redux/store';
+import {userLogin} from '../../../Redux/Actions/UserActions';
+import {store} from '../../../Redux/store';
 
 const scheme = 'carpool://auth'; // Or your desired app redirection scheme
 const resolvedRedirectUrl = `${scheme}://openlogin`;
@@ -94,11 +93,11 @@ const LoginScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../Assets/logo.png')} // Replace with the path to your app logo
+        source={require('../../Assets/logo.png')} // Replace with the path to your app logo
         style={styles.logo}
       />
       <Image
-        source={require('../Assets/onboarding3.jpg')} // Replace with the path to your app logo
+        source={require('../../Assets/onboarding3.jpg')} // Replace with the path to your app logo
         style={styles.photo}
       />
 

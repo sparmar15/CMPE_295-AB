@@ -2,7 +2,7 @@
 // https://github.com/jfilter/react-native-onboarding-swiper
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import styles from '../Styles/OnboardingScreen';
+import styles from '../../Styles/LoginScreens/OnboardingScreen';
 import Onboarding from 'react-native-onboarding-swiper';
 
 const Dots = ({selected}) => {
@@ -55,7 +55,7 @@ function OnboardingScreen({navigation}) {
           image: (
             <Image
               style={styles.icon}
-              source={require('../Assets/onboarding2.jpg')}
+              source={require('../../Assets/onboarding2.jpg')}
             />
           ),
           title: <Text style={styles.title}>Locate the Destination</Text>,
@@ -70,7 +70,7 @@ function OnboardingScreen({navigation}) {
           image: (
             <Image
               style={styles.icon}
-              source={require('../Assets/onboarding5.jpg')}
+              source={require('../../Assets/onboarding5.jpg')}
             />
           ),
           title: <Text style={styles.title}>Select Your Ride</Text>,
@@ -85,7 +85,7 @@ function OnboardingScreen({navigation}) {
           image: (
             <Image
               style={styles.icon}
-              source={require('../Assets/onboarding4.jpg')}
+              source={require('../../Assets/onboarding4.jpg')}
             />
           ),
           title: <Text style={styles.title}>Share Your Ride</Text>,
