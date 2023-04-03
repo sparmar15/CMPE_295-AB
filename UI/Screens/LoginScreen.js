@@ -10,6 +10,9 @@ import Web3Auth, {
 } from '@web3auth/react-native-sdk';
 import axios from 'axios';
 import LandingPage from './LandingPage';
+import {useDispatch, useSelector} from 'react-redux';
+import {userLogin} from '../../Redux/Actions/UserActions';
+import {store} from '../../Redux/store';
 
 const scheme = 'carma://auth'; // Or your desired app redirection scheme
 const resolvedRedirectUrl = `${scheme}://openlogin`;
@@ -22,7 +25,7 @@ const LoginScreen = ({navigation}) => {
   const [console, setConsole] = useState('');
   const Log = logger.createLogger();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const dispatch = useDispatch();
   const login = async () => {
     try {
       setConsole('Logging in');
@@ -92,7 +95,10 @@ const LoginScreen = ({navigation}) => {
   // };
 
   const handleSignupPress = () => {
-    navigation.navigate('DriverRiderSelect');
+    // navigation.navigate('inbox');
+    // dispatch(userLogin({name: 'Mango'}));
+    // Log.info(store.getState());
+    navigation.navigate('Home');
   };
 
   return (
@@ -109,7 +115,9 @@ const LoginScreen = ({navigation}) => {
         <Icon name="google" size={24} color="#fff" />
         <Text style={styles.googleSignInButtonText}>Login with Google</Text>
       </TouchableOpacity>
-      <Text style={styles.signupText}>Not a member yet? Signup here!</Text>
+      <TouchableOpacity onPress={handleSignupPress}>
+        <Text style={styles.signupText}>Not a member yet? Signup here!</Text>
+      </TouchableOpacity>
     </View>
   );
 };

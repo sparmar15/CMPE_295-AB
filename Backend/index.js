@@ -12,7 +12,10 @@ import http from 'http';
 import {mongoose} from 'mongoose';
 import {MongoClient, ServerApiVersion} from 'mongodb';
 import {handleMessage, sendMessages} from './Handlers/messageHandler.js';
-import initSocket from './socket.js';
+import initSocket from './SocketIO/socket.js';
+import {conversationRouter} from './Routes/conversation.js';
+import {messageRouter} from './Routes/message.js';
+import {userRoute} from './Routes/user.js';
 
 const app = express();
 const port = 4000;
@@ -56,6 +59,10 @@ pinata
 app.use('/drivers', driverRoute);
 app.use('/riders', riderRoute);
 app.use('/reviews', reviewRoute);
+app.use('/reviews', reviewRoute);
+app.use('/conversations', conversationRouter);
+app.use('/messages', messageRouter);
+app.use('/users', userRoute);
 
 // Start the server
 app.listen(port, () => {

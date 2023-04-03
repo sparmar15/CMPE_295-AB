@@ -3,10 +3,11 @@ import {composeWithDevTools} from 'remote-redux-devtools';
 import userReducer from './Reducers/UserReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistStore, persistReducer} from 'redux-persist';
+import storage from './storage';
 
 const persistConfig = {
   key: 'root',
-  storage: AsyncStorage,
+  storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, userReducer);

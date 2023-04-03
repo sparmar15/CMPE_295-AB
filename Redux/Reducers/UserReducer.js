@@ -2,7 +2,7 @@ const {
   USER_INFO,
   USER_LOGOUT,
 } = require('../Actions/Action-types/User-actions');
-import storage from 'redux-persist/lib/storage';
+import storage from '../storage';
 
 const initialState = {};
 
