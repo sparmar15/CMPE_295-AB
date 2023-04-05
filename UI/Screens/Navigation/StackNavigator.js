@@ -90,7 +90,7 @@ const WalletNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen
-        name="Wallet"
+        name="Wallet/Main"
         component={WalletScreen}
         options={({route}) => ({
           headerTitle: 'My E-Wallet',

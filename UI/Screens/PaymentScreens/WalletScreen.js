@@ -12,6 +12,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {logger} from 'react-native-logs';
 import axios from 'axios';
+import {getBalance} from '../../../Utils/web3Auth';
 
 const options = [
   {
@@ -117,19 +118,21 @@ const renderItem = ({item}) => (
 const WalletScreen = ({navigation}) => {
   const Log = logger.createLogger();
   const [transactions, setTransaction] = useState('');
-  useEffect(() => {
-    axios
-      .get('http://localhost:4000/payments/getTransactions')
-      .then(response => {
-        Log.info(response);
-        setTransaction(response.json());
-      })
-      .catch(error => {
-        Log.info(error);
-      });
-  }, []);
-  const addCash = () => {
-    navigation.navigate('Wallet/Topup');
+  const [balance, setBalance] = useState(0);
+  // useEffect(() => {
+  //   const bal = async () => {
+  //     const info = await getBalance();
+  //     setBalance(info);
+  //     Log.info(info);
+  //   };
+  //   bal();
+  //   // setBalance(bal);
+  // }, []);
+  const addCash = async () => {
+    const info = await getBalance();
+    setBalance(info);
+    Log.info(info);
+    // navigation.navigate('Wallet/Topup');
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -151,7 +154,7 @@ const WalletScreen = ({navigation}) => {
               style={styles.cardLogo}
               source={require('../../Assets/icon.png')}></Image>
           </View>
-          <Text style={styles.cardAmount}>$14.00</Text>
+          <Text style={styles.cardAmount}>{balance}</Text>
           <Text style={styles.cardDetails}>Plan ahead, budget easier</Text>
           <TouchableOpacity onPress={addCash} style={styles.addCash}>
             <Text style={styles.cardDetails}>

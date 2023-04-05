@@ -26,7 +26,7 @@ function App(): JSX.Element {
               component={DriverRiderScreen}
             />
             <Stack.Screen name="RiderSignup" component={RiderSignupScreen} />
-            <Stack.Screen name="HomeStack" component={BottomTabNavigator} />
+            <Stack.Screen name="TabNavigator" component={BottomTabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
