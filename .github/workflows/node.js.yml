@@ -23,4 +23,4 @@ jobs:
         key: {{ secrets.SSH_KEY }}
         script: |
           npm install
-          node index.js
+          npm start
