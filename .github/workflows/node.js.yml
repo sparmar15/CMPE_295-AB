@@ -5,6 +5,8 @@ name: Node.js CI
 
 on:
   push:
+    branches:
+      - soham-githubAction-patch
     paths:
       - Backend/**
 
