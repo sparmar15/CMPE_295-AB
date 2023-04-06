@@ -7,27 +7,30 @@ import * as WebBrowser from '@toruslabs/react-native-web-browser';
 import Web3Auth, {
   LOGIN_PROVIDER,
   OPENLOGIN_NETWORK,
+  LoginProvider,
 } from '@web3auth/react-native-sdk';
 import LandingPage from './LandingPage';
+import {useDispatch} from 'react-redux';
+import {userLogin} from '../../Redux/Actions/UserActions';
+import {store} from '../../Redux/store';
 
+import RPC from '../../ethersRPC'; // for using ethers.js
 const scheme = 'carpool://auth'; // Or your desired app redirection scheme
 const resolvedRedirectUrl = `${scheme}://openlogin`;
 const clientId =
-  'BG9JhziXn3TewAdwRyUyinmvLCmC8z8h_0TIWQ25C-PSXd875e_ocLjhk8eb10-JRQZ7mVOCASXN4WLBAjo8BAY';
+  'BLOwyDDYwHFKGpp1ffvnfz3IY9_rvTBbwH7U__xudIgauSPzG7NadwFVspA4-PIgIUcwIDDL_3QBEUUp-X3oBl8';
 
 const LoginScreen = ({navigation}) => {
-  const [key, setKey] = useState('');
-  const [userInfo, setUserInfo] = useState('');
-  const [console, setConsole] = useState('');
+  const [userLoginInfo, setUserLoginIInfo] = useState(null);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const Log = logger.createLogger();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
 
   const login = async () => {
     try {
-      setConsole('Logging in');
       const web3auth = new Web3Auth(WebBrowser, {
         clientId,
-        network: OPENLOGIN_NETWORK.CYAN, // or other networks
+        network: OPENLOGIN_NETWORK.TESTNET, // or other networks
       });
       const info = await web3auth.login({
         loginProvider: LOGIN_PROVIDER.GOOGLE,
@@ -35,54 +38,18 @@ const LoginScreen = ({navigation}) => {
         mfaLevel: 'default',
         curve: 'secp256k1',
       });
-
-      const username = info.userInfo.email;
-
-      if (username === db.email) {
-        setIsLoggedIn(true);
+      setUserLoginIInfo(info.userInfo);
+      if (userLoginInfo) {
+        dispatch(userLogin(userLoginInfo));
+        setIsUserLoggedIn(true);
       }
-
-      setUserInfo(info);
-      setKey(info.privKey);
     } catch (e) {
-      console.error(e);
+      Log.info(e);
     }
   };
-
-  // const getChainId = async () => {
-  //   setConsole('Getting chain id');
-  //   const networkDetails = await RPC.getChainId();
-  //   uiConsole(networkDetails);
-  // };
-
-  // const getAccounts = async () => {
-  //   setConsole('Getting account');
-  //   const address = await RPC.getAccounts(key);
-  //   uiConsole(address);
-  // };
-  // const getBalance = async () => {
-  //   setConsole('Fetching balance');
-  //   const balance = await RPC.getBalance(key);
-  //   uiConsole(balance);
-  // };
-  // const sendTransaction = async () => {
-  //   setConsole('Sending transaction');
-  //   const tx = await RPC.sendTransaction(key);
-  //   uiConsole(tx);
-  // };
-  // const signMessage = async () => {
-  //   setConsole('Signing message');
-  //   const message = await RPC.signMessage(key);
-  //   uiConsole(message);
-  // };
-
-  // const uiConsole = (...args) => {
-  //   setConsole(JSON.stringify(args || {}, null, 2) + '\n\n\n\n' + console);
-  // };
-
-  const handleSignupPress = () => {
-    navigation.navigate('DriverRiderSelect');
-  };
+  if (isUserLoggedIn) {
+    navigation.navigate('LandingPage');
+  }
 
   return (
     <View style={styles.container}>
