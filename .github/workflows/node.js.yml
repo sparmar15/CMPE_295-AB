@@ -4,23 +4,20 @@
 name: Node.js CI
 
 on:
-  push:
-    paths:
-      - Backend/**
+  push:
+    paths:
+      - Backend/**
 
 jobs:
-  deploy:
-
-    runs-on: ubuntu-latest
-
-    steps:
-   
-    - name: Deploy to ec2 server
-      uses: appleboy/ssh-action@master
-      with:
-        host: 18.144.173.138
-        username: ubuntu
-        key: {{ secrets.SSH_KEY }}
-        script: |
-          npm install
-          npm start
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to ec2 server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 18.144.173.138
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            npm install
+            npm start
