@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {logger} from 'react-native-logs';
-import axios from 'axios';
-import {getBalance} from '../../../Utils/web3Auth';
+import {useSelector} from 'react-redux';
+import web3Auth from '../../../Utils/web3Auth';
 
 const options = [
   {
@@ -119,19 +119,22 @@ const WalletScreen = ({navigation}) => {
   const Log = logger.createLogger();
   const [transactions, setTransaction] = useState('');
   const [balance, setBalance] = useState(0);
-  // useEffect(() => {
-  //   const bal = async () => {
-  //     const info = await getBalance();
-  //     setBalance(info);
-  //     Log.info(info);
-  //   };
-  //   bal();
-  //   // setBalance(bal);
-  // }, []);
+  const [userInfo, setUserInfo] = useState(
+    useSelector(state => state.userInfo),
+  );
+  const {getBalance} = web3Auth();
+  useEffect(() => {
+    const bal = async () => {
+      const info = await getBalance();
+      Log.info(info);
+      setBalance(parseInt(info.hex, 16));
+      // Log.info(info);
+    };
+    bal();
+    Log.info(userInfo);
+    Log.info(balance);
+  }, []);
   const addCash = async () => {
-    const info = await getBalance();
-    setBalance(info);
-    Log.info(info);
     // navigation.navigate('Wallet/Topup');
   };
   return (
@@ -146,7 +149,7 @@ const WalletScreen = ({navigation}) => {
           style={styles.cardContainer}>
           <View style={styles.cardImageContainer}>
             <View>
-              <Text style={styles.cardHeader}>Carma Cash</Text>
+              <Text style={styles.cardHeader}>{userInfo.userInfo.name}</Text>
               <Text style={styles.cardName}>Username</Text>
             </View>
 

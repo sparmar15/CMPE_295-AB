@@ -3,32 +3,29 @@ import {Image, View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {logger} from 'react-native-logs';
 import styles from '../../Styles/LoginScreens/LoginScreen';
-import {useDispatch} from 'react-redux';
-import {userLogin} from '../../../Redux/Actions/UserActions';
-import {store} from '../../../Redux/store';
 import web3Auth from '../../../Utils/web3Auth';
 
 const LoginScreen = ({navigation}) => {
   // const [key, setKey] = useState('');
-  const [userInfo, setUserInfo] = useState('');
+  // const [userInfo, setUserInfo] = useState('');
   // const [console, setConsole] = useState('');
   const Log = logger.createLogger();
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const dispatch = useDispatch();
-  const {login, getBalance} = web3Auth();
+  const {login} = web3Auth();
 
   const handleLogin = async () => {
-    const info = await login();
-    setUserInfo(info);
-    Log.info(info);
-    // navigation.navigate('TabNavigator');
+    // setUserInfo(info);
+    // Log.info(info);
+    navigation.navigate('TabNavigator');
   };
 
   const handleSignupPress = async () => {
-    const info = await getBalance();
+    const info = await login();
+    // const info = await getBalance();
     // navigation.navigate('DriverRiderSelect');
     // dispatch(userLogin({name: 'sid', pass: '123'}));
-    Log.info(info);
+    // Log.info(info);
   };
 
   return (

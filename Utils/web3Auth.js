@@ -6,7 +6,7 @@ import Web3Auth, {
 import RPC from '../ethersRPC';
 import * as WebBrowser from '@toruslabs/react-native-web-browser';
 import {logger} from 'react-native-logs';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {userLogin} from '../Redux/Actions/UserActions';
 
 const web3Auth = () => {
@@ -18,31 +18,31 @@ const web3Auth = () => {
     clientId,
     network: OPENLOGIN_NETWORK.TESTNET, // or other networks
   });
+
   const dispatch = useDispatch();
   const Log = logger.createLogger();
-  const [key, setKey] = useState('');
+  //   const [key, setKey] = useState('');
   const [userInfo, setUserInfo] = useState('');
   const [console, setConsole] = useState('');
-
+  const key = useSelector(state => state.userInfo.privKey);
   const login = async () => {
-    try {
-      const info = await web3auth
-        .login({
-          loginProvider: LOGIN_PROVIDER.GOOGLE,
-          redirectUrl: resolvedRedirectUrl,
-          mfaLevel: 'default',
-          curve: 'secp256k1',
-        })
-        .then(res => {
-          dispatch(userLogin({userInfo: res}));
-          setUserInfo(res);
-          setKey(res.privKey);
-          return res;
-        });
-      return info;
-    } catch (e) {
-      console.error(e);
-    }
+    const info = await web3auth
+      .login({
+        loginProvider: LOGIN_PROVIDER.GOOGLE,
+        redirectUrl: resolvedRedirectUrl,
+        mfaLevel: 'default',
+        curve: 'secp256k1',
+      })
+      .then(res => {
+        dispatch(userLogin({userInfo: res}));
+        // setUserInfo(res);
+        // setKey(res.privKey);
+        return res;
+      })
+      .cathch(err => {
+        Log.error(err);
+      });
+    return info;
   };
 
   // const getChainId = async () => {
@@ -57,17 +57,18 @@ const web3Auth = () => {
   //   uiConsole(address);
   // };
   const getBalance = async () => {
-    try {
-      //   setConsole('Fetching balance');
-      Log.info(key);
-      const balance = await RPC.getBalance(key).then(res => {
+    setConsole('Fetching balance');
+    // Log.info(key.userInfo.privKey);
+    const balance = await RPC.getBalance(key)
+      .then(res => {
         Log.info(res);
         return res;
+      })
+      .catch(err => {
+        Log.error(err);
       });
-      return balance;
-    } catch (e) {
-      console.error(e);
-    }
+    return balance;
+    //   return key;
   };
   // const sendTransaction = async () => {
   //   setConsole('Sending transaction');
