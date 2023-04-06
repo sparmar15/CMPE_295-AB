@@ -15,45 +15,22 @@ import LandingPage from './UI/Screens/LandingPage';
 import SearchPage from './UI/Screens/SearchPage';
 import TripRoute from './UI/Screens/TripRoute';
 function App(): JSX.Element {
-  const AppStack = createStackNavigator();
+  const Stack = createStackNavigator();
 
   return (
     <Provider store={store}>
       <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
         <NavigationContainer>
-          <AppStack.Navigator screenOptions={{headerShown: false}}>
-            <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
-            <AppStack.Screen name="HomePage" component={HomePage} />
-            <AppStack.Screen name="Login" component={LoginScreen} />
-            <AppStack.Screen
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen
               name="DriverRiderSelect"
               component={DriverRiderScreen}
             />
-            <AppStack.Screen name="RiderSignup" component={RiderSignupScreen} />
-            <AppStack.Screen
-              name="LandingPage"
-              component={LandingPage}
-              options={{
-                presentation: 'transparentModal',
-                transitionSpec: {
-                  open: {animation: 'timing', config: {duration: 100}},
-                  close: {animation: 'timing', config: {duration: 100}},
-                },
-              }}
-            />
-            <AppStack.Screen
-              name="SearchPage"
-              component={SearchPage}
-              options={{
-                presentation: 'transparentModal',
-                transitionSpec: {
-                  open: {animation: 'timing', config: {duration: 100}},
-                  close: {animation: 'timing', config: {duration: 100}},
-                },
-              }}
-            />
-            <AppStack.Screen name="TripRoute" component={TripRoute} />
-          </AppStack.Navigator>
+            <Stack.Screen name="RiderSignup" component={RiderSignupScreen} />
+            <Stack.Screen name="HomeStack" component={BottomTabNavigator} />
+          </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
     </Provider>
