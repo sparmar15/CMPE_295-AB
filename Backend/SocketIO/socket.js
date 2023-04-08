@@ -1,5 +1,5 @@
 import {Server} from 'socket.io';
-import Chat from '../Models/message.js';
+import Message from '../Models/message.js';
 import {
   updateChat,
   getAllChats,
@@ -51,35 +51,34 @@ const initSocket = server => {
     });
 
     // Listen for read_message event and update message status in database
-    // socket.on('read_message', async messageId => {
+    socket.on('read_message', async conversationId => {
+      try {
+        const result = await Message.updateMany(
+          {conversationId},
+          {$set: {read: true}},
+        );
+
+        // console.log(`${result.nModified} messages updated as read`);
+      } catch (error) {
+        console.error(error);
+      }
+    });
+
+    // socket.on('get_messages', async ({sender, receiver}) => {
     //   try {
-    //     const updatedMessage = await Message.findByIdAndUpdate(
-    //       messageId,
-    //       {$set: {read: true}},
-    //       {new: true},
-    //     );
-    //     console.log(updatedMessage);
-    //     // io.emit('message_read', updatedMessage._id); // Broadcast to all clients including the sender and receiver
+    //     // Send only when receipient is online
+    //     const chats = await getChatsBetweenUsers(sender, receiver);
+    //     console.log('Inside get_messages', chats[0].messages);
+    //     // if (userSockets[sender]) {
+    //     io.to(userSockets[sender]).emit('all_messages', chats[0].messages);
+    //     // }
     //   } catch (err) {
     //     console.log(err);
     //   }
     // });
-
-    socket.on('get_messages', async ({sender, receiver}) => {
-      try {
-        // Send only when receipient is online
-        const chats = await getChatsBetweenUsers(sender, receiver);
-        console.log('Inside get_messages', chats[0].messages);
-        // if (userSockets[sender]) {
-        io.to(userSockets[sender]).emit('all_messages', chats[0].messages);
-        // }
-      } catch (err) {
-        console.log(err);
-      }
-    });
-    socket.on('all_messages', messages => {
-      console.log('jkdfsajkldfsajkl;adfskjl;dsfajkl');
-    });
+    // socket.on('all_messages', messages => {
+    //   console.log('jkdfsajkldfsajkl;adfskjl;dsfajkl');
+    // });
 
     socket.on('disconnect', () => {
       console.log('User disconnected:', socket.id);

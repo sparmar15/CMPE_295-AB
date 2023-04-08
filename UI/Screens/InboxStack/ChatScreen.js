@@ -34,17 +34,22 @@ const ChatScreen = ({route}) => {
 
   useEffect(() => {
     getMessage(getMessageCallback);
+    scrollViewRef.current.scrollToEnd({animated: true}); // scroll to bottom on mount
   }, []);
+
   const getMessageCallback = message => {
     setArrivalMessage(message);
   };
+
   useEffect(() => {
     arrivalMessage &&
       arrivalMessage.conversationId == conversation._id &&
       setMessages(prev => [...prev, arrivalMessage]);
+    scrollViewRef.current.scrollToEnd({animated: true}); // scroll to bottom on mount
   }, [arrivalMessage]);
+
   useEffect(() => {
-    Log.info('inside use effect', conversation, friendId);
+    // Log.info('inside use effect', conversation, friendId);
     // getMessages(sender, receiver, receiveMessage1);
     registerSocket(userId);
 
@@ -59,11 +64,11 @@ const ChatScreen = ({route}) => {
         Log.error('Error in getting messages', error);
       }
     };
+    readMessage(conversation._id);
     getMessages();
-    scrollViewRef.current.scrollToEnd({animated: true});
   }, [conversation]);
 
-  const renderChat = ({item}) => {
+  const renderChat = item => {
     const timestamp = new Date(item.createdAt);
     return (
       <View
@@ -93,8 +98,9 @@ const ChatScreen = ({route}) => {
           message,
         );
         Log.info(res.data);
-        setMessages([...messages, res.data]);
+
         setNewMessage('');
+        await setMessages([...messages, res.data]);
         scrollViewRef.current.scrollToEnd({animated: true});
         sendMessage(res.data, friendId);
       } catch (error) {
@@ -123,14 +129,12 @@ const ChatScreen = ({route}) => {
         </View>
       </View>
       <View style={styles.line} />
-      <ScrollView ref={scrollViewRef}>
-        <FlatList
-          data={messages}
-          renderItem={renderChat}
-          keyExtractor={item => item._id}
-          // style={{flex: 1}}
-          contentContainerStyle={styles.singleChatContainer}
-        />
+      <ScrollView
+        ref={scrollViewRef}
+        onContentSizeChange={(width, height) =>
+          scrollViewRef.current.scrollTo({y: height})
+        }>
+        {messages.map(message => renderChat(message))}
       </ScrollView>
       <View style={styles.inputContainer}>
         <TextInput
@@ -142,7 +146,7 @@ const ChatScreen = ({route}) => {
           numberOfLines={2}
         />
         <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
-          <MaterialIcons name="send" size={24} color="#FFF" />
+          <MaterialIcons name="send" size={24} color="#00008F" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -183,7 +187,7 @@ const styles = StyleSheet.create({
   },
   line: {
     height: 1,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: '#085f87',
     width: '100%',
   },
   chatContainer: {
@@ -203,7 +207,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   chatSent: {
-    backgroundColor: '#DCF8C6',
+    backgroundColor: '#a8e0fa',
     alignSelf: 'flex-end',
   },
   chatReceived: {
@@ -217,7 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 10,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#EAEAEA',
   },
@@ -225,19 +229,25 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     backgroundColor: '#F5F5F5',
-    borderRadius: 16,
+    borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginRight: 8,
     maxHeight: 100,
+    height: 45,
+    verticalAlign: 'auto',
+    borderWidth: 1,
+    borderColor: '#085f87',
   },
   sendButton: {
-    borderRadius: 50,
-    backgroundColor: '#075E54',
+    borderRadius: 5,
+    borderColor: '#085f87',
+    borderWidth: 1,
+    // backgroundColor: '#00008F',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 40,
-    height: 40,
+    width: 45,
+    height: 45,
   },
   sendIcon: {
     color: '#FFF',

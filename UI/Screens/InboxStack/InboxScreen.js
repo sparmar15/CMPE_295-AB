@@ -9,34 +9,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {registerSocket} from '../../../socket';
 import {logger} from 'react-native-logs';
 import axios from 'axios';
 import Conversation from './Conversation';
-
-const DATA = [
-  {
-    id: '1',
-    name: 'John Doe',
-    // image: require('../Assets/profile.png'),
-    message: 'Hey, are you still available to carpool tomorrow?',
-    unread: 3,
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    // image: require('../Assets/profile.png'),
-    message: 'Sure, what time do you want to meet?',
-    unread: 0,
-  },
-  {
-    id: '3',
-    name: 'Bob Johnson',
-    // image: require('../Assets/profile.png'),
-    message: "Sorry, I won't be able to make it tomorrow",
-    unread: 0,
-  },
-];
 
 const userId = 'soham';
 
@@ -45,6 +22,7 @@ const InboxScreen = ({navigation}) => {
   const Log = logger.createLogger();
 
   useEffect(() => {
+    registerSocket(userId);
     // registerSocket(sender, getChats);
     const getConversations = async () => {
       try {
@@ -59,37 +37,10 @@ const InboxScreen = ({navigation}) => {
     getConversations();
   }, [userId]);
 
-  const getChats = async chat => {
-    setChats([]);
-    await setChats(chat);
-  };
-  const handleChatClick = () => {
-    Log.info('press');
-
-    navigation.navigate('Chat', {
-      item,
-    });
-  };
-
-  // const renderChat = ({item}) => (
-  //   <View style={styles.chat} onPress={handleChatClick(item)}>
-  //     {/* <Image source={item.image} style={styles.chatImage} /> */}
-  //     <View style={styles.chatDetails}>
-  //       <Text style={styles.chatName}>{item.user2}</Text>
-  //       <Text style={styles.chatMessage}>{item.messages.content}</Text>
-  //     </View>
-  //     {/* {item.unread > 0 && (
-  //       <View style={styles.chatUnread}>
-  //         <Text style={styles.chatUnreadText}>{item.unread}</Text>
-  //       </View>
-  //     )} */}
-  //   </View>
-  // );
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <MaterialIcons name="chat" size={36} />
+        <AntDesign name="message1" color={'#085f87'} size={36} />
         <Text style={styles.headerTitle}>Inbox</Text>
       </View>
       <View style={styles.line} />
@@ -120,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 16,
-    paddingBottom: 50,
+    paddingBottom: 16,
   },
   headerTitle: {
     fontSize: 36,
@@ -130,8 +81,8 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   line: {
-    height: 1,
-    backgroundColor: '#E0E0E0',
+    height: 2,
+    backgroundColor: '#085f87',
     width: '100%',
   },
   chat: {

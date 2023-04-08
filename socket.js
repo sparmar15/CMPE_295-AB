@@ -30,8 +30,8 @@ const sendMessage = (message, friendId) => {
   socket.emit('send_message', message, friendId);
 };
 
-const readMessage = messageId => {
-  socket.emit('read_message', messageId);
+const readMessage = conversationId => {
+  socket.emit('read_message', conversationId);
 };
 
 export {registerSocket, sendMessage, readMessage, getMessage};
