@@ -9,6 +9,7 @@ import RiderSignupScreen from './UI/Screens/SignUpScreens/RiderSignupScreen';
 import {store, persistor} from './Redux/store';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
+
 import HomePage from './UI/Screens/HomePage';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import LandingPage from './UI/Screens/LandingPage';
@@ -28,8 +29,8 @@ function App(): JSX.Element {
               name="DriverRiderSelect"
               component={DriverRiderScreen}
             />
-            <Stack.Screen name="RiderSignup" component={RiderSignupScreen} />
-            <Stack.Screen name="HomeStack" component={BottomTabNavigator} />
+            {/* <Stack.Screen name="RiderSignup" component={RiderSignupScreen} /> */}
+            <Stack.Screen name="Home" component={BottomTabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

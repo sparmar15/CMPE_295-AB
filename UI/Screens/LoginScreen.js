@@ -9,6 +9,7 @@ import Web3Auth, {
   OPENLOGIN_NETWORK,
   LoginProvider,
 } from '@web3auth/react-native-sdk';
+import axios from 'axios';
 import LandingPage from './LandingPage';
 import {useDispatch} from 'react-redux';
 import {userLogin} from '../../Redux/Actions/UserActions';
@@ -24,6 +25,7 @@ const LoginScreen = ({navigation}) => {
   const [userLoginInfo, setUserLoginIInfo] = useState(null);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const Log = logger.createLogger();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dispatch = useDispatch();
 
   const login = async () => {
@@ -32,6 +34,14 @@ const LoginScreen = ({navigation}) => {
         clientId,
         network: OPENLOGIN_NETWORK.TESTNET, // or other networks
       });
+      // const openloginAdapter = new OpenloginAdapter({
+      //   adapterSettings: {
+      //     clientId, //Optional - Provide only if you haven't provided it in the Web3Auth Instantiation Code
+      //     network: 'testnet',
+      //   },
+      // });
+      // web3auth.configureAdapter(openloginAdapter);
+
       const info = await web3auth.login({
         loginProvider: LOGIN_PROVIDER.GOOGLE,
         redirectUrl: resolvedRedirectUrl,
@@ -48,8 +58,11 @@ const LoginScreen = ({navigation}) => {
     }
   };
   if (isUserLoggedIn) {
-    navigation.navigate('LandingPage');
+    navigation.navigate('Home');
   }
+  const handleSignupPress = () => {
+    navigation.navigate('Home');
+  };
 
   return (
     <View style={styles.container}>
@@ -65,7 +78,9 @@ const LoginScreen = ({navigation}) => {
         <Icon name="google" size={24} color="#fff" />
         <Text style={styles.googleSignInButtonText}>Login with Google</Text>
       </TouchableOpacity>
-      <Text style={styles.signupText}>Not a member yet? Signup here!</Text>
+      <TouchableOpacity onPress={handleSignupPress}>
+        <Text style={styles.signupText}>Not a member yet? Signup here!</Text>
+      </TouchableOpacity>
     </View>
   );
 };

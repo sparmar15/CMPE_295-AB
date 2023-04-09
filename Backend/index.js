@@ -8,9 +8,18 @@ dotenv.config();
 import {driverRoute} from './Routes/driver.js';
 import {riderRoute} from './Routes/rider.js';
 import {reviewRoute} from './Routes/review.js';
+import http from 'http';
+import {mongoose} from 'mongoose';
+import {MongoClient, ServerApiVersion} from 'mongodb';
+import {handleMessage, sendMessages} from './Handlers/messageHandler.js';
+import initSocket from './SocketIO/socket.js';
+import {conversationRouter} from './Routes/conversation.js';
+import {messageRouter} from './Routes/message.js';
+import {userRoute} from './Routes/user.js';
 
 const app = express();
 const port = 4000;
+const socketPort = 3000;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -50,10 +59,39 @@ pinata
 app.use('/drivers', driverRoute);
 app.use('/riders', riderRoute);
 app.use('/reviews', reviewRoute);
+app.use('/reviews', reviewRoute);
+app.use('/conversations', conversationRouter);
+app.use('/messages', messageRouter);
+app.use('/users', userRoute);
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+// Socket IO
+const server = http.createServer();
+
+initSocket(server);
+
+server.listen(socketPort, () => {
+  console.log('====================================');
+  console.log(`Socket server listening on http://localhost:${socketPort}`);
+});
+
+// MongoDB connection
+
+const uri =
+  'mongodb+srv://carpool-app-db:carpool-app@cluster0.zm5lhqe.mongodb.net/?retryWrites=true&w=majority';
+
+mongoose
+  .connect(uri, {useNewUrlParser: true})
+  .then(() => {
+    console.log('Mongo DB connected');
+    console.log('====================================');
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
 export {pinata};

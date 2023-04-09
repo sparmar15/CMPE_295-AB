@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,9 +20,12 @@
     "ipfs-core": "^0.18.0",
     "ipfs-http-client": "^42.0.0",
     "js-ipfs-fetch": "^4.2.3",
+    "mongodb": "^5.1.0",
+    "mongoose": "^7.0.3",
     "node-fetch": "^3.3.1",
     "nodemon": "^2.0.21",
     "orbit-db": "^0.29.0",
-    "prom-client": "^14.2.0"
+    "prom-client": "^14.2.0",
+    "socket.io": "^4.6.1"
   }
 }

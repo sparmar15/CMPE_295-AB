@@ -5,6 +5,8 @@ import SearchPage from '../SearchPage';
 import TripRoute from '../TripRoute';
 import LandingPage from '../LandingPage';
 import UserProfile from '../UserProfile';
+import ChatScreen from '../InboxStack/ChatScreen';
+import InboxScreen from '../InboxStack/InboxScreen';
 // import Contact from '../screens/Contact';
 
 const Stack = createStackNavigator();
@@ -65,4 +67,13 @@ const UserProfileNavigator = () => {
   );
 };
 
-export {MainStackNavigator, UserProfileNavigator};
+const InboxNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen name="Inboxscreen" component={InboxScreen} />
+      <Stack.Screen name="Chat" component={ChatScreen} />
+    </Stack.Navigator>
+  );
+};
+
+export {MainStackNavigator, UserProfileNavigator, InboxNavigator};
