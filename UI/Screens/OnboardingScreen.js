@@ -4,7 +4,9 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from '../Styles/OnboardingScreen';
 import Onboarding from 'react-native-onboarding-swiper';
-
+import {useSelector} from 'react-redux';
+import {logger} from 'react-native-logs';
+import LandingPage from './LandingPage';
 const Dots = ({selected}) => {
   let backgroundColor;
 
@@ -41,62 +43,72 @@ const Done = ({...props}) => (
 );
 
 function OnboardingScreen({navigation}) {
+  const userState = useSelector(state => state);
+  const Log = logger.createLogger();
+
+  const isUserLoggedIn = userState.email ? true : false;
   return (
-    <Onboarding
-      SkipButtonComponent={Skip}
-      NextButtonComponent={Next}
-      DoneButtonComponent={Done}
-      DotComponent={Dots}
-      onSkip={() => navigation.navigate('Login')}
-      onDone={() => navigation.navigate('Login')}
-      pages={[
-        {
-          backgroundColor: '#fff',
-          image: (
-            <Image
-              style={styles.icon}
-              source={require('../Assets/onboarding2.jpg')}
-            />
-          ),
-          title: <Text style={styles.title}>Locate the Destination</Text>,
-          subtitle: (
-            <Text style={styles.subtitle}>
-              Your destination is on your fingertips
-            </Text>
-          ),
-        },
-        {
-          backgroundColor: '#fff',
-          image: (
-            <Image
-              style={styles.icon}
-              source={require('../Assets/onboarding5.jpg')}
-            />
-          ),
-          title: <Text style={styles.title}>Select Your Ride</Text>,
-          subtitle: (
-            <Text style={styles.subtitle}>
-              Get quick access to rides and save them as favourites
-            </Text>
-          ),
-        },
-        {
-          backgroundColor: '#fff',
-          image: (
-            <Image
-              style={styles.icon}
-              source={require('../Assets/onboarding4.jpg')}
-            />
-          ),
-          title: <Text style={styles.title}>Share Your Ride</Text>,
-          subtitle: (
-            <Text style={styles.subtitle}>
-              Fastest way to share a ride, share reviews and earn Karma
-            </Text>
-          ),
-        },
-      ]}
-    />
+    <>
+      {isUserLoggedIn ? (
+        <LandingPage />
+      ) : (
+        <Onboarding
+          SkipButtonComponent={Skip}
+          NextButtonComponent={Next}
+          DoneButtonComponent={Done}
+          DotComponent={Dots}
+          onSkip={() => navigation.navigate('Login')}
+          onDone={() => navigation.navigate('Login')}
+          pages={[
+            {
+              backgroundColor: '#fff',
+              image: (
+                <Image
+                  style={styles.icon}
+                  source={require('../Assets/onboarding2.jpg')}
+                />
+              ),
+              title: <Text style={styles.title}>Locate the Destination</Text>,
+              subtitle: (
+                <Text style={styles.subtitle}>
+                  Your destination is on your fingertips
+                </Text>
+              ),
+            },
+            {
+              backgroundColor: '#fff',
+              image: (
+                <Image
+                  style={styles.icon}
+                  source={require('../Assets/onboarding5.jpg')}
+                />
+              ),
+              title: <Text style={styles.title}>Select Your Ride</Text>,
+              subtitle: (
+                <Text style={styles.subtitle}>
+                  Get quick access to rides and save them as favourites
+                </Text>
+              ),
+            },
+            {
+              backgroundColor: '#fff',
+              image: (
+                <Image
+                  style={styles.icon}
+                  source={require('../Assets/onboarding4.jpg')}
+                />
+              ),
+              title: <Text style={styles.title}>Share Your Ride</Text>,
+              subtitle: (
+                <Text style={styles.subtitle}>
+                  Fastest way to share a ride, share reviews and earn Karma
+                </Text>
+              ),
+            },
+          ]}
+        />
+      )}
+    </>
   );
 }
 

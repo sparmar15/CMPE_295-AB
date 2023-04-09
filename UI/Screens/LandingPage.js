@@ -5,6 +5,9 @@ import {logger} from 'react-native-logs';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SearchBar from './SearchBar';
+
+import {useSelector} from 'react-redux';
+
 const LandingPage = ({navigation}) => {
   const [location, setLocation] = useState({
     latitude: 37.78825,

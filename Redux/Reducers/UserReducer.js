@@ -2,7 +2,8 @@ const {
   USER_INFO,
   USER_LOGOUT,
 } = require('../Actions/Action-types/User-actions');
-import storage from '../storage';
+// import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {};
 
@@ -13,7 +14,7 @@ const userReducer = (state = initialState, action) => {
       return {...state, ...action.payload};
 
     case USER_LOGOUT:
-      storage.removeItem('persist:root');
+      AsyncStorage.removeItem('persist:root');
       return (state = {});
 
     default:

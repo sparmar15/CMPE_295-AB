@@ -1,0 +1,21 @@
+{
+  "appState": "",
+  "privKey": "24419371bf7fb1e775dadbb4b53bb8dead79f14f00eff25798d71f8d3ae2f54a",
+  "sessionId": "a1bf54d6d28d4bc1f3df6477ee456a25a5cdf15fa7e1dbabcdd506bfa2e65565",
+  "coreKitKey": "",
+  "coreKitEd25519PrivKey": "",
+  "ed25519PrivKey": "24419371bf7fb1e775dadbb4b53bb8dead79f14f00eff25798d71f8d3ae2f54ab11fb52fbb6e942429a13fdcc96f251c56eb7ff7b5f72efd9f2efb92aa2ec5a6",
+  "userInfo": {
+    "email": "rohityadav349729@gmail.com",
+    "name": "Rohit Yadav",
+    "profileImage": "https://lh3.googleusercontent.com/a/AGNmyxbsctqrPjTatKX_bKlcUSByUiKNAHM6NtxK8QV86o8=s96-c",
+    "aggregateVerifier": "tkey-google-lrc",
+    "verifier": "torus",
+    "verifierId": "rohityadav349729@gmail.com",
+    "typeOfLogin": "google",
+    "dappShare": "",
+    "idToken": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRZT2dnXy01RU9FYmxhWS1WVlJZcVZhREFncHRuZktWNDUzNU1aUEMwdzAifQ.eyJpYXQiOjE2ODAzMzA0NDksImF1ZCI6IkJMT3d5RERZd0hGS0dwcDFmZnZuZnozSVk5X3J2VEJid0g3VV9feHVkSWdhdVNQekc3TmFkd0ZWc3BBNC1QSWdJVWN3SURETF8zUUJFVVVwLVgzb0JsOCIsIm5vbmNlIjoiMDJhMmM4NGJlNTdhZjAxYmRlMzdjZmU2ZDI4ZDRjMWNjYzA1Y2E0MmVhOThjOWUyYzAyMTE4YTI2NTdhYmNjZWFjIiwiaXNzIjoiaHR0cHM6Ly9hcGkub3BlbmxvZ2luLmNvbSIsIndhbGxldHMiOlt7InB1YmxpY19rZXkiOiIwMmRhZjRhNjJlZmI1ZDNjZDM3MTQwNzExZjlmOTAxYTQyY2MyOTc4YThhMTk0NTdhYWUzYWQ0YjViYTBiYTJiMmIiLCJ0eXBlIjoid2ViM2F1dGhfYXBwX2tleSIsImN1cnZlIjoic2VjcDI1NmsxIn1dLCJlbWFpbCI6InJvaGl0eWFkYXYzNDk3MjlAZ21haWwuY29tIiwibmFtZSI6IlJvaGl0IFlhZGF2IiwicHJvZmlsZUltYWdlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUdObXl4YnNjdHFyUGpUYXRLWF9iS2xjVVNCeVVpS05BSE02TnR4SzhRVjg2bzg9czk2LWMiLCJ2ZXJpZmllciI6InRvcnVzIiwidmVyaWZpZXJJZCI6InJvaGl0eWFkYXYzNDk3MjlAZ21haWwuY29tIiwiYWdncmVnYXRlVmVyaWZpZXIiOiJ0a2V5LWdvb2dsZS1scmMiLCJleHAiOjE2ODA0MTY4NDl9.GQ7FPd_FX4iOlReSJvmgE5ip7KSG4MiqT7Otq5E6Wv_2UwFY52jekJQ9TRxXEuG_kJudw84mKAMqWcO_szGXXA",
+    "oAuthIdToken": "",
+    "oAuthAccessToken": ""
+  }
+}
