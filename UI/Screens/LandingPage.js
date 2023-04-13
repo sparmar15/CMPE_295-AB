@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, Pressable} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {logger} from 'react-native-logs';
 import SearchBar from './SearchBar';
-
 import {useSelector} from 'react-redux';
 
 const LandingPage = ({navigation}) => {
@@ -17,8 +16,10 @@ const LandingPage = ({navigation}) => {
     latitude: 37.78825,
     longitude: -122.4324,
   });
-
   const [isDestination, setIsDestination] = useState(false);
+  const [userInfo, setUserInfo] = useState(
+    useSelector(state => state.userInfo.userInfo),
+  );
 
   const handlePress = () => {
     navigation.navigate('SearchPage');
@@ -33,7 +34,7 @@ const LandingPage = ({navigation}) => {
       </View>
       <View style={styles.container}>
         <View style={styles.view1}>
-          <Text style={styles.welcomeText}>Welcome! Rohit</Text>
+          <Text style={styles.welcomeText}>Welcome! {userInfo.name}</Text>
         </View>
         <View style={styles.view2}>
           <Pressable onPress={handlePress}>

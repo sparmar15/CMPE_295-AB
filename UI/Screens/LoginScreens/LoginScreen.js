@@ -6,7 +6,7 @@ import styles from '../../Styles/LoginScreens/LoginScreen';
 import {useDispatch} from 'react-redux';
 import {userLogin} from '../../../Redux/Actions/UserActions';
 import {store} from '../../../Redux/store';
-import web3Auth from '../../../Utils/web3Auth';
+import {login} from '../../../Utils/web3Auth';
 
 const LoginScreen = ({navigation}) => {
   // const [key, setKey] = useState('');
@@ -14,14 +14,16 @@ const LoginScreen = ({navigation}) => {
   // const [console, setConsole] = useState('');
   const Log = logger.createLogger();
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const dispatch = useDispatch();
-  const {login, getBalance} = web3Auth();
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     const info = await login();
-    setUserInfo(info);
-    Log.info(info);
-    // navigation.navigate('TabNavigator');
+    if (info !== undefined) {
+      setUserInfo(info);
+      dispatch(userLogin({userInfo: info}));
+      Log.info(info);
+      navigation.navigate('TabNavigator');
+    }
   };
 
   const handleSignupPress = async () => {

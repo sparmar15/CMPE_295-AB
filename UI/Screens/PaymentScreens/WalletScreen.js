@@ -120,22 +120,11 @@ const WalletScreen = ({navigation}) => {
   const [transactions, setTransaction] = useState('');
   const [balance, setBalance] = useState(0);
   const [userInfo, setUserInfo] = useState(
-    useSelector(state => state.userInfo),
+    useSelector(state => state.userInfo.userInfo),
   );
-  const {getBalance} = web3Auth();
-  useEffect(() => {
-    const bal = async () => {
-      const info = await getBalance();
-      Log.info(info);
-      setBalance(parseInt(info.hex, 16));
-      // Log.info(info);
-    };
-    bal();
-    Log.info(userInfo);
-    Log.info(balance);
-  }, []);
   const addCash = async () => {
     // navigation.navigate('Wallet/Topup');
+    Log.info('UserInfo: ' + JSON.stringify(userInfo));
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -149,8 +138,8 @@ const WalletScreen = ({navigation}) => {
           style={styles.cardContainer}>
           <View style={styles.cardImageContainer}>
             <View>
-              <Text style={styles.cardHeader}>{userInfo.userInfo.name}</Text>
-              <Text style={styles.cardName}>Username</Text>
+              {/* <Text style={styles.cardHeader}>Carma Cash</Text> */}
+              <Text style={styles.cardHeader}>{userInfo.name}</Text>
             </View>
 
             <Image

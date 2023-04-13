@@ -4,17 +4,22 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
   SafeAreaView,
   FlatList,
   Platform,
+  Button,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {useDispatch, useSelector} from 'react-redux';
+import {logout} from '../../../Utils/web3Auth';
+import {logger} from 'react-native-logs';
+import {userLogout} from '../../../Redux/Actions/UserActions';
 
 const createFormData = (photo, body = {}) => {
   const data = new FormData();
-
   data.append('photo', {
     name: photo.fileName,
     type: photo.type,
@@ -28,14 +33,19 @@ const createFormData = (photo, body = {}) => {
   return data;
 };
 
-const UserProfile = () => {
+const UserProfile = ({navigation}) => {
+  const Log = logger.createLogger();
+  const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(false);
   const [profileImage, setProfileImage] = useState(
-    require('../../Assets/portrait.jpg'),
+    useSelector(state => state.userInfo.userInfo.profileImage),
+  );
+  const [userInfo, setUserInfo] = useState(
+    useSelector(state => state.userInfo.userInfo),
   );
 
   const handleEditImage = () => {
-    // setEditMode(true);
+    setEditMode(true);
     const options = {
       noData: true,
     };
@@ -44,6 +54,7 @@ const UserProfile = () => {
         this.setState({photo: response});
       }
     });
+    // console.log(userInfo.profileImage);
   };
 
   const handleSaveImage = () => {
@@ -66,15 +77,43 @@ const UserProfile = () => {
     {id: '9', name: 'Logout', icon: 'log-out-outline'},
   ];
 
+  const handleOptionPress = option => {
+    if (option === 'Logout') {
+      console.log('Logout pressed');
+      dispatch(userLogout());
+      logout();
+      navigation.navigate('Login');
+    } else {
+      // Handle other options
+      console.log('Option pressed:', option);
+    }
+  };
+
   const renderItem = ({item}) => (
-    <TouchableOpacity style={styles.option}>
+    <TouchableOpacity
+      style={styles.option}
+      onPress={() => handleOptionPress(item.name)}>
       <View style={styles.optionIconContainer}>
-        <Ionicons name={item.icon} size={24} color="#000" />
+        <Ionicons
+          name={item.icon}
+          size={24}
+          color={item.name === 'Logout' ? 'red' : '#000'}
+        />
       </View>
-      <Text style={styles.nameContainer}>{item.name}</Text>
+      <Text
+        style={[
+          styles.nameContainer,
+          {color: item.name === 'Logout' ? 'red' : 'black'},
+        ]}>
+        {item.name}
+      </Text>
 
       <View style={styles.optionArrowContainer}>
-        <Ionicons name="chevron-forward" size={24} color="#000" />
+        <Ionicons
+          name="chevron-forward"
+          size={24}
+          color={item.name === 'Logout' ? 'red' : 'black'}
+        />
       </View>
     </TouchableOpacity>
   );
@@ -85,15 +124,21 @@ const UserProfile = () => {
         <Ionicons name={'settings-outline'} size={36} color="blue" />
         <Text style={styles.header}>Settings</Text>
       </View> */}
-
+      {/* <Button
+        title="Go to Search Page"
+        onPress={() =>
+          navigation.navigate('Home', {screen: 'SearchPage'})
+        }></Button> */}
       <View style={styles.profileContainer}>
         <View style={styles.imageWrapper}>
-          <Image source={profileImage} style={styles.profileImage} />
+          <Image source={{uri: profileImage}} style={styles.profileImage} />
 
           <TouchableOpacity onPress={handleEditImage} style={styles.editIcon}>
             <Ionicons name="camera-sharp" size={24} color="#FFF" />
           </TouchableOpacity>
         </View>
+        <Text style={styles.userName}>{userInfo.name}</Text>
+        <Text style={styles.userContact}>{userInfo.email}</Text>
 
         <View style={styles.line} />
 
@@ -143,15 +188,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   profileImage: {
-    width: 128,
-    height: 128,
-    borderRadius: 64,
-    marginVertical: 32,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginVertical: 25,
   },
   editIcon: {
     position: 'absolute',
     right: 0,
-    bottom: 30,
+    bottom: 20,
     backgroundColor: '#000',
     borderRadius: 16,
     padding: 8,
@@ -189,6 +234,15 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     fontSize: 18,
+  },
+  userName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'gray',
+  },
+  userContact: {
+    fontSize: 16,
+    color: 'gray',
   },
 });
 

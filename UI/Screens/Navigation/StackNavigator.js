@@ -3,9 +3,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import UserProfile from '../SettingScreens/UserProfile';
 import WalletScreen from '../PaymentScreens/WalletScreen';
 import TopUpWallet from '../PaymentScreens/TopUpWallet';
-import SearchPage from '../HomeScreens/SearchPage';
-import LandingPage from '../HomeScreens/LandingPage';
-import TripRoute from '../HomeScreens/TripRoute';
+import SearchPage from '../SearchPage';
+import LandingPage from '../LandingPage';
+import TripRoute from '../TripRoute';
 
 // import Contact from '../screens/Contact';
 
