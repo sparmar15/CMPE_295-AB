@@ -10,12 +10,12 @@ const initialState = {};
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_INFO:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {...state, ...action.payload};
 
     case USER_LOGOUT:
       AsyncStorage.removeItem('persist:root');
-      return (state = {});
+      return (state = {userInfo: {userInfo: {profileImage: ''}}});
 
     default:
       return state;

@@ -80,8 +80,8 @@ const UserProfile = ({navigation}) => {
   const handleOptionPress = option => {
     if (option === 'Logout') {
       console.log('Logout pressed');
-      dispatch(userLogout());
       logout();
+      dispatch(userLogout());
       navigation.navigate('Login');
     } else {
       // Handle other options
