@@ -15,6 +15,8 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import LandingPage from './UI/Screens/LandingPage';
 import SearchPage from './UI/Screens/SearchPage';
 import TripRoute from './UI/Screens/TripRoute';
+import ConfirmRidePage from './UI/Screens/ConfirmRidePage';
+import SelectedDriverPage from './UI/Screens/SelctedDriverPage';
 function App(): JSX.Element {
   const Stack = createStackNavigator();
 
@@ -30,7 +32,62 @@ function App(): JSX.Element {
               component={DriverRiderScreen}
             />
             {/* <Stack.Screen name="RiderSignup" component={RiderSignupScreen} /> */}
-            <Stack.Screen name="Home" component={BottomTabNavigator} />
+            <Stack.Screen name="TabNavigator" component={BottomTabNavigator} />
+            <Stack.Screen
+              name="LandingPage"
+              component={LandingPage}
+              options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                  open: {animation: 'timing', config: {duration: 100}},
+                  close: {animation: 'timing', config: {duration: 100}},
+                },
+              }}
+            />
+            <Stack.Screen
+              name="SearchPage"
+              component={SearchPage}
+              options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                  open: {animation: 'timing', config: {duration: 100}},
+                  close: {animation: 'timing', config: {duration: 100}},
+                },
+              }}
+            />
+            <Stack.Screen
+              name="TripRoute"
+              component={TripRoute}
+              options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                  open: {animation: 'timing', config: {duration: 100}},
+                  close: {animation: 'timing', config: {duration: 100}},
+                },
+              }}
+            />
+            <Stack.Screen
+              name="ConfirmRidePage"
+              component={ConfirmRidePage}
+              options={{
+                presentation: 'card',
+                transitionSpec: {
+                  open: {animation: 'timing', config: {duration: 100}},
+                  close: {animation: 'timing', config: {duration: 100}},
+                },
+              }}
+            />
+            <Stack.Screen
+              name="SelectedDriverPage"
+              component={SelectedDriverPage}
+              options={{
+                presentation: 'card',
+                transitionSpec: {
+                  open: {animation: 'timing', config: {duration: 100}},
+                  close: {animation: 'timing', config: {duration: 100}},
+                },
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
