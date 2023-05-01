@@ -37,14 +37,14 @@ export default function DriverRiderScreen({navigation}) {
           source={require('../../Assets/driver.jpg')}
           style={styles.image}
         />
-        <Text style={styles.optionText}>I am a Driver</Text>
+        <Text style={styles.optionText}>Host a Ride</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleRiderPress} style={styles.optionButton}>
         <Image
           source={require('../../Assets/rider.jpg')}
           style={styles.image}
         />
-        <Text style={styles.optionText}>I am a Rider</Text>
+        <Text style={styles.optionText}>Request a Ride</Text>
       </TouchableOpacity>
 
       <Button title="RideHistory"  onPress={handleHistoryPress}>

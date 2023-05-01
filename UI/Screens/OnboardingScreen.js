@@ -4,6 +4,8 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from '../Styles/OnboardingScreen';
 import Onboarding from 'react-native-onboarding-swiper';
+import RiderSignupScreen from './SignUpScreens/RiderSignupScreen';
+import DriverSignupScreen from './SignUpScreens/DriverSignupScreen';
 
 const Dots = ({selected}) => {
   let backgroundColor;
@@ -48,7 +50,7 @@ function OnboardingScreen({navigation}) {
       DoneButtonComponent={Done}
       DotComponent={Dots}
       onSkip={() => navigation.navigate('Login')}
-      onDone={() => navigation.navigate('DriverRiderSelect')}
+      onDone={() => navigation.navigate('DriverSignup')}
       pages={[
         {
           backgroundColor: '#fff',

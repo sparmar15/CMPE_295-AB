@@ -126,6 +126,7 @@ export default function DriverSignupTwo({navigation, route}) {
         console.log('user successfully signed up!: ', driverInfo);
         console.log(driverInfo.driver_license);
         console.log(userInfo);
+        navigation.navigate('AddressMapScreen');
       } catch (err) {
         console.log('error signing up: ', err);
       }
@@ -221,6 +222,9 @@ export default function DriverSignupTwo({navigation, route}) {
         
         <TouchableOpacity style={styles.button} onPress={signUp}>
           <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={signUp}>
+          <Text style={styles.buttonText}>Skip</Text>
         </TouchableOpacity>
       </ImageBackground>
     </SafeAreaView>

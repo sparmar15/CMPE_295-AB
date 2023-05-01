@@ -16,6 +16,7 @@ import DriverSignupScreen from './UI/Screens/SignUpScreens/DriverSignupScreen';
 import DriverSignupScreenTwo from './UI/Screens/SignUpScreens/DriverSignupScreenTwo';
 import RideHistory from './UI/Screens/RideHistory';
 import RideInfo from './UI/Screens/RideInfo';
+import AddressMapScreen from './UI/Screens/AddressMapScreen';
 
 
 function App(): JSX.Element {
@@ -32,6 +33,7 @@ function App(): JSX.Element {
         <AppStack.Screen name="DriverSignupTwo" component={DriverSignupScreenTwo} />
         <AppStack.Screen name="RideHistory" component={RideHistory} />
         <AppStack.Screen name="RideInfo" component={RideInfo} />
+        <AppStack.Screen name="AddressMapScreen" component={AddressMapScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
