@@ -22,6 +22,7 @@
     "node-fetch": "^3.3.1",
     "nodemon": "^2.0.21",
     "orbit-db": "^0.29.0",
-    "prom-client": "^14.2.0"
+    "prom-client": "^14.2.0",
+    "stripe": "^12.3.0"
   }
 }

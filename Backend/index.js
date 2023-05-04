@@ -9,6 +9,7 @@ import {driverRoute} from './Routes/driver.js';
 import {riderRoute} from './Routes/rider.js';
 import {reviewRoute} from './Routes/review.js';
 import {userRoute} from './Routes/user.js';
+import {paymentRoute} from './Routes/payments.js';
 
 const app = express();
 const port = 4000;
@@ -52,6 +53,7 @@ app.use('/drivers', driverRoute);
 app.use('/riders', riderRoute);
 app.use('/reviews', reviewRoute);
 app.use('/users', userRoute);
+app.use('/payments', paymentRoute);
 
 // Start the server
 app.listen(port, () => {

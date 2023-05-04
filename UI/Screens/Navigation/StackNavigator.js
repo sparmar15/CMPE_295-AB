@@ -6,6 +6,7 @@ import TopUpWallet from '../PaymentScreens/TopUpWallet';
 import SearchPage from '../SearchPage';
 import LandingPage from '../LandingPage';
 import TripRoute from '../TripRoute';
+import PaymentScreen from '../PaymentScreens/PaymentScreen';
 
 // import Contact from '../screens/Contact';
 
@@ -102,6 +103,13 @@ const WalletNavigator = () => {
         component={TopUpWallet}
         options={({route}) => ({
           headerTitle: 'Top Up Wallet',
+        })}
+      />
+      <Stack.Screen
+        name="Wallet/Stripe"
+        component={PaymentScreen}
+        options={({route}) => ({
+          headerTitle: 'Stripe',
         })}
       />
     </Stack.Navigator>

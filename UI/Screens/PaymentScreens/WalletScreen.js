@@ -123,7 +123,7 @@ const WalletScreen = ({navigation}) => {
     useSelector(state => state.userInfo.userInfo),
   );
   const addCash = async () => {
-    // navigation.navigate('Wallet/Topup');
+    navigation.navigate('Wallet/Stripe');
     Log.info('UserInfo: ' + JSON.stringify(userInfo));
   };
   return (
