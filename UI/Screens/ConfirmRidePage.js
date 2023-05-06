@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {logger} from 'react-native-logs';
 import {useNavigation} from '@react-navigation/native';
+
 const rides = [
   {id: 1, icon: 'car', text: 'Car Ride', fare: '$10', noOfAvailableSeats: 3},
   {id: 2, icon: 'car', text: 'Car Ride', fare: '$5', noOfAvailableSeats: 4},
@@ -39,17 +40,20 @@ const RideOption = ({ride, selectedRide, setSelectedRide}) => {
 };
 
 const ConfirmRidePage = () => {
+  const handleBack = () => {
+    navigation.navigate('SearchPage');
+  };
   const [selectedRide, setSelectedRide] = useState(null);
   const Log = logger.createLogger();
   const navigation = useNavigation();
   const selectDriver = () => {
-    navigation.navigate('SelectedDriverPage');
+    navigation.navigate('SelectDriverPage');
   };
   Log.info('selectedRide' + selectedRide);
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.upperContainer}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Icon name="keyboard-backspace" size={30} color="black" />
         </TouchableOpacity>
         <View style={styles.distance}>

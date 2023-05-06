@@ -16,7 +16,8 @@ import LandingPage from './UI/Screens/LandingPage';
 import SearchPage from './UI/Screens/SearchPage';
 import TripRoute from './UI/Screens/TripRoute';
 import ConfirmRidePage from './UI/Screens/ConfirmRidePage';
-import SelectedDriverPage from './UI/Screens/SelctedDriverPage';
+import SelectDriverPage from './UI/Screens/SelectDriverPage.js';
+import BookingDetails from './UI/Screens/BookingDetails';
 function App(): JSX.Element {
   const Stack = createStackNavigator();
 
@@ -56,6 +57,17 @@ function App(): JSX.Element {
               }}
             />
             <Stack.Screen
+              name="BookingDetails"
+              component={BookingDetails}
+              options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                  open: {animation: 'timing', config: {duration: 100}},
+                  close: {animation: 'timing', config: {duration: 100}},
+                },
+              }}
+            />
+            <Stack.Screen
               name="TripRoute"
               component={TripRoute}
               options={{
@@ -78,8 +90,8 @@ function App(): JSX.Element {
               }}
             />
             <Stack.Screen
-              name="SelectedDriverPage"
-              component={SelectedDriverPage}
+              name="SelectDriverPage"
+              component={SelectDriverPage}
               options={{
                 presentation: 'card',
                 transitionSpec: {

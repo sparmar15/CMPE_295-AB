@@ -7,10 +7,10 @@
 const hre = require('hardhat');
 
 async function main() {
-  const Hello = await hre.ethers.getContractFactory('Hello');
-  const hello = await Hello.deploy();
-  await hello.deployed();
-  console.log(` deployed to ${hello.address}`);
+  const ConfirmRide = await hre.ethers.getContractFactory('RideContract');
+  const confirmRide = await ConfirmRide.deploy();
+  await confirmRide.deployed();
+  console.log(` deployed to ${confirmRide.address}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

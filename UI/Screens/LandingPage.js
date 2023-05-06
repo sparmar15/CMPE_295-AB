@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, Pressable} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {logger} from 'react-native-logs';
 
-import {SafeAreaView} from 'react-native-safe-area-context';
 import SearchBar from './SearchBar';
 
 import {useSelector} from 'react-redux';
-
-const LandingPage = ({navigation}) => {
+import {useNavigation} from '@react-navigation/native';
+const LandingPage = () => {
   const [location, setLocation] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -21,7 +20,7 @@ const LandingPage = ({navigation}) => {
   });
 
   const [isDestination, setIsDestination] = useState(false);
-
+  const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate('SearchPage');
   };

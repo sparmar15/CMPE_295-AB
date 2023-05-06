@@ -62,7 +62,7 @@ function SearchPage({navigation}) {
   }, [startLocation, endLocation]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.lowerContainer}>
         <View style={styles.selectAddressContainer}>
           <Text style={styles.selectAddressText}>Select Address</Text>
@@ -117,7 +117,7 @@ function SearchPage({navigation}) {
           />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
