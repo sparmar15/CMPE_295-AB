@@ -47,7 +47,9 @@ const ConfirmRidePage = () => {
   const Log = logger.createLogger();
   const navigation = useNavigation();
   const selectDriver = () => {
-    navigation.navigate('SelectDriverPage');
+    navigation.navigate('Home', {
+      screen: 'SelectDriverPage',
+    });
   };
   Log.info('selectedRide' + selectedRide);
   return (

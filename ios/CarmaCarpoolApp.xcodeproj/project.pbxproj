@@ -8,12 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* CarmaCarpoolAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CarmaCarpoolAppTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-CarmaCarpoolApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-CarmaCarpoolApp.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-<<<<<<< HEAD
-=======
 		5A93EBA729E3734000FB27FA /* carmacarpoolappApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A93EBA629E3734000FB27FA /* carmacarpoolappApp.swift */; };
 		5A93EBA929E3734000FB27FA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A93EBA829E3734000FB27FA /* ContentView.swift */; };
 		5A93EBAB29E3734100FB27FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A93EBAA29E3734100FB27FA /* Assets.xcassets */; };
@@ -21,9 +18,8 @@
 		5A93EBB829E3734100FB27FA /* carmacarpoolappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A93EBB729E3734100FB27FA /* carmacarpoolappTests.swift */; };
 		5A93EBC229E3734100FB27FA /* carmacarpoolappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A93EBC129E3734100FB27FA /* carmacarpoolappUITests.swift */; };
 		5A93EBC429E3734100FB27FA /* carmacarpoolappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A93EBC329E3734100FB27FA /* carmacarpoolappUITestsLaunchTests.swift */; };
-		7699B88040F8A987B510C191 /* libPods-CarmaCarpoolApp-CarmaCarpoolAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-CarmaCarpoolApp-CarmaCarpoolAppTests.a */; };
->>>>>>> 2912b474fae5ee14fb99288444391fee88572725
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		DF62E7284F7CD713330E0D40 /* libPods-CarmaCarpoolApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DD6A0F66DF4A4071833B8A /* libPods-CarmaCarpoolApp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,10 +56,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CarmaCarpoolApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CarmaCarpoolApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CarmaCarpoolApp/main.m; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-CarmaCarpoolApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarmaCarpoolApp.debug.xcconfig"; path = "Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-CarmaCarpoolApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarmaCarpoolApp.release.xcconfig"; path = "Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp.release.xcconfig"; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
+		20DD6A0F66DF4A4071833B8A /* libPods-CarmaCarpoolApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarmaCarpoolApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4555BEFBEDE91F07D837B8B0 /* Pods-CarmaCarpoolApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarmaCarpoolApp.release.xcconfig"; path = "Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp.release.xcconfig"; sourceTree = "<group>"; };
 		5A93EBA429E3734000FB27FA /* carmacarpoolapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = carmacarpoolapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A93EBA629E3734000FB27FA /* carmacarpoolappApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = carmacarpoolappApp.swift; sourceTree = "<group>"; };
 		5A93EBA829E3734000FB27FA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,10 +68,8 @@
 		5A93EBBD29E3734100FB27FA /* carmacarpoolappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = carmacarpoolappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A93EBC129E3734100FB27FA /* carmacarpoolappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = carmacarpoolappUITests.swift; sourceTree = "<group>"; };
 		5A93EBC329E3734100FB27FA /* carmacarpoolappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = carmacarpoolappUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-CarmaCarpoolApp-CarmaCarpoolAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarmaCarpoolApp-CarmaCarpoolAppTests.debug.xcconfig"; path = "Target Support Files/Pods-CarmaCarpoolApp-CarmaCarpoolAppTests/Pods-CarmaCarpoolApp-CarmaCarpoolAppTests.debug.xcconfig"; sourceTree = "<group>"; };
->>>>>>> 2912b474fae5ee14fb99288444391fee88572725
-		5DCACB8F33CDC322A6C60F78 /* libPods-CarmaCarpoolApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarmaCarpoolApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CarmaCarpoolApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A5DA3993FFB08B2D14411C3A /* Pods-CarmaCarpoolApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarmaCarpoolApp.debug.xcconfig"; path = "Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -93,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-CarmaCarpoolApp.a in Frameworks */,
+				DF62E7284F7CD713330E0D40 /* libPods-CarmaCarpoolApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,7 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-CarmaCarpoolApp.a */,
+				20DD6A0F66DF4A4071833B8A /* libPods-CarmaCarpoolApp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -236,8 +228,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-CarmaCarpoolApp.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-CarmaCarpoolApp.release.xcconfig */,
+				A5DA3993FFB08B2D14411C3A /* Pods-CarmaCarpoolApp.debug.xcconfig */,
+				4555BEFBEDE91F07D837B8B0 /* Pods-CarmaCarpoolApp.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -267,14 +259,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CarmaCarpoolApp" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				D002939B5470CD64D5BB24F8 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				9E9B722FB633841D77135E21 /* [CP] Embed Pods Frameworks */,
+				26BE506BBF2713B853EB2707 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -345,10 +337,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-<<<<<<< HEAD
-=======
 				LastSwiftUpdateCheck = 1430;
->>>>>>> 2912b474fae5ee14fb99288444391fee88572725
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -452,7 +441,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		26BE506BBF2713B853EB2707 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E9B722FB633841D77135E21 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -469,7 +475,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		D002939B5470CD64D5BB24F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -489,23 +495,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CarmaCarpoolApp/Pods-CarmaCarpoolApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -647,16 +636,12 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-CarmaCarpoolApp.debug.xcconfig */;
+			baseConfigurationReference = A5DA3993FFB08B2D14411C3A /* Pods-CarmaCarpoolApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-<<<<<<< HEAD
-				DEVELOPMENT_TEAM = 593BH65V2V;
-=======
 				DEVELOPMENT_TEAM = GFMUPYBZT5;
->>>>>>> 2912b474fae5ee14fb99288444391fee88572725
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CarmaCarpoolApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -680,16 +665,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-CarmaCarpoolApp.release.xcconfig */;
+			baseConfigurationReference = 4555BEFBEDE91F07D837B8B0 /* Pods-CarmaCarpoolApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-<<<<<<< HEAD
-				DEVELOPMENT_TEAM = 593BH65V2V;
-=======
 				DEVELOPMENT_TEAM = GFMUPYBZT5;
->>>>>>> 2912b474fae5ee14fb99288444391fee88572725
 				INFOPLIST_FILE = CarmaCarpoolApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

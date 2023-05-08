@@ -51,11 +51,14 @@ function SearchPage({navigation}) {
       endLocation.endLocLat != 0 && endLocation.endLocLong != 0;
     if (isStartLocSet && isEndLocSet) {
       Log.info(startLocation);
-      navigation.navigate('TripRoute', {
-        startLocation: startLocation,
-        endLocation: endLocation,
-        startPlace: startPlace,
-        endPlace: endPlace,
+      navigation.navigate('Home', {
+        screen: 'TripRoute',
+        params: {
+          startLocation: startLocation,
+          endLocation: endLocation,
+          startPlace: startPlace,
+          endPlace: endPlace,
+        },
       });
     }
     // Log.info(startLocation);

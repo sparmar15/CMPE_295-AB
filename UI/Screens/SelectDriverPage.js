@@ -11,21 +11,14 @@ import {ethers} from 'ethers';
 import MyContract from '../../artifacts/contracts/ConfirmRide.sol/RideContract.json';
 import {logger} from 'react-native-logs';
 import {useNavigation} from '@react-navigation/native';
-// const provider = new ethers.providers.JsonRpcProvider('HTTP://127.0.0.1:7545');
-// const contractAddress = '0x9A54736Fbb2eC2414Ecb45E6aAa8f0f0De71585b';
-// const privateKey =
-//   '171c96507352fe681cd3d70f85299c9b7da2d2e7ec9d9e0191d0e90479e07e94';
 
 const SelectDriverPage = ({riderName, riderPicture}) => {
-  //   const [txHash, setTxHash] = useState(null);
-  //   const Log = logger.createLogger();
-  //   const contract = new ethers.Contract(contractAddress, MyContract.abi, provider);
-  //   const signer = provider.getSigner();
   const navigation = useNavigation();
 
   const handleConfirm = async (contractAddress, privateKey) => {
-    navigation.navigate('BookingDetails');
-
+    navigation.navigate('Home', {
+      screen: 'BookingDetails',
+    });
     //   try {
     //     const signer = provider.getSigner()[0];
     //     Log.info(signer);
@@ -38,7 +31,9 @@ const SelectDriverPage = ({riderName, riderPicture}) => {
     //   }
   };
   const handleBack = () => {
-    navigation.navigate('ConfirmRidePage');
+    navigation.navigate('Home', {
+      screen: 'ConfirmRidePage',
+    });
   };
   return (
     <SafeAreaView style={styles.container}>

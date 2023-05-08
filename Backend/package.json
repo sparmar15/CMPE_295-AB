@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -20,16 +19,12 @@
     "ipfs-core": "^0.18.0",
     "ipfs-http-client": "^42.0.0",
     "js-ipfs-fetch": "^4.2.3",
-    "mongodb": "^5.1.0",
-    "mongoose": "^7.0.3",
+    "mongoose": "^7.1.0",
     "node-fetch": "^3.3.1",
     "nodemon": "^2.0.21",
     "orbit-db": "^0.29.0",
     "prom-client": "^14.2.0",
-<<<<<<< HEAD
-    "socket.io": "^4.6.1"
-=======
+    "socket.io": "^4.6.1",
     "stripe": "^12.3.0"
->>>>>>> 2912b474fae5ee14fb99288444391fee88572725
   }
 }

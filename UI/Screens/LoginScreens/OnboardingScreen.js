@@ -6,6 +6,7 @@ import styles from '../../Styles/LoginScreens/OnboardingScreen';
 import Onboarding from 'react-native-onboarding-swiper';
 import {useSelector} from 'react-redux';
 import {logger} from 'react-native-logs';
+import BottomTabNavigator from '../Navigation/TabNavigator';
 // import LandingPage from './LandingPage';
 const Dots = ({selected}) => {
   let backgroundColor;
@@ -46,18 +47,20 @@ function OnboardingScreen({navigation}) {
   const userState = useSelector(state => state);
   const Log = logger.createLogger();
 
-  const isUserLoggedIn = userState.email ? true : false;
+  const isUserLoggedIn =
+    userState.userInfo.userInfo.email != null ? true : false;
+  Log.info(userState.userInfo.userInfo.email);
   return (
     <>
       {isUserLoggedIn ? (
-        <LandingPage />
+        <BottomTabNavigator />
       ) : (
         <Onboarding
           SkipButtonComponent={Skip}
           NextButtonComponent={Next}
           DoneButtonComponent={Done}
           DotComponent={Dots}
-          onSkip={() => navigation.navigate('SearchPage')}
+          onSkip={() => navigation.navigate('Login')}
           onDone={() => navigation.navigate('Login')}
           pages={[
             {
@@ -65,7 +68,7 @@ function OnboardingScreen({navigation}) {
               image: (
                 <Image
                   style={styles.icon}
-                  source={require('../Assets/onboarding2.jpg')}
+                  source={require('../../Assets/onboarding2.jpg')}
                 />
               ),
               title: <Text style={styles.title}>Locate the Destination</Text>,
@@ -80,7 +83,7 @@ function OnboardingScreen({navigation}) {
               image: (
                 <Image
                   style={styles.icon}
-                  source={require('../Assets/onboarding5.jpg')}
+                  source={require('../../Assets//onboarding5.jpg')}
                 />
               ),
               title: <Text style={styles.title}>Select Your Ride</Text>,
@@ -95,7 +98,7 @@ function OnboardingScreen({navigation}) {
               image: (
                 <Image
                   style={styles.icon}
-                  source={require('../Assets/onboarding4.jpg')}
+                  source={require('../../Assets//onboarding4.jpg')}
                 />
               ),
               title: <Text style={styles.title}>Share Your Ride</Text>,

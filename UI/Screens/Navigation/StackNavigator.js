@@ -7,7 +7,9 @@ import SearchPage from '../SearchPage';
 import LandingPage from '../LandingPage';
 import TripRoute from '../TripRoute';
 import PaymentScreen from '../PaymentScreens/PaymentScreen';
-
+import SelectDriverPage from '../SelectDriverPage';
+import ConfirmRidePage from '../ConfirmRidePage';
+import BookingDetails from '../BookingDetails';
 // import Contact from '../screens/Contact';
 
 const Stack = createStackNavigator();
@@ -62,6 +64,41 @@ const MainStackNavigator = () => {
         options={{
           headerTitle: 'Home',
           presentation: 'transparentModal',
+          transitionSpec: {
+            open: {animation: 'timing', config: {duration: 100}},
+            close: {animation: 'timing', config: {duration: 100}},
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SelectDriverPage"
+        component={SelectDriverPage}
+        options={{
+          headerTitle: 'Home',
+          // presentation: 'transparentModal',
+          transitionSpec: {
+            open: {animation: 'timing', config: {duration: 100}},
+            close: {animation: 'timing', config: {duration: 100}},
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ConfirmRidePage"
+        component={ConfirmRidePage}
+        options={{
+          headerTitle: 'Home',
+          presentation: 'transparentModal',
+          transitionSpec: {
+            open: {animation: 'timing', config: {duration: 100}},
+            close: {animation: 'timing', config: {duration: 100}},
+          },
+        }}
+      />
+      <Stack.Screen
+        name="BookingDetails"
+        component={BookingDetails}
+        options={{
+          headerTitle: 'Home',
           transitionSpec: {
             open: {animation: 'timing', config: {duration: 100}},
             close: {animation: 'timing', config: {duration: 100}},

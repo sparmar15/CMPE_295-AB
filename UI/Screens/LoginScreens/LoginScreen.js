@@ -21,7 +21,7 @@ const LoginScreen = ({navigation}) => {
     if (info !== undefined) {
       setUserInfo(info);
       dispatch(userLogin({userInfo: info}));
-      Log.info(info);
+      Log.info(userInfo);
       navigation.navigate('TabNavigator');
     }
   };
