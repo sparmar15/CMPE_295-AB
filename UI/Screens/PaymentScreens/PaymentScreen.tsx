@@ -5,12 +5,7 @@ import {MERCHANT_ID, API_URL} from './Constants';
 
 const PaymentScreen = () => {
   const [ready, setReady] = useState(false);
-  const {
-    initPaymentSheet,
-    presentPaymentSheet,
-    loading,
-    resetPaymentSheetCustomer,
-  } = usePaymentSheet();
+  const {initPaymentSheet, presentPaymentSheet, loading} = usePaymentSheet();
 
   useEffect(() => {
     initialisePaymentSheet();
