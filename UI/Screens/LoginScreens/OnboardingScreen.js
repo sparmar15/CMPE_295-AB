@@ -2,11 +2,12 @@
 // https://github.com/jfilter/react-native-onboarding-swiper
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import styles from '../Styles/OnboardingScreen';
+import styles from '../../Styles/LoginScreens/OnboardingScreen';
 import Onboarding from 'react-native-onboarding-swiper';
 import {useSelector} from 'react-redux';
 import {logger} from 'react-native-logs';
-import LandingPage from './LandingPage';
+import BottomTabNavigator from '../Navigation/TabNavigator';
+// import LandingPage from './LandingPage';
 const Dots = ({selected}) => {
   let backgroundColor;
 
@@ -46,11 +47,13 @@ function OnboardingScreen({navigation}) {
   const userState = useSelector(state => state);
   const Log = logger.createLogger();
 
-  const isUserLoggedIn = userState.email ? true : false;
+  const isUserLoggedIn =
+    userState.userInfo.userInfo.email != null ? true : false;
+  Log.info(userState.userInfo.userInfo.email);
   return (
     <>
       {isUserLoggedIn ? (
-        <LandingPage />
+        <BottomTabNavigator />
       ) : (
         <Onboarding
           SkipButtonComponent={Skip}
@@ -65,7 +68,7 @@ function OnboardingScreen({navigation}) {
               image: (
                 <Image
                   style={styles.icon}
-                  source={require('../Assets/onboarding2.jpg')}
+                  source={require('../../Assets/onboarding2.jpg')}
                 />
               ),
               title: <Text style={styles.title}>Locate the Destination</Text>,
@@ -80,7 +83,7 @@ function OnboardingScreen({navigation}) {
               image: (
                 <Image
                   style={styles.icon}
-                  source={require('../Assets/onboarding5.jpg')}
+                  source={require('../../Assets//onboarding5.jpg')}
                 />
               ),
               title: <Text style={styles.title}>Select Your Ride</Text>,
@@ -95,7 +98,7 @@ function OnboardingScreen({navigation}) {
               image: (
                 <Image
                   style={styles.icon}
-                  source={require('../Assets/onboarding4.jpg')}
+                  source={require('../../Assets//onboarding4.jpg')}
                 />
               ),
               title: <Text style={styles.title}>Share Your Ride</Text>,

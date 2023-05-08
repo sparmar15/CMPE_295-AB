@@ -1,5 +1,6 @@
 {
   "_id": "review_123",
+  "rideId": "ride001",
   "reviewer_id": "rider_123",
   "reviewee_id": "driver_789",
   "rating": 5,

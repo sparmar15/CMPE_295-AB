@@ -1,18 +1,34 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '13'
-prepare_react_native_project!
+
+platform :ios, 13.0
+install! 'cocoapods', :deterministic_uuids => false
+
+# Force pods to match minimum iOS version for React Native
+# Fixes build issue on Xcode Cloud where some pods
+# Use iOS 12 calls despite being set as iOS 11
+def __apply_Xcode_14_3_RC_post_install_workaround(installer)
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      current_target = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+      minimum_target = 13.0
+      if current_target.to_f < minimum_target.to_f
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = minimum_target
+      end
+    end
+  end
+end
 
 # If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
 # because `react-native-flipper` depends on (FlipperKit,...) that will be excluded
 #
 # To fix this you can also exclude `react-native-flipper` using a `react-native.config.js`
-# ```js
+# js
 # module.exports = {
 #   dependencies: {
 #     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
-# ```
+# 
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
 linkage = ENV['USE_FRAMEWORKS']
@@ -43,10 +59,10 @@ target 'CarmaCarpoolApp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'CarmaCarpoolAppTests' do
-    inherit! :complete
-    # Pods for testing
-  end
+  # target 'CarmaCarpoolAppTests' do
+  #   inherit! :complete
+  #   # Pods for testing
+  # end
 
   post_install do |installer|
     react_native_post_install(
@@ -56,5 +72,6 @@ target 'CarmaCarpoolApp' do
       :mac_catalyst_enabled => false
     )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    __apply_Xcode_14_3_RC_post_install_workaround(installer)
   end
 end

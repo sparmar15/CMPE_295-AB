@@ -58,10 +58,10 @@ const LoginScreen = ({navigation}) => {
     }
   };
   if (isUserLoggedIn) {
-    navigation.navigate('Home');
+    navigation.navigate('TabNavigator');
   }
   const handleSignupPress = () => {
-    navigation.navigate('Home');
+    navigation.navigate('TabNavigator');
   };
 
   return (

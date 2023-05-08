@@ -14,7 +14,7 @@ import {logger} from 'react-native-logs';
 import MapView, {Marker} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import {useNavigation} from '@react-navigation/native';
 function TripRoute() {
   const Log = logger.createLogger();
   const route = useRoute();
@@ -27,6 +27,7 @@ function TripRoute() {
   const [startPin, setStartPin] = useState(null);
   const [endPin, setEndPin] = useState(null);
   const [distance, setDistance] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     setInitialRegion({
@@ -50,6 +51,10 @@ function TripRoute() {
       edgePadding: {top: 50, right: 50, bottom: 50, left: 50},
       animated: true,
     });
+  };
+
+  const onConfirm = () => {
+    navigation.navigate('ConfirmRidePage');
   };
 
   return (
@@ -92,35 +97,62 @@ function TripRoute() {
           <Text>{distance}</Text>
         </View>
         <View style={styles.bookRide}>
-          <View style={[styles.locationContainer, {flex: 1}]}>
-            <View style={[styles.location, {flex: 1}]}>
-              <Icon
-                name="my-location"
-                size={30}
-                color="black"
-                style={styles.icon}
-              />
-              <Text style={styles.locationText}>{startPlace}</Text>
-            </View>
-            <View style={[styles.location, {flex: 1}]}>
-              <Icon
-                name="location-pin"
-                size={30}
-                color="black"
-                style={styles.icon}
-              />
-              <Text style={styles.locationText}>{endPlace}</Text>
-            </View>
+          <View style={styles.locationContainer}>
+            <Icon
+              name="my-location"
+              size={30}
+              color="black"
+              style={styles.locationIcon}
+            />
+            <Text style={styles.locationText}>{startPlace}</Text>
           </View>
-          <SafeAreaView>
-            <TouchableOpacity style={[styles.button, {flex: 0.5}]}>
-              <Text style={styles.buttonText}>Confirm Ride</Text>
-            </TouchableOpacity>
-          </SafeAreaView>
+          <View style={styles.locationContainer}>
+            <Icon
+              name="location-pin"
+              size={30}
+              color="black"
+              style={styles.locationIcon}
+            />
+            <Text style={styles.locationText}>{endPlace}</Text>
+          </View>
+          <TouchableOpacity style={styles.confirmButton} onPress={onConfirm}>
+            <Text style={styles.confirmButtonText}>Confirm Ride</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
   );
+}
+
+{
+  /* <View style={[styles.locationContainer, {flex: 1}]}>
+<View style={[styles.location, {flex: 1}]}>
+  <Icon
+    name="my-location"
+    size={30}
+    color="black"
+    style={styles.icon}
+  />
+  <Text style={styles.locationText}>{startPlace}</Text>
+</View>
+<View style={[styles.location, {flex: 1}]}>
+  <Icon
+    name="location-pin"
+    size={30}
+    color="black"
+    style={styles.icon}
+  />
+  <Text style={styles.locationText}>{endPlace}</Text>
+</View>
+</View>
+<SafeAreaView>
+<TouchableOpacity
+  style={[styles.button, {flex: 0.5}]}
+  onPress={onConfirm}>
+  <Text style={styles.buttonText}>Confirm Ride</Text>
+</TouchableOpacity>
+</SafeAreaView>
+</View> */
 }
 
 const styles = StyleSheet.create({
@@ -138,7 +170,6 @@ const styles = StyleSheet.create({
   distanceText: {
     fontSize: 20,
     fontWeight: 'bold',
-    fontFamily: 'System',
   },
   rideConfirmation: {
     flex: 0.75,
@@ -160,50 +191,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   locationContainer: {
-    flex: 1,
-    marginBottom: 10,
-    backgroundColor: 'red',
-    width: '70%',
-    marginBottom: 60,
-    height: '50%',
-  },
-  icon: {
-    marginLeft: 10,
-    flex: 0.35,
-    marginTop: 10,
-  },
-  location: {
-    flex: 0.25,
-    borderRadius: 25,
-    borderWidth: 1,
-    height: 50,
-    width: '100%',
     flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#f2f2f2',
-    // alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 5,
+    width: '80%',
+  },
+  locationIcon: {
     marginRight: 10,
-    marginTop: 20,
+    fontSize: 20,
+    color: '#000',
   },
-  locationText: {
-    flex: 1.75,
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginTop: 12,
-  },
-  button: {
-    // flex: 1,
-    backgroundColor: 'black',
+  confirmButton: {
+    backgroundColor: '#007bff',
+    borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 10,
-    width: '50%',
+    marginTop: 20,
   },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
+  confirmButtonText: {
+    color: '#fff',
     fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 export default TripRoute;

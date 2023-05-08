@@ -1,11 +1,8 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, Pressable} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {logger} from 'react-native-logs';
-
-import {SafeAreaView} from 'react-native-safe-area-context';
 import SearchBar from './SearchBar';
-
 import {useSelector} from 'react-redux';
 
 const LandingPage = ({navigation}) => {
@@ -19,8 +16,10 @@ const LandingPage = ({navigation}) => {
     latitude: 37.78825,
     longitude: -122.4324,
   });
-
   const [isDestination, setIsDestination] = useState(false);
+  const [userInfo, setUserInfo] = useState(
+    useSelector(state => state.userInfo.userInfo),
+  );
 
   const handlePress = () => {
     navigation.navigate('SearchPage');
@@ -35,7 +34,7 @@ const LandingPage = ({navigation}) => {
       </View>
       <View style={styles.container}>
         <View style={styles.view1}>
-          <Text style={styles.welcomeText}>Welcome! Rohit</Text>
+          <Text style={styles.welcomeText}>Welcome! {userInfo.name}</Text>
         </View>
         <View style={styles.view2}>
           <Pressable onPress={handlePress}>
@@ -81,12 +80,11 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontWeight: 'bold',
-    fontFamily: 'cochin',
-    fontSize: 20,
+    fontSize: 24,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginLeft: 30,
-    marginTop: 10,
+    marginTop: 30,
   },
   map: {
     flex: 1,
@@ -105,10 +103,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   view1: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: 'white',
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
   view2: {
     flex: 1,

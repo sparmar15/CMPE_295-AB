@@ -1,0 +1,19 @@
+{
+  "_id": "ride001",
+  "driverId": "user001",
+  "riderId": "user002",
+  "startLocation": {
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "address": "123 Main St, San Francisco, CA"
+  },
+  "endLocation": {
+    "latitude": 37.7877,
+    "longitude": -122.4001,
+    "address": "456 Market St, San Francisco, CA"
+  },
+  "distance": 5.8,
+  "duration": 15,
+  "fare": 10.5,
+  "timestamp": "2023-02-24T09:30:00Z"
+}
