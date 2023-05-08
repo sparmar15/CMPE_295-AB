@@ -2,12 +2,19 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, SafeAreaView, Pressable} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {logger} from 'react-native-logs';
+<<<<<<< HEAD
 
 import SearchBar from './SearchBar';
 
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 const LandingPage = () => {
+=======
+import SearchBar from './SearchBar';
+import {useSelector} from 'react-redux';
+
+const LandingPage = ({navigation}) => {
+>>>>>>> 2912b474fae5ee14fb99288444391fee88572725
   const [location, setLocation] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -18,9 +25,11 @@ const LandingPage = () => {
     latitude: 37.78825,
     longitude: -122.4324,
   });
-
   const [isDestination, setIsDestination] = useState(false);
-  const navigation = useNavigation();
+  const [userInfo, setUserInfo] = useState(
+    useSelector(state => state.userInfo.userInfo),
+  );
+
   const handlePress = () => {
     navigation.navigate('SearchPage');
   };
@@ -34,7 +43,7 @@ const LandingPage = () => {
       </View>
       <View style={styles.container}>
         <View style={styles.view1}>
-          <Text style={styles.welcomeText}>Welcome! Rohit</Text>
+          <Text style={styles.welcomeText}>Welcome! {userInfo.name}</Text>
         </View>
         <View style={styles.view2}>
           <Pressable onPress={handlePress}>
@@ -80,12 +89,11 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontWeight: 'bold',
-    fontFamily: 'cochin',
-    fontSize: 20,
+    fontSize: 24,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginLeft: 30,
-    marginTop: 10,
+    marginTop: 30,
   },
   map: {
     flex: 1,
@@ -104,10 +112,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   view1: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: 'white',
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
   view2: {
     flex: 1,

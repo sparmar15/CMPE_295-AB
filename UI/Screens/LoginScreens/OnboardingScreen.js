@@ -2,11 +2,11 @@
 // https://github.com/jfilter/react-native-onboarding-swiper
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import styles from '../Styles/OnboardingScreen';
+import styles from '../../Styles/LoginScreens/OnboardingScreen';
 import Onboarding from 'react-native-onboarding-swiper';
 import {useSelector} from 'react-redux';
 import {logger} from 'react-native-logs';
-import LandingPage from './LandingPage';
+// import LandingPage from './LandingPage';
 const Dots = ({selected}) => {
   let backgroundColor;
 

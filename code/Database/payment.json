@@ -1,0 +1,8 @@
+{
+  "_id": "payment001",
+  "rideId": "ride001",
+  "senderId": "user002",
+  "recieverId": "user001",
+  "amount": 10.5,
+  "timestamp": "2023-02-24T09:45:00Z"
+}

@@ -170,7 +170,6 @@ const styles = StyleSheet.create({
   distanceText: {
     fontSize: 20,
     fontWeight: 'bold',
-    fontFamily: 'System',
   },
   rideConfirmation: {
     flex: 0.75,
