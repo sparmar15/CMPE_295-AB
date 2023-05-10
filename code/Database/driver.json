@@ -8,7 +8,11 @@
   "car_make": "Toyota",
   "car_model": "Camry",
   "car_color": "Blue",
-  "car_license_plate": "ABC 123",
   "seats_available": 3,
-  "rating": 4.2
+  "car_license_plate": "ABC 123",
+  "carpooling_fare": 1099,
+  "rating": 4.2,
+  "total_trips": 279,
+  "member_since": "date",
+  "current_location": "coordinates"
 }

@@ -1,16 +1,21 @@
 import express from 'express';
-import bookRide from '../ipfsFns/bookRide.js';
+import {v4 as uuidv4} from 'uuid';
+import {addUser, getUserByHash} from '../ipfsFns/user.js';
+
 const ridesRoute = express.Router();
+
 ridesRoute.post('/addRide', async (req, res) => {
-  const val1 = req.body.data._id;
-  const driverData = req.body.data.driverData;
-  const riderData = req.body.data.riderData;
+  const userHash = req.session.userHash;
+  const userDetails = await getUserByHash(userHash);
+  const rideData = req.body.data;
+  rideData._id = uuidv4();
+  userDetails.ride_history.push(rideData);
 
   const options = {
     pinataMetadata: {
-      name: val1,
+      name: userDetails.email,
       keyvalues: {
-        user_name: val2,
+        _id: userDetails._id,
       },
     },
     pinataOptions: {
@@ -19,8 +24,8 @@ ridesRoute.post('/addRide', async (req, res) => {
     },
   };
   try {
-    const result = await bookRide(riderData, driverData, options);
-    req.session.driverHash = result.IpfsHash; //Need ride hash
+    const result = await addUser(userDetails, options);
+    req.session.userHash = result.IpfsHash; //Need ride hash
     return res.status(200).send({
       success: true,
       message: 'Ride Confirmed Succesfully',
@@ -35,3 +40,5 @@ ridesRoute.post('/addRide', async (req, res) => {
     });
   }
 });
+
+export {ridesRoute};

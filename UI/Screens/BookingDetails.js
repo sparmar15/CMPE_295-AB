@@ -184,9 +184,6 @@ const styles = StyleSheet.create({
     height: 16,
     top: '45%',
     left: '20%',
-    fontFamily: 'Georgia',
-    fontSize: 15,
-    lineHeight: 18,
   },
 
   Line: {

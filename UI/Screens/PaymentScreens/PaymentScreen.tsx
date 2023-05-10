@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {MERCHANT_ID, API_URL} from './Constants';
 import {useNavigation} from '@react-navigation/native';
+
 export interface PaymentScreenProps {
   amount: Number;
   buttoText: String;
