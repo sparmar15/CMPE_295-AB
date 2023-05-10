@@ -81,8 +81,8 @@
     {
       "_id": "review001",
       "rideId": "ride001",
-      "reviewer_id": "user_456",
-      "reviewee_id": "user_123",
+      "senderEmail": "user_456",
+      "recieverEmail": "user_123",
       "rating": 4.2,
       "comment": "John was an excellent driver, safe and punctual."
     }

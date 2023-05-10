@@ -3,53 +3,49 @@ import {pinata} from '../index.js';
 
 // insert new driver
 async function addUser(userData, options) {
-  const result = pinata
-    .pinJSONToIPFS(userData, options)
-    .then(result => {
-      // console.log(result);
-      return result;
-    })
-    .catch(err => {
-      // console.log(err);
-      return err;
-    });
-  return result;
+  try {
+    const result = await pinata.pinJSONToIPFS(userData, options);
+    return result;
+  } catch (err) {
+    console.log(err);
+    throw new Error('Error adding user data to IPFS');
+  }
 }
 
 // get any user of the application
 async function getUserByHash(cid) {
-  // console.log(url);
-  const url = 'https://gateway.pinata.cloud/ipfs/' + cid;
-  // console.log(url);
   let settings = {method: 'Get'};
-  const result = await fetch(url, settings)
-    .then(res => {
-      return res.json();
-    })
-    .catch(err => {
-      return err;
-    });
-  return result;
+  try {
+    if (cid && cid.length === 46) {
+      let url = 'https://gateway.pinata.cloud/ipfs/' + cid;
+      const data = await fetch(url, settings);
+      return data.json();
+    }
+  } catch (err) {
+    console.log(err);
+    throw new Error(
+      'UserHash couldnt be retrieved from the session or invalid hash length',
+    );
+  }
 }
 
+// get user by email
 async function getUserbyEmail(filters) {
-  // console.log(url);
   let settings = {method: 'Get'};
-  const result = pinata
-    .pinList(filters)
-    .then(async result => {
-      console.log('====================================');
-      console.log('PinList' + JSON.stringify(result));
-      console.log('====================================');
+  try {
+    const result = await pinata.pinList(filters);
+    if (result && result.rows && result.rows.length > 0) {
       let url =
         'https://gateway.pinata.cloud/ipfs/' + result.rows[0].ipfs_pin_hash;
       const data = await fetch(url, settings);
       return data.json();
-    })
-    .catch(err => {
-      return err;
-    });
-  return result;
+    } else {
+      throw new Error('No pin found for the specified email');
+    }
+  } catch (err) {
+    console.log(err);
+    throw new Error('Error getting user data by email');
+  }
 }
 
 export {addUser, getUserByHash, getUserbyEmail};

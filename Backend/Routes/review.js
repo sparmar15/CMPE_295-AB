@@ -1,126 +1,49 @@
 import express from 'express';
-import {
-  addReview,
-  getReviewsByHashes,
-  getFileHash,
-  deleteFileByHash,
-} from '../ipfsFns/review.js';
+import {v4 as uuidv4} from 'uuid';
+import {addUser, getUserByHash, getUserbyEmail} from '../ipfsFns/user.js';
 
 const reviewRoute = express.Router();
 
-// Define endpoints for Review document
 reviewRoute.post('/addReview', async (req, res) => {
-  const val1 = req.body.data.reviewId;
-  const val2 = req.body.data.senderId;
-  const val3 = req.body.data.recieverId;
-
-  const options = {
-    pinataMetadata: {
-      name: val1,
-      keyvalues: {
-        senderId: val2,
-        recieverId: val3,
-      },
-    },
-    pinataOptions: {
-      cidVersion: 0,
-      wrapWithDirectory: true,
-    },
-  };
   try {
-    const result = await addReview(req.body.data, options);
-    req.session.driverHash = result.IpfsHash;
-    return res.status(200).send({
-      success: true,
-      message: 'Review added successfully',
-      result: result,
-    });
-  } catch (err) {
-    console.log(err);
-    return res.status(400).send({
-      success: false,
-      message: 'Review couldnt be added',
-      error: err,
-    });
-  }
-});
+    const recieverEmail = req.body.data.recieverEmail;
+    const filters = {
+      metadata: {
+        name: recieverEmail,
+      },
+    };
+    const userDetails = await getUserbyEmail(filters);
+    const reviewData = req.body.data;
+    reviewData._id = uuidv4();
+    userDetails.reviews.push(reviewData);
 
-reviewRoute.get('/getReviewsPosted', async (req, res) => {
-  const val = req.query.senderId;
-  const filters = {
-    metadata: {
-      keyvalues: {
-        senderId: {
-          value: val,
-          op: 'eq',
+    const options = {
+      pinataMetadata: {
+        name: userDetails.email,
+        keyvalues: {
+          _id: userDetails._id,
         },
       },
-    },
-  };
-  try {
-    const reviews = await getFileHash(filters);
-    const ipfsHashes = reviews.rows.map(row => row.ipfs_pin_hash);
-    const result = await getReviewsByHashes(ipfsHashes);
-    return res.status(200).send({
-      success: true,
-      message: 'Review data retrieved successfully',
-      result: result,
-    });
-  } catch (err) {
-    console.log(err);
-    return res.status(400).send({
-      success: false,
-      message: 'Review data couldnt be retrieved',
-      error: err,
-    });
-  }
-});
-
-reviewRoute.get('/getReviewsRecieved', async (req, res) => {
-  const val = req.query.recieverId;
-  const filters = {
-    metadata: {
-      keyvalues: {
-        recieverId: {
-          value: val,
-          op: 'eq',
-        },
+      pinataOptions: {
+        cidVersion: 0,
+        wrapWithDirectory: true,
       },
-    },
-  };
-  try {
-    const reviews = await getFileHash(filters);
-    const ipfsHashes = reviews.rows.map(row => row.ipfs_pin_hash);
-    const result = await getReviewsByHashes(ipfsHashes);
-    return res.status(200).send({
-      success: true,
-      message: 'Review data retrieved successfully',
-      result: result,
-    });
-  } catch (err) {
-    console.log(err);
-    return res.status(400).send({
-      success: false,
-      message: 'Review data couldnt be retrieved',
-      error: err,
-    });
-  }
-});
+    };
 
-reviewRoute.delete('/unpinFile', async (req, res) => {
-  try {
-    const result = await deleteFileByHash(req.query.cid);
+    const result = await addUser(userDetails, options);
+    req.session.userHash = result.IpfsHash;
+
     return res.status(200).send({
       success: true,
-      message: 'Review deleted successfully',
+      message: 'Ride History Updated Succesfully',
       result: result,
     });
   } catch (err) {
     console.log(err);
     return res.status(400).send({
       success: false,
-      message: 'Review couldnt be deleted',
-      error: err,
+      message: 'Ride History cannot be Updated',
+      error: err.message,
     });
   }
 });

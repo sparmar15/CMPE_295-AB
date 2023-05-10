@@ -4,26 +4,24 @@ import {addUser, getUserByHash, getUserbyEmail} from '../ipfsFns/user.js';
 
 const userRoute = express.Router();
 
+// Add user route
 userRoute.post('/addUser', async (req, res) => {
-  const userDetails = req.body.data;
-  // only create new uuid if _id is not present in user details. Helps when updating a userFile and maintining the same uuid for it throughout updates.
-  if (!userDetails._id) {
-    userDetails._id = uuidv4();
-  }
-
-  const options = {
-    pinataMetadata: {
-      name: userDetails.email,
-      keyvalues: {
-        _id: userDetails._id,
-      },
-    },
-    pinataOptions: {
-      cidVersion: 0,
-      wrapWithDirectory: true,
-    },
-  };
   try {
+    const userDetails = req.body.data;
+    userDetails._id = userDetails._id || uuidv4();
+    console.log(userDetails._id); // If _id is not present in user details, create a new uuid for it.
+    const options = {
+      pinataMetadata: {
+        name: userDetails.email,
+        keyvalues: {
+          _id: userDetails._id,
+        },
+      },
+      pinataOptions: {
+        cidVersion: 0,
+        wrapWithDirectory: true,
+      },
+    };
     const result = await addUser(userDetails, options);
     req.session.userHash = result.IpfsHash;
     return res.status(200).send({
@@ -36,26 +34,20 @@ userRoute.post('/addUser', async (req, res) => {
     return res.status(400).send({
       success: false,
       message: 'User data couldnt be added',
-      error: err,
+      error: err.message,
     });
   }
 });
 
+// Get user by email route
 userRoute.get('/getUserByEmail', async (req, res) => {
-  const email = req.body.data.email;
-  // const _id = req.body._id;
-  const filters = {
-    metadata: {
-      name: email,
-      // keyvalues: {
-      //   _id: {
-      //     value: _id,
-      //     op: 'eq',
-      //   },
-      // },
-    },
-  };
   try {
+    const email = req.body.data.email;
+    const filters = {
+      metadata: {
+        name: email,
+      },
+    };
     const result = await getUserbyEmail(filters);
     return res.status(200).send({
       success: true,
@@ -67,17 +59,15 @@ userRoute.get('/getUserByEmail', async (req, res) => {
     return res.status(400).send({
       success: false,
       message: 'User data couldnt be retrieved',
-      error: err,
+      error: err.message,
     });
   }
 });
 
+// Get user by hash route
 userRoute.get('/getUserByHash', async (req, res) => {
   try {
-    const userHash = req.session.userHash;
-    const result = await getUserByHash(
-      'QmYqTTucHHKsWFv2oRqUfPMEhzQxroWeRXtZtYeDLp6sUe',
-    );
+    const result = await getUserByHash(req.session.userHash);
     return res.status(200).send({
       success: true,
       message: 'User data retrieved successfully',
@@ -88,7 +78,7 @@ userRoute.get('/getUserByHash', async (req, res) => {
     return res.status(400).send({
       success: false,
       message: 'User data couldnt be retrieved',
-      error: err,
+      error: err.message,
     });
   }
 });

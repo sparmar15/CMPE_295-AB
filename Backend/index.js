@@ -10,10 +10,10 @@ dotenv.config();
 import http from 'http';
 // import {mongoose} from 'mongoose';
 import initSocket from './SocketIO/socket.js';
-// import {reviewRoute} from './Routes/review.js';
+import {reviewRoute} from './Routes/review.js';
 import {userRoute} from './Routes/user.js';
 import {paymentRoute} from './Routes/payments.js';
-import {ridesRoute} from './Routes/Rides.js';
+import {ridesRoute} from './Routes/rides.js';
 
 const app = express();
 const port = 4000;
@@ -59,7 +59,7 @@ pinata
 // Routing
 // app.use('/drivers', driverRoute);
 // app.use('/riders', riderRoute);
-// app.use('/reviews', reviewRoute);
+app.use('/reviews', reviewRoute);
 app.use('/users', userRoute);
 app.use('/payments', paymentRoute);
 app.use('/rides', ridesRoute);
