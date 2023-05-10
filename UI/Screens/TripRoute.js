@@ -54,7 +54,17 @@ function TripRoute() {
   };
 
   const onConfirm = () => {
-    navigation.navigate('ConfirmRidePage');
+    navigation.navigate('Home', {
+      screen: 'ConfirmRidePage',
+      params: {
+        tripRoute: {
+          startLocation: startLocation,
+          endLocation: endLocation,
+          startPlace: startPlace,
+          endPlace: endPlace,
+        },
+      },
+    });
   };
 
   return (
@@ -83,8 +93,8 @@ function TripRoute() {
               optimizeWaypoints={true}
               splitWaypoints={true}
               language="en"
-              unit="metric"
-              mode="driving"
+              unit="imperial"
+              mode="DRIVING"
               avoid="ferries"
               onReady={onReady}
             />

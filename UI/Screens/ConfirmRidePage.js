@@ -10,23 +10,64 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {logger} from 'react-native-logs';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
-const rides = [
-  {id: 1, icon: 'car', text: 'Car Ride', fare: '$10', noOfAvailableSeats: 3},
-  {id: 2, icon: 'car', text: 'Car Ride', fare: '$5', noOfAvailableSeats: 4},
-  {id: 3, icon: 'car', text: 'Car Ride', fare: '$0', noOfAvailableSeats: 2},
-  {id: 4, icon: 'car', text: 'Car Ride', fare: '$10', noOfAvailableSeats: 5},
-  {id: 5, icon: 'car', text: 'Car Ride', fare: '$5', noOfAvailableSeats: 1},
-  {id: 6, icon: 'car', text: 'Car Ride', fare: '$0', noOfAvailableSeats: 2},
+const availableRides = [
+  {
+    id: 1,
+    icon: 'car',
+    fare: 1099,
+    noOfAvailableSeats: 3,
+    driver: {
+      name: 'John Smith',
+      profileImage: 'https://randomuser.me/api/portraits/men/29.jpg',
+      carName: 'Toyota Camry',
+      noOfSeats: 4,
+      ratings: 3.4,
+    },
+    timeToArrive: '5 mins',
+    distance: '0.1 mi',
+  },
+  {
+    id: 2,
+    icon: 'car',
+    fare: 12500,
+    noOfAvailableSeats: 2,
+    driver: {
+      name: 'Jane Doe',
+      profileImage: 'https://randomuser.me/api/portraits/men/44.jpg',
+      carName: 'Honda Civic',
+      noOfSeats: 3,
+      ratings: 4.3,
+    },
+    timeToArrive: '8 mins',
+    distance: '0.5 mi',
+  },
+  {
+    id: 3,
+    icon: 'car',
+    fare: 1500,
+    noOfAvailableSeats: 1,
+    driver: {
+      name: 'Bob Johnson',
+      profileImage: 'https://randomuser.me/api/portraits/men/90.jpg',
+      carName: 'Ford Mustang',
+      noOfSeats: 2,
+      ratings: 5.0,
+    },
+    timeToArrive: '10 mins',
+    distance: '0.8 mi',
+  },
 ];
-
 const RideOption = ({ride, selectedRide, setSelectedRide}) => {
   return (
     <View style={styles.rideOption}>
-      <Image source={require('../Assets/rideCar.png')} />
-      <Text style={styles.rideText}>{ride.text}</Text>
-      <Text style={styles.fareText}>{ride.fare}</Text>
+      <Image
+        style={styles.rideImage}
+        source={require('../Assets/rideCar.png')}
+      />
+      <Text style={styles.rideText}>{ride.driver.carName}</Text>
+      <Text style={styles.fareText}>${(ride.fare / 100).toFixed(2)}</Text>
       <Text style={styles.fareText}>{ride.noOfAvailableSeats}</Text>
       <View style={styles.radioContainer}>
         <TouchableOpacity onPress={() => setSelectedRide(ride.id)}>
@@ -41,30 +82,38 @@ const RideOption = ({ride, selectedRide, setSelectedRide}) => {
 
 const ConfirmRidePage = () => {
   const handleBack = () => {
-    navigation.navigate('SearchPage');
+    navigation.navigate('Home', {
+      screen: 'SearchPage',
+    });
   };
   const [selectedRide, setSelectedRide] = useState(null);
   const Log = logger.createLogger();
   const navigation = useNavigation();
+  const route = useRoute();
+  const {tripRoute} = route.params;
+  const selectedRideDetails = availableRides.find(
+    option => option.id === selectedRide,
+  );
   const selectDriver = () => {
     navigation.navigate('Home', {
       screen: 'SelectDriverPage',
+      params: {rideDetails: selectedRideDetails, tripRoute: tripRoute},
     });
   };
-  Log.info('selectedRide' + selectedRide);
+  Log.info('selectedRide' + JSON.stringify(selectedRideDetails));
   return (
     <View style={styles.container}>
+      <View style={styles.distance}>
+        <Text style={styles.distanceText}>Choose Ride</Text>
+      </View>
       <SafeAreaView style={styles.upperContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        {/* <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Icon name="keyboard-backspace" size={30} color="black" />
-        </TouchableOpacity>
-        <View style={styles.distance}>
-          <Text style={styles.distanceText}>Choose Ride</Text>
-        </View>
+        </TouchableOpacity> */}
       </SafeAreaView>
       <ScrollView style={styles.lowerContainer}>
         {/* <View style={styles.rideCards}> */}
-        {rides.map(ride => (
+        {availableRides.map(ride => (
           <RideOption
             key={ride.id}
             ride={ride}
@@ -99,12 +148,13 @@ const styles = StyleSheet.create({
     flex: 0.15,
   },
   distance: {
-    flex: 1,
-    top: 2,
+    // flex: 0,
+    top: 20,
+    left: 20,
   },
   distanceText: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    // fontWeight: 'bold',
     fontFamily: 'System',
   },
   lowerContainer: {
@@ -122,8 +172,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 10, // Set a value for borderRadius to create a rectangular curve
     backgroundColor: 'white',
-    padding: 10,
+    padding: 20,
     margin: 10,
+    alignItems: 'center',
     height: 100,
     shadowColor: '#000',
     shadowOffset: {
@@ -133,22 +184,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+  rideImage: {
+    height: 50,
+    width: 50,
+    alignSelf: 'center',
+  },
+
   rideText: {
-    marginLeft: 10,
-    marginTop: 20,
+    // marginTop: 20,
     fontSize: 18,
     fontSize: 20,
-    fontWeight: 'bold',
+    width: 150,
+    paddingLeft: 20,
+    // fontWeight: 'bold',
     fontFamily: 'System',
   },
   fareText: {
-    marginTop: 20,
+    // marginTop: 20,
     marginLeft: 'auto',
     fontSize: 18,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
   },
   radioContainer: {
-    marginTop: 20,
+    // marginTop: 20,
     marginLeft: 'auto',
   },
   radio: {
@@ -157,17 +215,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     borderColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   selectedRadio: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+    width: 16,
+    height: 16,
+    borderRadius: 10,
+    // borderWidth: 2,
     backgroundColor: '#000',
   },
   continue: {
-    flex: 0.1,
+    flex: 0.2,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -176,7 +235,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 50,
     borderRadius: 30,
-    top: 10,
+    // top: 10,
   },
 });
 

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useRoute} from '@react-navigation/native';
 import {
   View,
   Text,
@@ -8,17 +9,24 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {ethers} from 'ethers';
-import MyContract from '../../artifacts/contracts/ConfirmRide.sol/RideContract.json';
+import PaymentScreen from './PaymentScreens/PaymentScreen';
+// import MyContract from '../../artifacts/contracts/ConfirmRide.sol/RideContract.json';
 import {logger} from 'react-native-logs';
 import {useNavigation} from '@react-navigation/native';
 
-const SelectDriverPage = ({riderName, riderPicture}) => {
+const SelectDriverPage = () => {
   const navigation = useNavigation();
-
-  const handleConfirm = async (contractAddress, privateKey) => {
-    navigation.navigate('Home', {
-      screen: 'BookingDetails',
+  const route = useRoute();
+  const {tripRoute, rideDetails} = route.params;
+  const handleConfirm = async () => {
+    navigation.navigate('Wallet', {
+      screen: 'Wallet/Stripe',
+      params: {rideDetails: rideDetails, tripRoute: tripRoute},
     });
+    // navigation.navigate('Home', {
+    //   screen: 'BookingDetails',
+    //   params: {rideDetails: rideDetails, tripRoute: tripRoute},
+    // });
     //   try {
     //     const signer = provider.getSigner()[0];
     //     Log.info(signer);
@@ -39,12 +47,20 @@ const SelectDriverPage = ({riderName, riderPicture}) => {
     <SafeAreaView style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../Assets/driverImage.png')}
+        source={{uri: rideDetails.driver.profileImage}}
       />
-      <Text style={styles.text}>Confirm your ride with Rohit?</Text>
-      <TouchableOpacity style={styles.button} onPress={handleConfirm}>
+      <Text style={styles.text}>
+        Confirm your ride with {rideDetails.driver.name}?
+      </Text>
+      <PaymentScreen
+        amount={rideDetails.fare}
+        buttoText={'Confirm Ride'}
+        rideDetails={rideDetails}
+        tripRoute={tripRoute}
+      />
+      {/* <TouchableOpacity style={styles.button} onPress={handleConfirm}>
         <Text style={styles.buttonText}>Confirm Ride</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity style={styles.backButton} onPress={handleBack}>
         <Text style={styles.buttonText}>Cancel</Text>
       </TouchableOpacity>

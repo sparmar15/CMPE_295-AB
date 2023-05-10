@@ -1,9 +1,27 @@
 import {StripeProvider, usePaymentSheet} from '@stripe/stripe-react-native';
 import React, {useEffect, useState} from 'react';
-import {Button, Image, Text, View, Alert, StyleSheet} from 'react-native';
+import {
+  TouchableOpacity,
+  Image,
+  Text,
+  View,
+  Alert,
+  StyleSheet,
+} from 'react-native';
 import {MERCHANT_ID, API_URL} from './Constants';
-
-const PaymentScreen = () => {
+import {useNavigation} from '@react-navigation/native';
+export interface PaymentScreenProps {
+  amount: Number;
+  buttoText: String;
+  rideDetails: Object;
+  tripRoute: Object;
+}
+const PaymentScreen = ({
+  amount,
+  buttoText,
+  rideDetails,
+  tripRoute,
+}: PaymentScreenProps) => {
   const [ready, setReady] = useState(false);
   const {
     initPaymentSheet,
@@ -11,7 +29,7 @@ const PaymentScreen = () => {
     loading,
     resetPaymentSheetCustomer,
   } = usePaymentSheet();
-
+  const navigation = useNavigation();
   useEffect(() => {
     initialisePaymentSheet();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,6 +81,7 @@ const PaymentScreen = () => {
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({amount: amount}),
     });
 
     const {paymentIntent, ephemeralKey, customer} = await response.json();
@@ -82,6 +101,10 @@ const PaymentScreen = () => {
     } else {
       Alert.alert('Success', 'The payment was confirmed successfully');
       setReady(false);
+      navigation.navigate('Home', {
+        screen: 'BookingDetails',
+        params: {rideDetails: rideDetails, tripRoute: tripRoute},
+      });
     }
   }
 
@@ -90,12 +113,12 @@ const PaymentScreen = () => {
       <StripeProvider
         publishableKey="pk_test_51N3HUWLHuLtWJqHPT2fWV3Uo9ulMNPUoWeetUB3lafGkHNnUqfdyScCcyROwCVOOijz2PCCShUbk326225JARJpU007P5GnL3S"
         merchantIdentifier={MERCHANT_ID}>
-        <Text>1 kg of Sweet Potatoes</Text>
-        {/* <Image source={require('./potato.jpeg')} style={styles.image} /> */}
-
-        <View style={styles.buttons}>
-          <Button title={'Buy'} onPress={buy} disabled={loading || !ready} />
-        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={buy}
+          disabled={loading || !ready}>
+          <Text style={styles.buttonText}>{buttoText}</Text>
+        </TouchableOpacity>
       </StripeProvider>
     </View>
   );
@@ -112,9 +135,16 @@ const styles = StyleSheet.create({
     height: 250,
     width: 250,
   },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '50%',
+  button: {
+    backgroundColor: '#4285F4',
+    color: 'white',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

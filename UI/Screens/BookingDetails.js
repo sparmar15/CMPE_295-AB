@@ -9,13 +9,17 @@ import {
 } from 'react-native';
 import {HeaderBackButton} from '@react-navigation/elements';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 export default function BookingDetails() {
   const navigation = useNavigation();
+  const route = useRoute();
   const handleBack = () => {
-    navigation.navigate('SelectDriverPage');
+    navigation.navigate('Home', {
+      screen: 'SelectDriverPage',
+    });
   };
+  const {rideDetails, tripRoute} = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -24,22 +28,22 @@ export default function BookingDetails() {
         source={{
           uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/s4r49v7n5wq-117%3A2588?alt=media&token=fb80c5f5-0422-4095-9212-61445a7dd541',
         }}>
-        <View style={styles.backButtonContainer}>
+        {/* <View style={styles.backButtonContainer}>
           <HeaderBackButton
             onPress={handleBack}
             tintColor="black"
             labelVisible={true}
           />
-        </View>
+        </View> */}
 
         <View style={styles.Intro}>
           <View style={styles.Intro.ModalSmall}>
             <Image
               style={styles.Intro.ProfileImg}
-              source={require('../Assets/driverImage.png')}
+              source={{uri: rideDetails.driver.profileImage}}
             />
-            <Text style={styles.Name}>Rohit Yadav</Text>
-            <Text style={styles.Rating}>4.9</Text>
+            <Text style={styles.Name}>{rideDetails.driver.name}</Text>
+            <Text style={styles.Rating}>{rideDetails.driver.ratings}</Text>
             <Image
               style={styles.Star}
               source={{
@@ -47,10 +51,8 @@ export default function BookingDetails() {
               }}
             />
           </View>
-          <Text style={styles._7958SwiftVillage}>7958 Swift Village</Text>
-          <Text style={styles._105WilliamStChic}>
-            105 William St, Chicago, US
-          </Text>
+          <Text style={styles._7958SwiftVillage}>{tripRoute.startPlace}</Text>
+          <Text style={styles._105WilliamStChic}>{tripRoute.endPlace}</Text>
           <Image
             style={styles.Line2}
             source={{
@@ -88,12 +90,12 @@ export default function BookingDetails() {
               uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/tqz7pp2f34e-117%3A2689?alt=media&token=5761d59d-4bfc-4270-a99d-ed7e609e5f5b',
             }}
           />
-          <Text style={styles.Distance}>DISTANCE</Text>
-          <Text style={styles.DistanceVal}>0.2 km</Text>
-          <Text style={styles.Time}>TIME</Text>
-          <Text style={styles.TimeVal}>1hr 2min</Text>
+          <Text style={styles.Distance}>AWAY</Text>
+          <Text style={styles.DistanceVal}>{rideDetails.distance}</Text>
+          <Text style={styles.Time}>ARRIVING</Text>
+          <Text style={styles.TimeVal}>{rideDetails.timeToArrive}</Text>
           <Text style={styles.Price}>PRICE</Text>
-          <Text style={styles.PriceVal}>$25</Text>
+          <Text style={styles.PriceVal}>${rideDetails.fare}</Text>
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     height: '100%',
+    width: '100%',
   },
   BookingDetails: {
     width: 375,
@@ -141,7 +144,7 @@ const styles = StyleSheet.create({
   },
 
   Maps: {
-    width: 375,
+    width: '100%',
     height: 812,
   },
 
@@ -198,7 +201,7 @@ const styles = StyleSheet.create({
   ModalPanel: {
     width: 311,
     height: 45,
-    borderRadius: 8,
+    borderRadius: 20,
     backgroundColor: 'rgba(36,46,66,1)',
   },
 

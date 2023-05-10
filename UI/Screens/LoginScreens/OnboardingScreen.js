@@ -83,7 +83,7 @@ function OnboardingScreen({navigation}) {
               image: (
                 <Image
                   style={styles.icon}
-                  source={require('../../Assets//onboarding5.jpg')}
+                  source={require('../../Assets/onboarding5.jpg')}
                 />
               ),
               title: <Text style={styles.title}>Select Your Ride</Text>,
@@ -98,7 +98,7 @@ function OnboardingScreen({navigation}) {
               image: (
                 <Image
                   style={styles.icon}
-                  source={require('../../Assets//onboarding4.jpg')}
+                  source={require('../../Assets/onboarding4.jpg')}
                 />
               ),
               title: <Text style={styles.title}>Share Your Ride</Text>,

@@ -8,6 +8,9 @@ const paymentRoute = express.Router();
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY || '';
 
 paymentRoute.post('/payment-sheet', async (req, res) => {
+  console.log('====================================');
+  console.log(typeof req.body.amount);
+  console.log('====================================');
   const {email = `test${Math.floor(Math.random() * 9999) + 1}@domain.com`} =
     req.body;
 
@@ -23,16 +26,9 @@ paymentRoute.post('/payment-sheet', async (req, res) => {
     {apiVersion: '2020-08-27'},
   );
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 5099,
+    amount: req.body.amount,
     currency: 'usd',
-    payment_method_types: [
-      'card',
-      'link',
-      'us_bank_account',
-      'affirm',
-      'afterpay_clearpay',
-      'klarna',
-    ],
+    payment_method_types: ['card', 'link', 'us_bank_account'],
   });
   return res.json({
     paymentIntent: paymentIntent.client_secret,
