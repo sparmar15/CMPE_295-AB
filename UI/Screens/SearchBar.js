@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 30,
     marginRight: 30,
-
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 10,
@@ -29,6 +28,7 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 16,
+    color: 'gray',
   },
 });
 export default SearchBar;

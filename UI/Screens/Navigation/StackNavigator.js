@@ -50,7 +50,7 @@ const MainStackNavigator = () => {
         name="SearchPage"
         component={SearchPage}
         options={{
-          headerTitle: 'Home',
+          headerTitle: 'Select Address',
           presentation: 'transparentModal',
           transitionSpec: {
             open: {animation: 'timing', config: {duration: 100}},
@@ -62,7 +62,7 @@ const MainStackNavigator = () => {
         name="TripRoute"
         component={TripRoute}
         options={{
-          headerTitle: 'Home',
+          headerTitle: 'Trip',
           presentation: 'transparentModal',
           transitionSpec: {
             open: {animation: 'timing', config: {duration: 100}},
@@ -74,7 +74,7 @@ const MainStackNavigator = () => {
         name="SelectDriverPage"
         component={SelectDriverPage}
         options={{
-          headerTitle: 'Home',
+          headerTitle: 'Select Ride',
           // presentation: 'transparentModal',
           transitionSpec: {
             open: {animation: 'timing', config: {duration: 100}},
@@ -86,7 +86,7 @@ const MainStackNavigator = () => {
         name="ConfirmRidePage"
         component={ConfirmRidePage}
         options={{
-          headerTitle: 'Home',
+          headerTitle: 'Choose Ride',
           presentation: 'transparentModal',
           transitionSpec: {
             open: {animation: 'timing', config: {duration: 100}},
@@ -98,7 +98,7 @@ const MainStackNavigator = () => {
         name="BookingDetails"
         component={BookingDetails}
         options={{
-          headerTitle: 'Home',
+          headerTitle: 'Booking Details',
           transitionSpec: {
             open: {animation: 'timing', config: {duration: 100}},
             close: {animation: 'timing', config: {duration: 100}},
@@ -146,7 +146,7 @@ const WalletNavigator = () => {
         name="Wallet/Stripe"
         component={PaymentScreen}
         options={({route}) => ({
-          headerTitle: 'Stripe',
+          headerTitle: 'Stripe Payment',
         })}
       />
     </Stack.Navigator>

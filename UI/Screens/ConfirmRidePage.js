@@ -103,9 +103,9 @@ const ConfirmRidePage = () => {
   Log.info('selectedRide' + JSON.stringify(selectedRideDetails));
   return (
     <View style={styles.container}>
-      <View style={styles.distance}>
+      {/* <View style={styles.distance}>
         <Text style={styles.distanceText}>Choose Ride</Text>
-      </View>
+      </View> */}
       <SafeAreaView style={styles.upperContainer}>
         {/* <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Icon name="keyboard-backspace" size={30} color="black" />
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   upperContainer: {
-    flex: 0.1,
+    // flex: 0.1,
     flexDirection: 'row',
     alignItems: 'flex-start',
     // justifyContent: 'center',
@@ -153,9 +153,9 @@ const styles = StyleSheet.create({
     left: 20,
   },
   distanceText: {
-    fontSize: 18,
-    // fontWeight: 'bold',
-    fontFamily: 'System',
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   lowerContainer: {
     flex: 1.5,
@@ -231,10 +231,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   continueButton: {
-    backgroundColor: '#1E90FF',
-    paddingVertical: 15,
-    paddingHorizontal: 50,
-    borderRadius: 30,
+    backgroundColor: '#4285F4',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
     // top: 10,
   },
 });

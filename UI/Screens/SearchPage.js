@@ -67,9 +67,9 @@ function SearchPage({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.lowerContainer}>
-        <View style={styles.selectAddressContainer}>
+        {/* <View style={styles.selectAddressContainer}>
           <Text style={styles.selectAddressText}>Select Address</Text>
-        </View>
+        </View> */}
         <View style={styles.inputContainer}>
           <Icon name="my-location" size={30} color="blue" style={styles.icon} />
           <GooglePlacesAutocomplete
@@ -83,7 +83,7 @@ function SearchPage({navigation}) {
             styles={{
               container: styles.searchContainer,
               textInput: styles.input,
-              listView: styles.listView,
+              listView: styles.listViewFrom,
             }}
             enablePoweredByContainer={false}
             minLength={2}
@@ -111,7 +111,7 @@ function SearchPage({navigation}) {
             styles={{
               container: styles.searchContainer,
               textInput: styles.input,
-              listView: styles.listView,
+              listView: styles.listViewTo,
             }}
             enablePoweredByContainer={false}
             minLength={2}
@@ -151,8 +151,13 @@ const styles = StyleSheet.create({
     left: 10,
     right: 10,
   },
-  listView: {
-    top: 70, // Adjust this value as needed
+  listViewTo: {
+    top: 5, // Adjust this value as needed
+    right: 10,
+    maxHeight: 80, // Add this line to limit the max height of the list view
+  },
+  listViewFrom: {
+    top: 75, // Adjust this value as needed
     right: 10,
     maxHeight: 80, // Add this line to limit the max height of the list view
   },
@@ -174,12 +179,14 @@ const styles = StyleSheet.create({
     display: 'none',
   },
   upperContainer: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: 'transparent',
+
     // borderBottomLeftRadius: 20,
     // borderBottomRightRadius: 20,
   },
   lowerContainer: {
+    top: '50%',
     backgroundColor: '#fff',
     flex: 1,
     borderTopLeftRadius: 20,
@@ -199,8 +206,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     borderRadius: 20,
     padding: 10,
-    margin: 20,
-    marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 20,
   },
   selectAddressContainer: {
     paddingHorizontal: 20,
