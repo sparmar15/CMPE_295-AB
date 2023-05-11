@@ -1,37 +1,46 @@
 import express from 'express';
-import bookRide from '../ipfsFns/bookRide.js';
-const ridesRoute = express.Router();
-ridesRoute.post('/addRide', async (req, res) => {
-  const val1 = req.body.data._id;
-  const driverData = req.body.data.driverData;
-  const riderData = req.body.data.riderData;
+import {v4 as uuidv4} from 'uuid';
+import {addUser, getUserByHash} from '../ipfsFns/user.js';
 
-  const options = {
-    pinataMetadata: {
-      name: val1,
-      keyvalues: {
-        user_name: val2,
-      },
-    },
-    pinataOptions: {
-      cidVersion: 0,
-      wrapWithDirectory: true,
-    },
-  };
+const ridesRoute = express.Router();
+
+ridesRoute.post('/addRide', async (req, res) => {
   try {
-    const result = await bookRide(riderData, driverData, options);
-    req.session.driverHash = result.IpfsHash; //Need ride hash
+    const userHash = req.session.userHash;
+    const userDetails = await getUserByHash(userHash);
+    const rideData = req.body.data;
+    rideData._id = uuidv4();
+    userDetails.ride_history.push(rideData);
+
+    const options = {
+      pinataMetadata: {
+        name: userDetails.email,
+        keyvalues: {
+          _id: userDetails._id,
+        },
+      },
+      pinataOptions: {
+        cidVersion: 0,
+        wrapWithDirectory: true,
+      },
+    };
+
+    const result = await addUser(userDetails, options);
+    req.session.userHash = result.IpfsHash;
+
     return res.status(200).send({
       success: true,
-      message: 'Ride Confirmed Succesfully',
+      message: 'Ride History Updated Succesfully',
       result: result,
     });
   } catch (err) {
     console.log(err);
     return res.status(400).send({
       success: false,
-      message: 'Ride cannot be xonfirmed',
-      error: err,
+      message: 'Ride History cannot be Updated',
+      error: err.message,
     });
   }
 });
+
+export {ridesRoute};

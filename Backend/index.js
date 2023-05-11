@@ -5,15 +5,15 @@ import bodyParser from 'body-parser';
 import pinataSDK from '@pinata/sdk';
 import dotenv from 'dotenv';
 dotenv.config();
-import {driverRoute} from './Routes/driver.js';
-import {riderRoute} from './Routes/rider.js';
-import {reviewRoute} from './Routes/review.js';
+// import {driverRoute} from './Routes/driver.js';
+// import {riderRoute} from './Routes/rider.js';
 import http from 'http';
 import {mongoose} from 'mongoose';
 import initSocket from './SocketIO/socket.js';
+import {reviewRoute} from './Routes/review.js';
 import {userRoute} from './Routes/user.js';
-
 import {paymentRoute} from './Routes/payments.js';
+import {ridesRoute} from './Routes/rides.js';
 
 const app = express();
 const port = 4000;
@@ -31,6 +31,9 @@ app.use(
     secret: process.env.EXPRESS_SESSION_SECRET, // replace with your own secret key
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000, // expire session after 24 hours
+    },
   }),
 );
 
@@ -54,11 +57,12 @@ pinata
   });
 
 // Routing
-app.use('/drivers', driverRoute);
-app.use('/riders', riderRoute);
+// app.use('/drivers', driverRoute);
+// app.use('/riders', riderRoute);
 app.use('/reviews', reviewRoute);
 app.use('/users', userRoute);
 app.use('/payments', paymentRoute);
+app.use('/rides', ridesRoute);
 
 // Start the server
 app.listen(port, () => {

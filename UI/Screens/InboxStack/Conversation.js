@@ -43,9 +43,9 @@ export default function Conversation({conversation, currentUser}) {
   }, [conversation, currentUser]);
   const handleChatClick = () => {
     Log.info('press', user);
-    navigation.navigate('Chat', {
-      conversation,
-      friendId: user,
+    navigation.navigate('Inbox', {
+      screen: 'ChatScreen',
+      params: {conversation, friendId: user},
     });
   };
   return (

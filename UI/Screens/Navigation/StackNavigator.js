@@ -10,6 +10,10 @@ import PaymentScreen from '../PaymentScreens/PaymentScreen';
 import SelectDriverPage from '../SelectDriverPage';
 import ConfirmRidePage from '../ConfirmRidePage';
 import BookingDetails from '../BookingDetails';
+import RideHistory from '../BookingScreens/RideHistory';
+import RideInfo from '../BookingScreens/RideInfo';
+import InboxScreen from '../InboxStack/InboxScreen';
+import ChatScreen from '../InboxStack/ChatScreen';
 // import Contact from '../screens/Contact';
 
 const Stack = createStackNavigator();
@@ -109,15 +113,42 @@ const MainStackNavigator = () => {
   );
 };
 
-const UserProfileNavigator = () => {
+const BookingNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen
-        name="UserProfile"
-        component={UserProfile}
+        name="RideHistory"
+        component={RideHistory}
         options={({route}) => ({
-          headerTitle: 'Settings',
-          headerLeft: null,
+          headerTitle: 'My Bookings',
+        })}
+      />
+      <Stack.Screen
+        name="RideInfo"
+        component={RideInfo}
+        options={({route}) => ({
+          headerTitle: 'My Bookings',
+        })}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const InboxNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen
+        name="InboxScreen"
+        component={InboxScreen}
+        options={({route}) => ({
+          headerTitle: 'Inbox',
+        })}
+      />
+      <Stack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
+        options={({route}) => ({
+          headerTitle: 'Inbox',
         })}
       />
     </Stack.Navigator>
@@ -153,4 +184,25 @@ const WalletNavigator = () => {
   );
 };
 
-export {MainStackNavigator, UserProfileNavigator, WalletNavigator};
+const UserProfileNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen
+        name="UserProfile"
+        component={UserProfile}
+        options={({route}) => ({
+          headerTitle: 'Settings',
+          headerLeft: null,
+        })}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export {
+  MainStackNavigator,
+  BookingNavigator,
+  WalletNavigator,
+  InboxNavigator,
+  UserProfileNavigator,
+};

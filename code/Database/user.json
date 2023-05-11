@@ -1,0 +1,90 @@
+{
+  "_id": "user_123",
+  "name": "John Doe",
+  "email": "john.doe@email.com",
+  "password": "$2a$10$Snvm.OlIaXjx8deq3uq7VefYkGmB7m5d6eUMUf23oU6EjXZ4yp4b2",
+  "phone": "+11234567890",
+  "profile_picture": "https://example.com/profile_picture.jpg",
+  "rating": 4.2,
+  "member_since": "2023-01-25T11:45:00Z",
+  "current_location": {
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "address": "456 Pine St, San Francisco, CA"
+  },
+  "total_trips": 279,
+  "wallet_address": "0x1234567890abcdef1234567890abcdef12345678",
+  "car_details": [
+    {
+      "_id": "car001",
+      "car_make": "Toyota",
+      "car_model": "Camry",
+      "car_color": "Blue",
+      "car_license_plate": "ABC 123",
+      "seats_available": 3,
+      "carpooling_fare": 1099
+    }
+  ],
+  "ride_history": [
+    {
+      "_id": "ride001",
+      "type": "ride_offered",
+      "driverId": "user_123",
+      "riderIds": ["user_456", "user_789"],
+      "startLocation": {
+        "latitude": 37.7895,
+        "longitude": -122.4005,
+        "address": "789 Market St, San Francisco, CA"
+      },
+      "endLocation": {
+        "latitude": 37.792,
+        "longitude": -122.3993,
+        "address": "123 Mission St, San Francisco, CA"
+      },
+      "distance": 5.8,
+      "duration": 15,
+      "fare": 2100,
+      "timestamp": "2023-02-24T09:30:00Z"
+    },
+    {
+      "_id": "ride002",
+      "type": "ride_requested",
+      "driverId": "user_789",
+      "riderIds": ["user_123", "user_456"],
+      "startLocation": {
+        "latitude": 37.7829,
+        "longitude": -122.4361,
+        "address": "456 Divisadero St, San Francisco, CA"
+      },
+      "endLocation": {
+        "latitude": 37.7948,
+        "longitude": -122.407,
+        "address": "321 Kearny St, San Francisco, CA"
+      },
+      "distance": 7.6,
+      "duration": 20,
+      "fare": 3200,
+      "timestamp": "2023-02-25T14:45:00Z"
+    }
+  ],
+  "payment_history": [
+    {
+      "_id": "payment001",
+      "rideId": "ride002",
+      "senderId": "user_123",
+      "recieverId": "user_789",
+      "amount": 1050,
+      "timestamp": "2023-02-25T14:45:00Z"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": "review001",
+      "rideId": "ride001",
+      "senderEmail": "user_456",
+      "recieverEmail": "user_123",
+      "rating": 4.2,
+      "comment": "John was an excellent driver, safe and punctual."
+    }
+  ]
+}
