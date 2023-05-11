@@ -73,7 +73,7 @@
       "rideId": "ride002",
       "senderId": "user_123",
       "recieverId": "user_789",
-      "amount": 10.5,
+      "amount": 1050,
       "timestamp": "2023-02-25T14:45:00Z"
     }
   ],

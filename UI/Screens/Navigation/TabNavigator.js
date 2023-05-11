@@ -3,7 +3,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   MainStackNavigator,
   UserProfileNavigator,
+  BookingNavigator,
   WalletNavigator,
+  InboxNavigator,
 } from './StackNavigator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -34,8 +36,8 @@ const BottomTabNavigator = () => {
         headerShown: false,
       })}>
       <Tab.Screen name="Home" component={MainStackNavigator} />
-      <Tab.Screen name="Bookings" component={UserProfileNavigator} />
-      <Tab.Screen name="Inbox" component={UserProfileNavigator} />
+      <Tab.Screen name="Bookings" component={BookingNavigator} />
+      <Tab.Screen name="Inbox" component={InboxNavigator} />
       <Tab.Screen name="Wallet" component={WalletNavigator} />
       <Tab.Screen name="Settings" component={UserProfileNavigator} />
     </Tab.Navigator>

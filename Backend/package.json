@@ -28,5 +28,8 @@
     "socket.io": "^4.6.1",
     "stripe": "^12.3.0",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/express-session": "^1.17.7"
   }
 }

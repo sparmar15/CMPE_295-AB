@@ -8,7 +8,7 @@ dotenv.config();
 // import {driverRoute} from './Routes/driver.js';
 // import {riderRoute} from './Routes/rider.js';
 import http from 'http';
-// import {mongoose} from 'mongoose';
+import {mongoose} from 'mongoose';
 import initSocket from './SocketIO/socket.js';
 import {reviewRoute} from './Routes/review.js';
 import {userRoute} from './Routes/user.js';
@@ -81,17 +81,17 @@ server.listen(socketPort, () => {
 
 // MongoDB connection
 
-// const uri =
-//   'mongodb+srv://carpool-app-db:carpool-app@cluster0.zm5lhqe.mongodb.net/?retryWrites=true&w=majority';
+const uri =
+  'mongodb+srv://carpool-app-db:carpool-app@cluster0.zm5lhqe.mongodb.net/?retryWrites=true&w=majority';
 
-// mongoose
-//   .connect(uri, {useNewUrlParser: true})
-//   .then(() => {
-//     console.log('Mongo DB connected');
-//     console.log('====================================');
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
+mongoose
+  .connect(uri, {useNewUrlParser: true})
+  .then(() => {
+    console.log('Mongo DB connected');
+    console.log('====================================');
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
 export {pinata};
