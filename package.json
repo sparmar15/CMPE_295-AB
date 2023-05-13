@@ -54,6 +54,7 @@
     "react-native-maps": "^1.4.0",
     "react-native-maps-directions": "^1.9.0",
     "react-native-modal-datetime-picker": "^15.0.1",
+    "react-native-modal": "^13.0.1",
     "react-native-onboarding-swiper": "^1.2.0",
     "react-native-paper": "^5.4.1",
     "react-native-reanimated": "^3.0.0",

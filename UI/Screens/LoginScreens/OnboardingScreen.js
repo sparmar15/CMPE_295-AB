@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 // https://github.com/jfilter/react-native-onboarding-swiper
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '../../Styles/LoginScreens/OnboardingScreen';
 import Onboarding from 'react-native-onboarding-swiper';
 import {useSelector} from 'react-redux';
@@ -47,12 +47,18 @@ function OnboardingScreen({navigation}) {
   const userState = useSelector(state => state);
   const Log = logger.createLogger();
 
-  let isUserLoggedIn = false;
-  if (userState.userInfo != null) {
-    isUserLoggedIn = userState.userInfo.userInfo.email != null ? true : false;
-  }
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  useEffect(() => {
+    if (userState.userInfo) {
+      const isUserLoggedIn =
+        userState.userInfo.userInfo.email != null ? true : false;
+      setIsUserLoggedIn(isUserLoggedIn);
+      Log.info(userState.userInfo.userInfo.email);
+    } else {
+      setIsUserLoggedIn(false);
+    }
+  }, [userState]);
 
-  // Log.info(userState.userInfo.userInfo.email);
   return (
     <>
       {isUserLoggedIn ? (

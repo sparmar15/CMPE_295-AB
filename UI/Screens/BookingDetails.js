@@ -1,112 +1,136 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Image,
-  Text,
-  View,
-  ImageBackground,
-  Button,
-} from 'react-native';
-import {HeaderBackButton} from '@react-navigation/elements';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import React, {useEffect, useState, useRef} from 'react';
+import {Linking} from 'react-native';
+const GOOGLE_MAPS_API_KEY = 'AIzaSyDqLflunQA7crh0thU23kpQqQ5edQS_U-0';
+import {Text, View, Image, StyleSheet} from 'react-native';
+import {logger} from 'react-native-logs';
+import MapView, {Marker} from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useRoute, useNavigation} from '@react-navigation/native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-export default function BookingDetails() {
-  const navigation = useNavigation();
+function TripRoute() {
+  const Log = logger.createLogger();
   const route = useRoute();
-  const handleBack = () => {
-    navigation.navigate('Home', {
-      screen: 'SelectDriverPage',
+
+  const {rideDetails, tripRoute} = route.params;
+  const startLocation = tripRoute.startLocation;
+  const endLocation = tripRoute.endLocation;
+  const LATITUDE_DELTA = 0.005;
+  const LONGITUDE_DELTA = 0.005;
+  const [initialRegion, setInitialRegion] = useState(null);
+  const mapRef = useRef(null);
+  const [startPin, setStartPin] = useState(null);
+  const [endPin, setEndPin] = useState(null);
+  const [distance, setDistance] = useState(null);
+
+  useEffect(() => {
+    setInitialRegion({
+      latitude: startLocation.startLocLat,
+      longitude: startLocation.startLocLong,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+    });
+    Log.info(initialRegion);
+  }, [startLocation, endLocation]);
+
+  const onReady = result => {
+    const {coordinates} = result;
+
+    setStartPin(coordinates[0]);
+    setEndPin(coordinates[coordinates.length - 1]);
+    const miles = result.distance * 0.621371;
+    setDistance(`${miles.toFixed(2)} miles`);
+
+    mapRef.current.fitToCoordinates(coordinates, {
+      edgePadding: {top: 50, right: 50, bottom: 50, left: 50},
+      animated: true,
     });
   };
-  const {rideDetails, tripRoute} = route.params;
-
+  const navigation = useNavigation();
+  const handleCancel = () => {
+    navigation.navigate('Home', {
+      screen: 'ConfirmRidePage',
+      params: {rideDetails: rideDetails, tripRoute: tripRoute},
+    });
+  };
+  const makeCall = () => {
+    // const phoneNumber = '0123456789';
+    // Linking.openURL(`tel:${phoneNumber}`);
+  };
   return (
-    <SafeAreaView style={styles.container}>
-      <ImageBackground
-        style={styles.Maps}
-        source={{
-          uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/s4r49v7n5wq-117%3A2588?alt=media&token=fb80c5f5-0422-4095-9212-61445a7dd541',
-        }}>
-        {/* <View style={styles.backButtonContainer}>
-          <HeaderBackButton
-            onPress={handleBack}
-            tintColor="black"
-            labelVisible={true}
-          />
-        </View> */}
-
-        <View style={styles.Intro}>
-          <View style={styles.Intro.ModalSmall}>
-            <Image
-              style={styles.Intro.ProfileImg}
-              source={{uri: rideDetails.driver.profileImage}}
-            />
-            <Text style={styles.Name}>{rideDetails.driver.name}</Text>
-            <Text style={styles.Rating}>{rideDetails.driver.ratings}</Text>
-            <Image
-              style={styles.Star}
-              source={{
-                uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/fj9zgqs7w85-117%3A2700?alt=media&token=7207ff9c-8fb3-41a4-a24b-cb00f1dd53b7',
+    <View style={{flex: 1}}>
+      <View style={{flex: 1}}>
+        {initialRegion && (
+          <MapView
+            ref={mapRef}
+            showsUserLocation={true}
+            style={styles.map}
+            initialRegion={initialRegion}>
+            {startPin && <Marker coordinate={startPin} />}
+            {endPin && <Marker coordinate={endPin} />}
+            <MapViewDirections
+              origin={{
+                latitude: startLocation.startLocLat,
+                longitude: startLocation.startLocLong,
               }}
+              destination={{
+                latitude: endLocation.endLocLat,
+                longitude: endLocation.endLocLong,
+              }}
+              apikey={GOOGLE_MAPS_API_KEY}
+              strokeWidth={6}
+              strokeColor="blue"
+              optimizeWaypoints={true}
+              splitWaypoints={true}
+              language="en"
+              unit="imperial"
+              mode="DRIVING"
+              avoid="ferries"
+              onReady={onReady}
             />
-          </View>
-          <Text style={styles._7958SwiftVillage}>{tripRoute.startPlace}</Text>
-          <Text style={styles._105WilliamStChic}>{tripRoute.endPlace}</Text>
-          <Image
-            style={styles.Line2}
-            source={{
-              uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/48ygcq1o2ts-104%3A2503?alt=media&token=65586d83-60c3-47fa-8c00-9b633c4ac389',
-            }}
-          />
-          <Image
-            style={styles.Oval}
-            source={{
-              uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/48ygcq1o2ts-104%3A2504?alt=media&token=14c6d5de-27c1-4893-b2c4-9cb5fa641aa5',
-            }}
-          />
-          <Image
-            style={styles.Oval1}
-            source={{
-              uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/48ygcq1o2ts-104%3A2505?alt=media&token=3b0c0f1d-daa1-4cd1-b612-cbfa73826ff8',
-            }}
-          />
-          <Image
-            style={styles.Oval2}
-            source={{
-              uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/48ygcq1o2ts-104%3A2506?alt=media&token=6c1002f1-8720-48b0-a6bd-960616a100b2',
-            }}
-          />
-          <Image
-            style={styles.Line}
-            source={{
-              uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/3k6xd7pnqat-117%3A2714?alt=media&token=7cfd331c-c2d0-46af-8806-c35307669278',
-            }}
-          />
-
-          <Image
-            style={styles.CarBlackSideSilhouette}
-            source={{
-              uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/tqz7pp2f34e-117%3A2689?alt=media&token=5761d59d-4bfc-4270-a99d-ed7e609e5f5b',
-            }}
-          />
-          <Text style={styles.Distance}>AWAY</Text>
-          <Text style={styles.DistanceVal}>{rideDetails.distance}</Text>
-          <Text style={styles.Time}>ARRIVING</Text>
-          <Text style={styles.TimeVal}>{rideDetails.timeToArrive}</Text>
-          <Text style={styles.Price}>PRICE</Text>
-          <Text style={styles.PriceVal}>${rideDetails.fare}</Text>
+          </MapView>
+        )}
+      </View>
+      <View style={styles.rideConfirmation}>
+        <View style={styles.distance}>
+          <Text style={styles.distanceText}>Driver is Arriving...</Text>
         </View>
-      </ImageBackground>
-    </SafeAreaView>
+        <View style={styles.container}>
+          <View style={styles.profileContainer}>
+            <Image
+              source={{uri: rideDetails.driver.profileImage}}
+              style={styles.profilePicture}
+            />
+            <Text style={styles.name}>{rideDetails.driver.name}</Text>
+            <Text style={styles.rating}>4.3 ⭐️</Text>
+          </View>
+          <View style={styles.carDetailsContainer}>
+            <Text
+              style={
+                styles.carDetails
+              }>{`${'Tesla'} ${'Model S'} - ${'Red'}`}</Text>
+          </View>
+        </View>
+        <View style={styles.iconsContainer}>
+          <TouchableOpacity style={styles.iconBorder} onPress={makeCall}>
+            <Icon name="phone" size={40} color={'green'} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Icon name="message" size={40} color={'blue'} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleCancel}>
+            <Icon name="cancel" size={40} color={'red'} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    height: '100%',
-    width: '100%',
+  map: {
+    flex: 1,
   },
   BookingDetails: {
     width: 375,
@@ -198,183 +222,110 @@ const styles = StyleSheet.create({
   ModalPanel: {
     width: 311,
     height: 45,
+    alignItems: 'flex-start',
+  },
+  distanceText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  rideConfirmation: {
+    flex: 0.35,
     borderRadius: 20,
-    backgroundColor: 'rgba(36,46,66,1)',
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    overflow: 'hidden',
   },
-
-  _7958SwiftVillage: {
-    color: 'rgba(36,46,66,1)',
-    fontSize: 17,
-    top: '33%',
-    left: 45,
-    lineHeight: 17,
-    fontFamily: 'Georgia',
-    fontWeight: 400,
+  bookRide: {
+    marginTop: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-
-  _105WilliamStChic: {
-    color: 'rgba(36,46,66,1)',
-    top: '44%',
-    fontSize: 17,
-    left: 45,
-    lineHeight: 17,
-    fontFamily: 'Georgia',
-    fontWeight: 400,
+  carDetails: {
+    fontSize: 16,
   },
-
-  CarBlackSideSilhouette: {
-    width: 49.86,
-    height: 23.04,
-    top: '60%',
-    left: '5%',
-  },
-
-  Line2: {
-    position: 'absolute',
-    top: '40%',
-    bottom: '56.43%',
-    left: '7.27%',
-    right: '91.86%',
-    width: 3,
-    height: 32,
-  },
-
-  Oval: {
-    position: 'absolute',
-    top: '31%',
-    bottom: '75.22%',
-    left: '4.65%',
-    right: '89.24%',
-    width: 21,
-    height: 21,
-  },
-
-  Oval1: {
-    position: 'absolute',
-    top: '33%',
-    bottom: '78.91%',
-    left: '6.1%',
-    right: '90.84%',
-    width: 10.5,
-    height: 10.5,
-  },
-
-  Oval2: {
-    position: 'absolute',
-    top: '50%',
-    left: 17,
-    width: 18.52,
-    height: 24.08,
-  },
-
-  Distance: {
-    position: 'absolute',
+  image: {
     width: 80,
-    height: 16,
-
-    top: '74%',
-    left: '25%',
-
-    fontFamily: 'Georgia',
-    fontSize: 15,
-    lineHeight: 16,
-
-    /* identical to box height */
-    textAlign: 'center',
-    textTransform: 'uppercase',
-
-    color: '#C8C7CC',
+    height: 80,
+    borderRadius: 75,
+    marginBottom: 20,
+  },
+  locationIcon: {
+    marginRight: 10,
+    fontSize: 20,
+    color: '#000',
   },
 
-  DistanceVal: {
-    position: 'absolute',
-    width: 47,
-    height: 18,
-
-    top: '84%',
-    left: '29%',
-
-    fontFamily: 'Georgia',
-    fontSize: 15,
-    lineHeight: 18,
-
-    /* identical to box height */
-    textAlign: 'center',
-
-    color: '#242E42',
+  BookingDetails: {
+    marginTop: 4,
+    alignItems: 'center',
+  },
+  driverDetails: {
+    flexDirection: 'row',
+    margin: 20,
+  },
+  driverName: {
+    margin: 20,
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 
-  Time: {
-    position: 'absolute',
-    width: 80,
-    height: 16,
-
-    top: '74%',
-    left: '47.5%',
-
-    fontFamily: 'Georgia',
-    fontSize: 15,
-    lineHeight: 16,
-
-    /* identical to box height */
-    textAlign: 'center',
-    textTransform: 'uppercase',
-
-    color: '#C8C7CC',
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 12,
+  },
+  profileContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profilePicture: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 8,
+  },
+  name: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginRight: 4,
+  },
+  rating: {
+    color: '#999',
+    fontSize: 16,
+  },
+  carDetailsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  carMake: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginBottom: 4,
+  },
+  carModel: {
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  carColor: {
+    fontSize: 14,
+  },
+  iconsContainer: {
+    flexDirection: 'row',
   },
 
-  TimeVal: {
-    position: 'absolute',
-    width: 70,
-    height: 18,
-
-    top: '84%',
-    left: '49%',
-
-    fontFamily: 'Georgia',
-    fontSize: 15,
-    lineHeight: 18,
-
-    /* identical to box height */
-    textAlign: 'center',
-
-    color: '#242E42',
-  },
-
-  Price: {
-    position: 'absolute',
-    width: 80,
-    height: 16,
-
-    top: '74%',
-    left: '70%',
-
-    fontFamily: 'Georgia',
-    fontSize: 15,
-    lineHeight: 16,
-
-    /* identical to box height */
-    textAlign: 'center',
-    textTransform: 'uppercase',
-
-    color: '#C8C7CC',
-  },
-
-  PriceVal: {
-    position: 'absolute',
-    width: 70,
-    height: 18,
-
-    top: '84%',
-    left: '71%',
-
-    fontFamily: 'Georgia',
-    fontSize: 15,
-    lineHeight: 18,
-
-    /* identical to box height */
-    textAlign: 'center',
-
-    color: '#242E42',
+  icon: {
+    marginLeft: 70,
   },
 });
+export default TripRoute;

@@ -790,4 +790,8 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a3bded3b52ff79e3a5809b414030d340ff696d93
 
+<<<<<<< Updated upstream
 COCOAPODS: 1.12.0
+=======
+COCOAPODS: 1.12.1
+>>>>>>> Stashed changes

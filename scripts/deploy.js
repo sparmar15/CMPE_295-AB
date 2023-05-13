@@ -7,7 +7,7 @@
 const hre = require('hardhat');
 
 async function main() {
-  const ConfirmRide = await hre.ethers.getContractFactory('RideContract');
+  const ConfirmRide = await hre.ethers.getContractFactory('carpooling');
   const confirmRide = await ConfirmRide.deploy();
   await confirmRide.deployed();
   console.log(` deployed to ${confirmRide.address}`);

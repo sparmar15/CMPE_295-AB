@@ -1,5 +1,10 @@
 import {StripeProvider, usePaymentSheet} from '@stripe/stripe-react-native';
 import React, {useEffect, useState} from 'react';
+
+import Icon from 'react-native-vector-icons/Ionicons';
+import Modal from 'react-native-modal';
+
+import RPC from '../../../ethersRPC'; // for using ethers.js
 import {
   TouchableOpacity,
   Image,
@@ -7,10 +12,12 @@ import {
   View,
   Alert,
   StyleSheet,
+  Animated,
+  Easing,
 } from 'react-native';
 import {MERCHANT_ID, API_URL} from './Constants';
 import {useNavigation} from '@react-navigation/native';
-
+const key = '171c96507352fe681cd3d70f85299c9b7da2d2e7ec9d9e0191d0e90479e07e94';
 export interface PaymentScreenProps {
   amount: Number;
   buttoText: String;
@@ -24,6 +31,12 @@ const PaymentScreen = ({
   tripRoute,
 }: PaymentScreenProps) => {
   const [ready, setReady] = useState(false);
+  const [balanceETH, setBalanceETH] = useState('');
+  const [dueETH, setdueETH] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isPaymentDone, setIsPaymentDone] = useState(false);
+  const [hash, setHash] = useState();
+
   const {
     initPaymentSheet,
     presentPaymentSheet,
@@ -32,6 +45,7 @@ const PaymentScreen = ({
   } = usePaymentSheet();
   const navigation = useNavigation();
   useEffect(() => {
+    console.log(modalVisible);
     initialisePaymentSheet();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -103,12 +117,46 @@ const PaymentScreen = ({
       Alert.alert('Success', 'The payment was confirmed successfully');
       setReady(false);
       navigation.navigate('Home', {
-        screen: 'BookingDetails',
+        screen: 'PaymentSuccess',
         params: {rideDetails: rideDetails, tripRoute: tripRoute},
       });
     }
   }
+  const handlePay = async () => {
+    const tx = await RPC.sendTransaction(key);
 
+    if (tx) {
+      setIsPaymentDone(true);
+      setModalVisible(false);
+      setHash(tx);
+      console.log('====================================');
+      console.log(tx);
+      console.log('====================================');
+      navigation.navigate('Home', {
+        screen: 'PaymentSuccess',
+        params: {
+          rideDetails: rideDetails,
+          tripRoute: tripRoute,
+          tx: tx,
+        },
+      });
+    }
+  };
+
+  const handleModalClick = async function () {
+    const balance = await RPC.getBalance(key);
+    const ETH = await RPC.getETHVal(amount);
+    setdueETH(ETH);
+    setBalanceETH(balance);
+    setModalVisible(true);
+    console.log(ETH);
+  };
+  const handleTopUp = () => {
+    navigation.navigate('Wallet', {
+      screen: 'WalletNavigator',
+    });
+    setModalVisible(false);
+  };
   return (
     <View style={styles.container}>
       <StripeProvider
@@ -121,6 +169,42 @@ const PaymentScreen = ({
           <Text style={styles.buttonText}>{buttoText}</Text>
         </TouchableOpacity>
       </StripeProvider>
+
+      <View style={styles.ETHPayContainer}>
+        <TouchableOpacity style={styles.button} onPress={handleModalClick}>
+          <Text style={styles.buttonText}>{'Pay using ETH'}</Text>
+        </TouchableOpacity>
+      </View>
+      <Modal
+        isVisible={modalVisible}
+        animationIn="slideInUp"
+        animationOut="slideOutDown"
+        animationInTiming={500}
+        animationOutTiming={500}>
+        <View style={styles.modalContent}>
+          <TouchableOpacity
+            style={styles.modalCloseButton}
+            onPress={() => setModalVisible(false)}>
+            <Icon name="close" size={30} color="black" />
+          </TouchableOpacity>
+          <View style={styles.balance}>
+            <Text style={styles.balanceText}>Your Current Balance</Text>
+            <Text style={styles.balanceText}>{balanceETH + ' ETH'}</Text>
+          </View>
+          <View style={styles.balance}>
+            <Text style={styles.balanceText}>Your Current Due</Text>
+            <Text style={styles.dueBalanceText}>{dueETH + ' ETH'}</Text>
+          </View>
+          <View style={styles.modalContent}>
+            <TouchableOpacity style={styles.payButton} onPress={handlePay}>
+              <Text style={styles.payButtonText}>Pay Now</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.topUpButton} onPress={handleTopUp}>
+              <Text style={styles.payButtonText}>To-up Your Wallet</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -145,7 +229,85 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
+  },
+
+  balance: {
+    flexDirection: 'row',
+    backgroundColor: '#DCDCDC',
+    alignItems: 'flex-start',
+    margin: 20,
+    height: 60,
+    borderRadius: 8,
+  },
+  dueBalanceText: {
+    marginLeft: 45,
+    marginTop: 20,
+  },
+  balanceText: {
+    margin: 20,
+  },
+
+  modalContent: {
+    backgroundColor: 'white',
+
+    justifyContent: 'space-between',
+    width: '100%',
+    height: '50%',
+    marginHorizontal: 0,
+    borderRadius: 8,
+  },
+  modalCloseButton: {
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+  },
+  modalText: {
+    fontSize: 20,
+    marginBottom: 20,
+  },
+  payButton: {
+    backgroundColor: '#007acc',
+    padding: 12,
+    borderRadius: 6,
+    alignItems: 'center',
+    // position: 'absolute',
+
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  payButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  modalCloseText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: 'gray',
+    textAlign: 'center',
+  },
+  topUpButton: {
+    backgroundColor: '#007acc',
+    padding: 12,
+    borderRadius: 6,
+    alignItems: 'center',
+    marginBottom: 80,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  ETHPayContainer: {
+    margin: 10,
+  },
+  successContainer: {
+    backgroundColor: 'green',
+    padding: 20,
+    borderRadius: 10,
+  },
+  successText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

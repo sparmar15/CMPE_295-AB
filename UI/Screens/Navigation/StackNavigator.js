@@ -18,6 +18,7 @@ import SelectCarScreen from '../SelectCarScreen';
 import AddCarScreen from '../AddCarScreen';
 import ScheduleRideScreen from '../ScheduleRideScreen';
 import OccupantsScreen from '../OccupantsScreen';
+import PaymentSuccess from '../PaymentScreens/PaymentSuccess';
 // import Contact from '../screens/Contact';
 
 const Stack = createStackNavigator();
@@ -69,6 +70,18 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="TripRoute"
         component={TripRoute}
+        options={{
+          headerTitle: 'Trip',
+          presentation: 'transparentModal',
+          transitionSpec: {
+            open: {animation: 'timing', config: {duration: 100}},
+            close: {animation: 'timing', config: {duration: 100}},
+          },
+        }}
+      />
+      <Stack.Screen
+        name="PaymentSuccess"
+        component={PaymentSuccess}
         options={{
           headerTitle: 'Trip',
           presentation: 'transparentModal',
