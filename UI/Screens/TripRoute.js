@@ -28,6 +28,7 @@ function TripRoute() {
   const [endPin, setEndPin] = useState(null);
   const [distance, setDistance] = useState(null);
   const navigation = useNavigation();
+  const [selectedOption, setSelectedOption] = useState('findRide');
 
   useEffect(() => {
     setInitialRegion({
@@ -54,6 +55,45 @@ function TripRoute() {
   };
 
   const onConfirm = () => {
+    navigation.navigate('Home', {
+      screen: 'ConfirmRidePage',
+      params: {
+        tripRoute: {
+          startLocation: startLocation,
+          endLocation: endLocation,
+          startPlace: startPlace,
+          endPlace: endPlace,
+        },
+      },
+    });
+  };
+
+  const onOfferRideSelected = () => {
+    setSelectedOption('offerRide');
+  };
+
+  const onFindRideSelected = () => {
+    setSelectedOption('findRide');
+  };
+
+  const onOfferRide = () => {
+    // Handle offer ride button click
+    Log.info('offer ride button');
+    navigation.navigate('Home', {
+      screen: 'SelectCarScreen',
+      params: {
+        tripRoute: {
+          startLocation: startLocation,
+          endLocation: endLocation,
+          startPlace: startPlace,
+          endPlace: endPlace,
+        },
+      },
+    });
+  };
+
+  const onFindRide = () => {
+    // Handle find ride button click
     navigation.navigate('Home', {
       screen: 'ConfirmRidePage',
       params: {
@@ -125,9 +165,38 @@ function TripRoute() {
             />
             <Text style={styles.locationText}>{endPlace}</Text>
           </View>
-          <TouchableOpacity style={styles.confirmButton} onPress={onConfirm}>
+          <View style={styles.offerFindRide}>
+            <TouchableOpacity
+              style={[
+                styles.offerFindRideBox,
+                selectedOption === 'offerRide' && styles.selectedOptionButton,
+              ]}
+              onPress={onOfferRideSelected}>
+              <Text style={styles.offerFindRideText}>Offer Ride</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.offerFindRideBox,
+                selectedOption === 'findRide' && styles.selectedOptionButton,
+              ]}
+              onPress={onFindRideSelected}>
+              <Text style={styles.offerFindRideText}>Find Ride</Text>
+            </TouchableOpacity>
+          </View>
+          {/* <TouchableOpacity style={styles.confirmButton} onPress={onConfirm}>
             <Text style={styles.confirmButtonText}>Confirm Ride</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          {selectedOption === 'findRide' ? (
+            <TouchableOpacity style={styles.confirmButton} onPress={onFindRide}>
+              <Text style={styles.confirmButtonText}>Find Ride</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.confirmButton}
+              onPress={onOfferRide}>
+              <Text style={styles.confirmButtonText}>Offer a Ride</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>
@@ -171,10 +240,10 @@ const styles = StyleSheet.create({
   },
   distance: {
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 5,
     borderBottomWidth: 1,
     borderBottomColor: '#e1e1e1',
-    height: 75,
+    height: 60,
     alignItems: 'flex-start',
   },
   distanceText: {
@@ -182,7 +251,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   rideConfirmation: {
-    flex: 0.75,
+    flex: 1.4,
     borderRadius: 20,
     backgroundColor: 'white',
     shadowColor: '#000',
@@ -226,6 +295,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  offerFindRide: {
+    flexDirection: 'row',
+    height: 100,
+    marginTop: 20,
+  },
+  offerFindRideBox: {
+    flex: 1,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+  },
+  selectedOptionButton: {
+    backgroundColor: '#007bff',
+  },
+  offerFindRideText: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 export default TripRoute;

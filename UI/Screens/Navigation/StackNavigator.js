@@ -14,6 +14,10 @@ import RideHistory from '../BookingScreens/RideHistory';
 import RideInfo from '../BookingScreens/RideInfo';
 import InboxScreen from '../InboxStack/InboxScreen';
 import ChatScreen from '../InboxStack/ChatScreen';
+import SelectCarScreen from '../SelectCarScreen';
+import AddCarScreen from '../AddCarScreen';
+import ScheduleRideScreen from '../ScheduleRideScreen';
+import OccupantsScreen from '../OccupantsScreen';
 // import Contact from '../screens/Contact';
 
 const Stack = createStackNavigator();
@@ -87,11 +91,59 @@ const MainStackNavigator = () => {
         }}
       />
       <Stack.Screen
+        name="SelectCarScreen"
+        component={SelectCarScreen}
+        options={{
+          headerTitle: 'Select Car',
+          // presentation: 'transparentModal',
+          transitionSpec: {
+            open: {animation: 'timing', config: {duration: 100}},
+            close: {animation: 'timing', config: {duration: 100}},
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AddCarScreen"
+        component={AddCarScreen}
+        options={{
+          headerTitle: 'Add new Vehicle',
+          // presentation: 'transparentModal',
+          transitionSpec: {
+            open: {animation: 'timing', config: {duration: 100}},
+            close: {animation: 'timing', config: {duration: 100}},
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ScheduleRideScreen"
+        component={ScheduleRideScreen}
+        options={{
+          headerTitle: 'Schedule Ride',
+          // presentation: 'transparentModal',
+          transitionSpec: {
+            open: {animation: 'timing', config: {duration: 100}},
+            close: {animation: 'timing', config: {duration: 100}},
+          },
+        }}
+      />
+      <Stack.Screen
+        name="OccupantsScreen"
+        component={OccupantsScreen}
+        options={{
+          headerTitle: 'Select Passengers',
+          // presentation: 'transparentModal',
+          transitionSpec: {
+            open: {animation: 'timing', config: {duration: 100}},
+            close: {animation: 'timing', config: {duration: 100}},
+          },
+        }}
+      />
+      <Stack.Screen
         name="ConfirmRidePage"
         component={ConfirmRidePage}
         options={{
-          headerTitle: 'Choose Ride',
-          presentation: 'transparentModal',
+          headerTitle: 'Request Ride',
+          // presentation: 'transparentModal',
           transitionSpec: {
             open: {animation: 'timing', config: {duration: 100}},
             close: {animation: 'timing', config: {duration: 100}},
