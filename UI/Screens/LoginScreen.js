@@ -14,7 +14,6 @@ import LandingPage from './LandingPage';
 import {useDispatch} from 'react-redux';
 import {userLogin} from '../../Redux/Actions/UserActions';
 import {store} from '../../Redux/store';
-
 import RPC from '../../ethersRPC'; // for using ethers.js
 const scheme = 'carpool://auth'; // Or your desired app redirection scheme
 const resolvedRedirectUrl = `${scheme}://openlogin`;
@@ -52,6 +51,11 @@ const LoginScreen = ({navigation}) => {
       if (userLoginInfo) {
         dispatch(userLogin(userLoginInfo));
         setIsUserLoggedIn(true);
+        // const res = await axios.post(
+        //   'http://localhost:4000/users/',
+        //   userLoginInfo,
+        // );
+        // Log.info('pinata response', res.data);
       }
     } catch (e) {
       Log.info(e);

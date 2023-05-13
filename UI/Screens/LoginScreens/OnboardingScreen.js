@@ -47,9 +47,12 @@ function OnboardingScreen({navigation}) {
   const userState = useSelector(state => state);
   const Log = logger.createLogger();
 
-  const isUserLoggedIn =
-    userState.userInfo.userInfo.email != null ? true : false;
-  Log.info(userState.userInfo.userInfo.email);
+  let isUserLoggedIn = false;
+  if (userState.userInfo != null) {
+    isUserLoggedIn = userState.userInfo.userInfo.email != null ? true : false;
+  }
+
+  // Log.info(userState.userInfo.userInfo.email);
   return (
     <>
       {isUserLoggedIn ? (

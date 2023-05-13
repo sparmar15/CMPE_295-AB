@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
+
 import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';

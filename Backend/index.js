@@ -13,7 +13,9 @@ import initSocket from './SocketIO/socket.js';
 import {reviewRoute} from './Routes/review.js';
 import {userRoute} from './Routes/user.js';
 import {paymentRoute} from './Routes/payments.js';
-import {ridesRoute} from './Routes/rides.js';
+import {ridesRoute} from './Routes/Rides.js';
+import {tripRouter} from './Routes/trip.js';
+import {rideRequestRoute} from './Routes/rideRequest.js';
 
 const app = express();
 const port = 4000;
@@ -63,6 +65,8 @@ app.use('/reviews', reviewRoute);
 app.use('/users', userRoute);
 app.use('/payments', paymentRoute);
 app.use('/rides', ridesRoute);
+app.use('/trips', tripRouter);
+app.use('/rideRequests', rideRequestRoute);
 
 // Start the server
 app.listen(port, () => {
