@@ -1,11 +1,20 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, Pressable} from 'react-native';
+
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Pressable,
+  LogBox,
+} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {logger} from 'react-native-logs';
 import SearchBar from './SearchBar';
 import {useSelector} from 'react-redux';
 
 const LandingPage = ({navigation}) => {
+  const Log = logger.createLogger();
   const [location, setLocation] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -24,7 +33,8 @@ const LandingPage = ({navigation}) => {
   const handlePress = () => {
     navigation.navigate('SearchPage');
   };
-
+  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+  LogBox.ignoreAllLogs(); //Ignore all log notifications
   return (
     <View style={{flex: 1}}>
       <View style={{flex: 1}}>

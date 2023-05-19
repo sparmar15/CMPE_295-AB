@@ -13,55 +13,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {logger} from 'react-native-logs';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import axios from 'axios';
-import haversine from 'haversine';
+import {useSelector} from 'react-redux';
 
-// const availableRides = [
-//   {
-//     id: 1,
-//     icon: 'car',
-//     fare: 1099,
-//     noOfAvailableSeats: 3,
-//     driver: {
-//       name: 'John Smith',
-//       profileImage: 'https://randomuser.me/api/portraits/men/29.jpg',
-//       carName: 'Toyota Camry',
-//       noOfSeats: 4,
-//       ratings: 3.4,
-//     },
-//     timeToArrive: '5 mins',
-//     distance: '0.1 mi',
-//   },
-//   {
-//     id: 2,
-//     icon: 'car',
-//     fare: 12500,
-//     noOfAvailableSeats: 2,
-//     driver: {
-//       name: 'Jane Doe',
-//       profileImage: 'https://randomuser.me/api/portraits/men/44.jpg',
-//       carName: 'Honda Civic',
-//       noOfSeats: 3,
-//       ratings: 4.3,
-//     },
-//     timeToArrive: '8 mins',
-//     distance: '0.5 mi',
-//   },
-//   {
-//     id: 3,
-//     icon: 'car',
-//     fare: 1500,
-//     noOfAvailableSeats: 1,
-//     driver: {
-//       name: 'Bob Johnson',
-//       profileImage: 'https://randomuser.me/api/portraits/men/90.jpg',
-//       carName: 'Ford Mustang',
-//       noOfSeats: 2,
-//       ratings: 5.0,
-//     },
-//     timeToArrive: '10 mins',
-//     distance: '0.8 mi',
-//   },
-// ];
 const RideOption = ({ride, selectedRide, setSelectedRide}) => {
   return (
     <View style={styles.rideOption}>
@@ -205,10 +158,34 @@ const ConfirmRidePage = () => {
   // };
   // Log.info('selectedRide' + JSON.stringify(selectedRideDetails));
 
-  const handleRequestRide = () => {
+  const userState = useSelector(state => state);
+  const navigation = useNavigation();
+  const handleRequestRide = async () => {
     // Handle request ride
+
+    const userEmail = userState.userInfo.userInfo.email;
+    const userName = userState.userInfo.userInfo.name;
+
     if (selectedRide) {
       // Proceed with the ride request
+      console.log('====================================');
+      console.log(selectedRide);
+      console.log(tripRoute);
+      console.log('====================================');
+      const body = {
+        tripId: selectedRide._id,
+        userEmail: userEmail,
+        userName: userName,
+      };
+      await axios.post('http://localhost:4000/rideRequests/', body);
+      navigation.navigate('Home', {
+        screen: 'SelectDriverPage',
+        params: {
+          rideDetails: selectedRide,
+          tripRoute: tripRoute,
+          userEmail: userEmail,
+        },
+      });
     }
   };
   const renderRideItem = ({item}) => (
@@ -226,7 +203,7 @@ const ConfirmRidePage = () => {
         </View>
         <View>
           <Text style={styles.driverName}>{item.driverName}</Text>
-          <Text style={styles.licensePlate}>Ratings 4.0 / 5</Text>
+          <Text style={styles.licensePlate}>Ratings 4.3 / 5</Text>
         </View>
       </View>
     </TouchableOpacity>

@@ -1,0 +1,21 @@
+{
+  "__v": 0,
+  "_id": "645f091820d14890fc2f2845",
+  "createdAt": "2023-05-13T03:50:48.104Z",
+  "driverEmail": "rohityadav349729@gmail.com",
+  "driverName": "Rohit Yadav",
+  "endLocation": {"endLocLat": 37.5299765, "endLocLong": -122.0383968},
+  "endPlace": "Newark, CA, USA",
+  "occupants": 2,
+  "selectedCar": {
+    "color": "#C0C0C0",
+    "licensePlate": "CAD34DF",
+    "make": "Honda",
+    "model": "Civic"
+  },
+  "startDate": "2023-05-13T00:00:00.000Z",
+  "startLocation": {"startLocLat": 37.3359002, "startLocLong": -121.8877538},
+  "startPlace": "33 South Third Street, San Jose, CA, USA",
+  "startTime": "04:00:29.000Z",
+  "updatedAt": "2023-05-13T03:50:48.104Z"
+}
