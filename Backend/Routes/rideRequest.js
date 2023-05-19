@@ -155,4 +155,31 @@ rideRequestRoute.get('/confirmedTrips/:userEmail', async (req, res) => {
   }
 });
 
+rideRequestRoute.get('/checkConfirmedRide', async (req, res) => {
+  const {tripId, userEmail} = req.query;
+  console.log(req.query);
+  try {
+    // Find the ride request by tripId
+    const rideRequest = await RideRequest.findOne({tripId});
+    console.log(req.rideRequest);
+    if (rideRequest) {
+      // Check if the user is in the confirmed riders list
+      const confirmedRider = rideRequest.confirmedRiders.find(
+        rider => rider.email === userEmail,
+      );
+
+      if (confirmedRider) {
+        res.status(200).json({confirmed: true});
+      } else {
+        res.status(200).json({confirmed: false});
+      }
+    } else {
+      res.status(404).json({message: 'Ride request not found'});
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: 'An error occurred'});
+  }
+});
+
 export {rideRequestRoute};

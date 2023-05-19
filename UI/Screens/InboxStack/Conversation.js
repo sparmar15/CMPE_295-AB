@@ -12,8 +12,19 @@ export default function Conversation({conversation, currentUser}) {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const friendId = conversation.members.find(m => m !== currentUser);
-    setUser(friendId);
+    // const friendId = conversation.members.find(m => m !== currentUser);
+    // setUser(friendId);
+    
+    const getConversations = async () => {
+      try {
+        const res = await axios.get(
+          'http://localhost:4000/conversations/' + userId,
+        );
+        setConversations(res.data);
+      } catch (error) {
+        Log.error('error in fetching conversations', error);
+      }
+    };
     const getUnreadMessageCount = async () => {
       try {
         const res = await axios.get(
@@ -38,7 +49,10 @@ export default function Conversation({conversation, currentUser}) {
 
     getUnreadMessageCount();
     getLastMessage();
-
+    navigation.navigate('Inbox', {
+      screen: 'ChatScreen',
+      params: {conversation, friendId: user},
+    });
     //get details of the friend id
   }, [conversation, currentUser]);
   const handleChatClick = () => {

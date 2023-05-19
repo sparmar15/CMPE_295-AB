@@ -14,21 +14,26 @@ import {
   StyleSheet,
   Animated,
   Easing,
+  ActivityIndicator,
 } from 'react-native';
 import {MERCHANT_ID, API_URL} from './Constants';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
 const key = '171c96507352fe681cd3d70f85299c9b7da2d2e7ec9d9e0191d0e90479e07e94';
 export interface PaymentScreenProps {
   amount: Number;
   buttoText: String;
   rideDetails: Object;
   tripRoute: Object;
+  userEmail: string;
 }
 const PaymentScreen = ({
   amount,
   buttoText,
   rideDetails,
   tripRoute,
+  userEmail,
 }: PaymentScreenProps) => {
   const [ready, setReady] = useState(false);
   const [balanceETH, setBalanceETH] = useState('');
@@ -37,6 +42,11 @@ const PaymentScreen = ({
   const [isPaymentDone, setIsPaymentDone] = useState(false);
   const [hash, setHash] = useState();
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [noDriverFound, setNoDriverFound] = useState(false);
+
+  const [email, setEmail] = useState();
+
   const {
     initPaymentSheet,
     presentPaymentSheet,
@@ -44,11 +54,37 @@ const PaymentScreen = ({
     resetPaymentSheetCustomer,
   } = usePaymentSheet();
   const navigation = useNavigation();
+
   useEffect(() => {
-    console.log(modalVisible);
     initialisePaymentSheet();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    setTimeout(() => {
+      isRideAccepted();
+    }, 4000);
   }, []);
+
+  const isRideAccepted = async () => {
+    const params = {
+      tripId: rideDetails._id,
+      userEmail: 'rohityadav349729@gmail.com',
+    };
+
+    const res = await axios.get(
+      'http://localhost:4000/rideRequests/checkConfirmedRide',
+      {
+        params: params,
+      },
+    );
+    console.log(res.data);
+
+    if (res.data.confirmed) {
+      setIsLoading(false);
+    } else {
+      setNoDriverFound(true);
+      setIsLoading(false);
+    }
+  };
 
   const initialisePaymentSheet = async () => {
     const {paymentIntent} = await fetchPaymentSheetParams();
@@ -129,9 +165,6 @@ const PaymentScreen = ({
       setIsPaymentDone(true);
       setModalVisible(false);
       setHash(tx);
-      console.log('====================================');
-      console.log(tx);
-      console.log('====================================');
       navigation.navigate('Home', {
         screen: 'PaymentSuccess',
         params: {
@@ -158,54 +191,76 @@ const PaymentScreen = ({
     setModalVisible(false);
   };
   return (
-    <View style={styles.container}>
-      <StripeProvider
-        publishableKey="pk_test_51N3HUWLHuLtWJqHPT2fWV3Uo9ulMNPUoWeetUB3lafGkHNnUqfdyScCcyROwCVOOijz2PCCShUbk326225JARJpU007P5GnL3S"
-        merchantIdentifier={MERCHANT_ID}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={buy}
-          disabled={loading || !ready}>
-          <Text style={styles.buttonText}>{buttoText}</Text>
-        </TouchableOpacity>
-      </StripeProvider>
-
-      <View style={styles.ETHPayContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleModalClick}>
-          <Text style={styles.buttonText}>{'Pay using ETH'}</Text>
-        </TouchableOpacity>
-      </View>
-      <Modal
-        isVisible={modalVisible}
-        animationIn="slideInUp"
-        animationOut="slideOutDown"
-        animationInTiming={500}
-        animationOutTiming={500}>
-        <View style={styles.modalContent}>
-          <TouchableOpacity
-            style={styles.modalCloseButton}
-            onPress={() => setModalVisible(false)}>
-            <Icon name="close" size={30} color="black" />
-          </TouchableOpacity>
-          <View style={styles.balance}>
-            <Text style={styles.balanceText}>Your Current Balance</Text>
-            <Text style={styles.balanceText}>{balanceETH + ' ETH'}</Text>
-          </View>
-          <View style={styles.balance}>
-            <Text style={styles.balanceText}>Your Current Due</Text>
-            <Text style={styles.dueBalanceText}>{dueETH + ' ETH'}</Text>
-          </View>
-          <View style={styles.modalContent}>
-            <TouchableOpacity style={styles.payButton} onPress={handlePay}>
-              <Text style={styles.payButtonText}>Pay Now</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.topUpButton} onPress={handleTopUp}>
-              <Text style={styles.payButtonText}>To-up Your Wallet</Text>
-            </TouchableOpacity>
-          </View>
+    <>
+      {/* {noDriverFound && (
+        <View>
+          <Text>Driver did not accept your ride</Text>
         </View>
-      </Modal>
-    </View>
+      )} */}
+      {isLoading ? (
+        <View style={{marginTop: 20}}>
+          <Text style={styles.text}>
+            Please wait {rideDetails.driverName} to confirm
+          </Text>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      ) : !noDriverFound ? (
+        <View style={styles.container}>
+          <StripeProvider
+            publishableKey="pk_test_51N3HUWLHuLtWJqHPT2fWV3Uo9ulMNPUoWeetUB3lafGkHNnUqfdyScCcyROwCVOOijz2PCCShUbk326225JARJpU007P5GnL3S"
+            merchantIdentifier={MERCHANT_ID}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={buy}
+              disabled={loading || !ready}>
+              <Text style={styles.buttonText}>{buttoText}</Text>
+            </TouchableOpacity>
+          </StripeProvider>
+
+          <View style={styles.ETHPayContainer}>
+            <TouchableOpacity style={styles.button} onPress={handleModalClick}>
+              <Text style={styles.buttonText}>{'Pay using ETH'}</Text>
+            </TouchableOpacity>
+          </View>
+          <Modal
+            isVisible={modalVisible}
+            animationIn="slideInUp"
+            animationOut="slideOutDown"
+            animationInTiming={500}
+            animationOutTiming={500}>
+            <View style={styles.modalContent}>
+              <TouchableOpacity
+                style={styles.modalCloseButton}
+                onPress={() => setModalVisible(false)}>
+                <Icon name="close" size={30} color="black" />
+              </TouchableOpacity>
+              <View style={styles.balance}>
+                <Text style={styles.balanceText}>Your Current Balance</Text>
+                <Text style={styles.balanceText}>{balanceETH + ' ETH'}</Text>
+              </View>
+              <View style={styles.balance}>
+                <Text style={styles.balanceText}>Your Current Due</Text>
+                <Text style={styles.dueBalanceText}>{dueETH + ' ETH'}</Text>
+              </View>
+              <View style={styles.modalContent}>
+                <TouchableOpacity style={styles.payButton} onPress={handlePay}>
+                  <Text style={styles.payButtonText}>Pay Now</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.topUpButton}
+                  onPress={handleTopUp}>
+                  <Text style={styles.payButtonText}>To-up Your Wallet</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      ) : (
+        <View>
+          <Text style={styles.text}>Driver did not accept your ride</Text>
+        </View>
+      )}
+    </>
   );
 };
 
@@ -247,6 +302,12 @@ const styles = StyleSheet.create({
   },
   balanceText: {
     margin: 20,
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    margin: 10,
+    padding: 20,
   },
 
   modalContent: {

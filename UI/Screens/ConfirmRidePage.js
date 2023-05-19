@@ -13,86 +13,27 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {logger} from 'react-native-logs';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import axios from 'axios';
-import haversine from 'haversine';
+import {useSelector} from 'react-redux';
 
-// const availableRides = [
-//   {
-//     id: 1,
-//     icon: 'car',
-//     fare: 1099,
-//     noOfAvailableSeats: 3,
-//     driver: {
-//       name: 'John Smith',
-//       profileImage: 'https://randomuser.me/api/portraits/men/29.jpg',
-//       carName: 'Toyota Camry',
-//       noOfSeats: 4,
-//       ratings: 3.4,
-//     },
-//     timeToArrive: '5 mins',
-//     distance: '0.1 mi',
-//   },
-//   {
-//     id: 2,
-//     icon: 'car',
-//     fare: 12500,
-//     noOfAvailableSeats: 2,
-//     driver: {
-//       name: 'Jane Doe',
-//       profileImage: 'https://randomuser.me/api/portraits/men/44.jpg',
-//       carName: 'Honda Civic',
-//       noOfSeats: 3,
-//       ratings: 4.3,
-//     },
-//     timeToArrive: '8 mins',
-//     distance: '0.5 mi',
-//   },
-//   {
-//     id: 3,
-//     icon: 'car',
-//     fare: 1500,
-//     noOfAvailableSeats: 1,
-//     driver: {
-//       name: 'Bob Johnson',
-//       profileImage: 'https://randomuser.me/api/portraits/men/90.jpg',
-//       carName: 'Ford Mustang',
-//       noOfSeats: 2,
-//       ratings: 5.0,
-//     },
-//     timeToArrive: '10 mins',
-//     distance: '0.8 mi',
-//   },
-// ];
 const RideOption = ({ride, selectedRide, setSelectedRide}) => {
   return (
     <View style={styles.rideOption}>
-            
       <Image
         style={styles.rideImage}
         source={require('../Assets/rideCar.png')}
       />
-            
       <Text style={styles.rideText}>
-                {ride.selectedCar.make} {ride.selectedCar.model}
-              
+        {ride.selectedCar.make} {ride.selectedCar.model}
       </Text>
-            
       {/* <Text style={styles.fareText}>${(ride.fare / 100).toFixed(2)}</Text> */}
-            <Text style={styles.fareText}>{ride.occupants}</Text>
-            
+      <Text style={styles.fareText}>{ride.occupants}</Text>
       <View style={styles.radioContainer}>
-                
         <TouchableOpacity onPress={() => setSelectedRide(ride._id)}>
-                    
           <View style={styles.radio}>
-                        
             {selectedRide === ride._id && <View style={styles.selectedRadio} />}
-                      
           </View>
-                  
         </TouchableOpacity>
-              
       </View>
-          
     </View>
   );
 };
@@ -109,7 +50,8 @@ const rides = [
     carMake: 'Honda',
     carModel: 'Accord',
     driverName: 'Jane Smith',
-  }, // Add more rides here...
+  },
+  // Add more rides here...
 ];
 
 const ConfirmRidePage = () => {
@@ -133,7 +75,8 @@ const ConfirmRidePage = () => {
           const timeDiff = Math.abs(rideDate - now) / (1000 * 60); // time difference in minutes
 
           return timeDiff < 30;
-        }); // console.log('filtered', filteredRides);
+        });
+        // console.log('filtered', filteredRides);
         const filterTripsByDistance = (
           trips,
           riderStartLocation,
@@ -187,13 +130,62 @@ const ConfirmRidePage = () => {
       }
     };
     getAvailbaleRides();
-  }, []); // const distance = (lat1, lon1, lat2, lon2) => { //   const start = {latitude: lat1, longitude: lon1}; //   const end = {latitude: lat2, longitude: lon2}; //   const options = {unit: 'mile'}; // You can also use 'mile' or 'kilometer' //   return haversine(start, end, options); // }; // const handleBack = () => { //   navigation.navigate('Home', { //     screen: 'SearchPage', //   }); // };
+  }, []);
 
-  const [selectedRide, setSelectedRide] = useState(null); // const Log = logger.createLogger(); // const navigation = useNavigation(); // const selectedRideDetails = availableRides.find( //   option => option.id === selectedRide, // ); // const selectDriver = () => { //   navigation.navigate('Home', { //     screen: 'SelectDriverPage', //     params: {rideDetails: selectedRideDetails, tripRoute: tripRoute}, //   }); // }; // Log.info('selectedRide' + JSON.stringify(selectedRideDetails));
-  const handleRequestRide = () => {
+  // const distance = (lat1, lon1, lat2, lon2) => {
+  //   const start = {latitude: lat1, longitude: lon1};
+  //   const end = {latitude: lat2, longitude: lon2};
+  //   const options = {unit: 'mile'}; // You can also use 'mile' or 'kilometer'
+  //   return haversine(start, end, options);
+  // };
+  // const handleBack = () => {
+  //   navigation.navigate('Home', {
+  //     screen: 'SearchPage',
+  //   });
+  // };
+  const [selectedRide, setSelectedRide] = useState(null);
+  // const Log = logger.createLogger();
+  // const navigation = useNavigation();
+
+  // const selectedRideDetails = availableRides.find(
+  //   option => option.id === selectedRide,
+  // );
+  // const selectDriver = () => {
+  //   navigation.navigate('Home', {
+  //     screen: 'SelectDriverPage',
+  //     params: {rideDetails: selectedRideDetails, tripRoute: tripRoute},
+  //   });
+  // };
+  // Log.info('selectedRide' + JSON.stringify(selectedRideDetails));
+
+  const userState = useSelector(state => state);
+  const navigation = useNavigation();
+  const handleRequestRide = async () => {
     // Handle request ride
+
+    const userEmail = userState.userInfo.userInfo.email;
+    const userName = userState.userInfo.userInfo.name;
+
     if (selectedRide) {
       // Proceed with the ride request
+      console.log('====================================');
+      console.log(selectedRide);
+      console.log(tripRoute);
+      console.log('====================================');
+      const body = {
+        tripId: selectedRide._id,
+        userEmail: userEmail,
+        userName: userName,
+      };
+      await axios.post('http://localhost:4000/rideRequests/', body);
+      navigation.navigate('Home', {
+        screen: 'SelectDriverPage',
+        params: {
+          rideDetails: selectedRide,
+          tripRoute: tripRoute,
+          userEmail: userEmail,
+        },
+      });
     }
   };
   const renderRideItem = ({item}) => (
@@ -203,31 +195,46 @@ const ConfirmRidePage = () => {
         selectedRide?._id == item._id && styles.selectedRideItem,
       ]}
       onPress={() => setSelectedRide(item)}>
-            
       <Icon name="directions-car" size={24} color="#333" />
-            
       <View style={styles.rideDetails}>
-                
         <View>
-                    <Text style={styles.carMake}>{item.selectedCar.make}</Text>
-                    
+          <Text style={styles.carMake}>{item.selectedCar.make}</Text>
           <Text style={styles.carModel}>{item.selectedCar.model}</Text>
-                  
         </View>
-                
         <View>
-                    <Text style={styles.driverName}>{item.driverName}</Text>
-                    <Text style={styles.licensePlate}>Ratings 4.0 / 5</Text>
-                  
+          <Text style={styles.driverName}>{item.driverName}</Text>
+          <Text style={styles.licensePlate}>Ratings 4.3 / 5</Text>
         </View>
-              
       </View>
-          
     </TouchableOpacity>
-  ); // [ //   { //     __v: 0, //     _id: '645dce3e479fa44a4379c22a', //     createdAt: '2023-05-12T05:27:26.110Z', //     driverEmail: 'kasarcsoham@gmail.com', //     driverName: 'Soham Kasar', //     endLocation: {endLocLat: 37.6191671, endLocLong: -122.3816108}, //     endPlace: //       'San Francisco International Airport (SFO), San Francisco, CA, USA', //     occupants: 1, //     selectedCar: { //       color: '#FFFFFF', //       licensePlate: 'SDF', //       make: 'Sdf', //       model: 'Sdf', //     }, //     startDate: '2023-05-13T00:00:00.000Z', //     startLocation: {startLocLat: 37.3639472, startLocLong: -121.9289375}, //     startPlace: //       'San Jose Mineta International Airport (SJC), Airport Boulevard, San Jose, CA, USA', //     startTime: '05:20:16.502Z', //     updatedAt: '2023-05-12T05:27:26.110Z', //   }, // ];
+  );
+  // [
+  //   {
+  //     __v: 0,
+  //     _id: '645dce3e479fa44a4379c22a',
+  //     createdAt: '2023-05-12T05:27:26.110Z',
+  //     driverEmail: 'kasarcsoham@gmail.com',
+  //     driverName: 'Soham Kasar',
+  //     endLocation: {endLocLat: 37.6191671, endLocLong: -122.3816108},
+  //     endPlace:
+  //       'San Francisco International Airport (SFO), San Francisco, CA, USA',
+  //     occupants: 1,
+  //     selectedCar: {
+  //       color: '#FFFFFF',
+  //       licensePlate: 'SDF',
+  //       make: 'Sdf',
+  //       model: 'Sdf',
+  //     },
+  //     startDate: '2023-05-13T00:00:00.000Z',
+  //     startLocation: {startLocLat: 37.3639472, startLocLong: -121.9289375},
+  //     startPlace:
+  //       'San Jose Mineta International Airport (SJC), Airport Boulevard, San Jose, CA, USA',
+  //     startTime: '05:20:16.502Z',
+  //     updatedAt: '2023-05-12T05:27:26.110Z',
+  //   },
+  // ];
   return (
     <View style={styles.container}>
-            
       {availableRides.length > 0 ? (
         <FlatList
           data={availableRides}
@@ -238,7 +245,6 @@ const ConfirmRidePage = () => {
       ) : (
         <Text style={styles.noRidesText}>Currently no rides available</Text>
       )}
-            
       <TouchableOpacity
         style={[
           styles.requestRideButton,
@@ -246,124 +252,123 @@ const ConfirmRidePage = () => {
         ]}
         onPress={handleRequestRide}
         disabled={!selectedRide}>
-                <Text style={styles.requestRideButtonText}>Request Ride</Text>
-              
+        <Text style={styles.requestRideButtonText}>Request Ride</Text>
       </TouchableOpacity>
-          
     </View>
   );
 };
 // const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: 'white',
-//   },
-//   upperContainer: {
-//     // flex: 0.1,
-//     flexDirection: 'row',
-//     alignItems: 'flex-start',
-//     // justifyContent: 'center',
-//     paddingHorizontal: 20,
-//     left: 20,
-//   },
-//   backButton: {
-//     flex: 0.15,
-//   },
-//   distance: {
-//     // flex: 0,
-//     top: 20,
-//     left: 20,
-//   },
-//   distanceText: {
-//     color: '#FFFFFF',
-//     fontSize: 16,
-//     fontWeight: 'bold',
-//   },
-//   lowerContainer: {
-//     flex: 1.5,
-//     overflow: 'scroll',
-//   },
-//   rideCards: {
-//     borderRadius: 10, // Set a value for borderRadius to create a rectangular curve
-//     backgroundColor: 'white',
-//     padding: 10,
-//     margin: 10,
-//     height: 100,
-//   },
-//   rideOption: {
-//     flexDirection: 'row',
-//     borderRadius: 10, // Set a value for borderRadius to create a rectangular curve
-//     backgroundColor: 'white',
-//     padding: 20,
-//     margin: 10,
-//     alignItems: 'center',
-//     height: 100,
-//     shadowColor: '#000',
-//     shadowOffset: {
-//       width: 0,
-//       height: 2,
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 3.84,
-//   },
-//   rideImage: {
-//     height: 50,
-//     width: 50,
-//     alignSelf: 'center',
-//   },
+//   container: {
+//     flex: 1,
+//     backgroundColor: 'white',
+//   },
+//   upperContainer: {
+//     // flex: 0.1,
+//     flexDirection: 'row',
+//     alignItems: 'flex-start',
+//     // justifyContent: 'center',
+//     paddingHorizontal: 20,
+//     left: 20,
+//   },
+//   backButton: {
+//     flex: 0.15,
+//   },
+//   distance: {
+//     // flex: 0,
+//     top: 20,
+//     left: 20,
+//   },
+//   distanceText: {
+//     color: '#FFFFFF',
+//     fontSize: 16,
+//     fontWeight: 'bold',
+//   },
+//   lowerContainer: {
+//     flex: 1.5,
+//     overflow: 'scroll',
+//   },
+//   rideCards: {
+//     borderRadius: 10, // Set a value for borderRadius to create a rectangular curve
+//     backgroundColor: 'white',
+//     padding: 10,
+//     margin: 10,
+//     height: 100,
+//   },
+//   rideOption: {
+//     flexDirection: 'row',
+//     borderRadius: 10, // Set a value for borderRadius to create a rectangular curve
+//     backgroundColor: 'white',
+//     padding: 20,
+//     margin: 10,
+//     alignItems: 'center',
+//     height: 100,
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//   },
+//   rideImage: {
+//     height: 50,
+//     width: 50,
+//     alignSelf: 'center',
+//   },
 
-//   rideText: {
-//     // marginTop: 20,
-//     fontSize: 18,
-//     fontSize: 20,
-//     width: 150,
-//     paddingLeft: 20,
-//     // fontWeight: 'bold',
-//     fontFamily: 'System',
-//   },
-//   fareText: {
-//     // marginTop: 20,
-//     marginLeft: 'auto',
-//     fontSize: 18,
-//     // fontWeight: 'bold',
-//   },
-//   radioContainer: {
-//     // marginTop: 20,
-//     marginLeft: 'auto',
-//   },
-//   radio: {
-//     width: 20,
-//     height: 20,
-//     borderRadius: 10,
-//     borderWidth: 2,
-//     borderColor: '#000',
-//     // alignItems: 'center',
-//     // justifyContent: 'center',
-//   },
-//   selectedRadio: {
-//     width: 16,
-//     height: 16,
-//     borderRadius: 10,
-//     // borderWidth: 2,
-//     backgroundColor: '#000',
-//   },
-//   continue: {
-//     flex: 0.2,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   continueButton: {
-//     backgroundColor: '#4285F4',
-//     paddingVertical: 10,
-//     paddingHorizontal: 20,
-//     borderRadius: 5,
-//     // top: 10,
-//   },
+//   rideText: {
+//     // marginTop: 20,
+//     fontSize: 18,
+//     fontSize: 20,
+//     width: 150,
+//     paddingLeft: 20,
+//     // fontWeight: 'bold',
+//     fontFamily: 'System',
+//   },
+//   fareText: {
+//     // marginTop: 20,
+//     marginLeft: 'auto',
+//     fontSize: 18,
+//     // fontWeight: 'bold',
+//   },
+//   radioContainer: {
+//     // marginTop: 20,
+//     marginLeft: 'auto',
+//   },
+//   radio: {
+//     width: 20,
+//     height: 20,
+//     borderRadius: 10,
+//     borderWidth: 2,
+//     borderColor: '#000',
+//     // alignItems: 'center',
+//     // justifyContent: 'center',
+//   },
+//   selectedRadio: {
+//     width: 16,
+//     height: 16,
+//     borderRadius: 10,
+//     // borderWidth: 2,
+//     backgroundColor: '#000',
+//   },
+//   continue: {
+//     flex: 0.2,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   continueButton: {
+//     backgroundColor: '#4285F4',
+//     paddingVertical: 10,
+//     paddingHorizontal: 20,
+//     borderRadius: 5,
+//     // top: 10,
+//   },
 // });
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // padding: 20,
+    flex: 1,
+    // padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },

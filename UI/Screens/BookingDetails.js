@@ -58,6 +58,8 @@ function TripRoute() {
     // const phoneNumber = '0123456789';
     // Linking.openURL(`tel:${phoneNumber}`);
   };
+
+  const handleMessagePress = () => {};
   return (
     <View style={{flex: 1}}>
       <View style={{flex: 1}}>
@@ -99,10 +101,10 @@ function TripRoute() {
         <View style={styles.container}>
           <View style={styles.profileContainer}>
             <Image
-              source={{uri: rideDetails.driver.profileImage}}
+              source={require('../Assets/Soham.jpeg')}
               style={styles.profilePicture}
             />
-            <Text style={styles.name}>{rideDetails.driver.name}</Text>
+            <Text style={styles.name}>Soham Kasar</Text>
             <Text style={styles.rating}>4.3 ⭐️</Text>
           </View>
           <View style={styles.carDetailsContainer}>
@@ -116,7 +118,7 @@ function TripRoute() {
           <TouchableOpacity style={styles.iconBorder} onPress={makeCall}>
             <Icon name="phone" size={40} color={'green'} style={styles.icon} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleMessagePress}>
             <Icon name="message" size={40} color={'blue'} style={styles.icon} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handleCancel}>
@@ -229,7 +231,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   rideConfirmation: {
-    flex: 0.35,
+    flex: 0.5,
     borderRadius: 20,
     backgroundColor: 'white',
     shadowColor: '#000',
@@ -326,6 +328,9 @@ const styles = StyleSheet.create({
 
   icon: {
     marginLeft: 70,
+  },
+  distance: {
+    marginTop: 10,
   },
 });
 export default TripRoute;

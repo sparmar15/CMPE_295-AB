@@ -17,23 +17,24 @@ import {useNavigation} from '@react-navigation/native';
 const SelectDriverPage = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const {tripRoute, rideDetails} = route.params;
+  const {tripRoute, rideDetails, userEmail} = route.params;
+  console.log('===========rrrrrrr=');
+  console.log(userEmail);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{uri: rideDetails.driver.profileImage}}
-      />
-      <Text style={styles.text}>
-        Confirm your ride with {rideDetails.driver.name}?
-      </Text>
+      <Image style={styles.image} source={require('../Assets/Soham.jpeg')} />
+      {/* <Text style={styles.text}>
+        Please wait {rideDetails.driverName} to confirm
+      </Text> */}
       <View style={styles.paymentContainer}>
         <PaymentScreen
-          amount={rideDetails.fare}
+          // amount={rideDetails.fare}
+          amount="50"
           buttoText={'Pay using USD'}
           rideDetails={rideDetails}
           tripRoute={tripRoute}
+          userEmail={userEmail}
         />
       </View>
     </SafeAreaView>
@@ -55,7 +56,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 20,
+    margin: 10,
+    padding: 20,
   },
   button: {
     backgroundColor: '#4285F4',

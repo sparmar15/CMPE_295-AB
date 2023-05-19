@@ -33,7 +33,13 @@ function ScheduleRideScreen() {
     setDatePickerVisibility(false);
   };
 
-  const handleDateConfirm = date => {
+  const handleDateConfirm = async date => {
+    await helper(date);
+
+    console.log('Await func');
+  };
+
+  const helper = async date => {
     // setSelectedDate(date.toLocaleString().split('T')[0]);
     // setIsoDate(date.toLocaleString().split('T')[0]);
     //console.log(convertToLocaleTimeString(date.toISOString()));
@@ -42,15 +48,18 @@ function ScheduleRideScreen() {
     const localISOString = new Date(
       date.getTime() - date.getTimezoneOffset() * 60000,
     ).toISOString();
-    const dateISO = date.toISOString();
 
-    setIsoDate(dateISO.split('T')[0]);
+    const dateISO = date.toISOString().split('T')[0];
+    console.log(dateISO);
+    setIsoDate(dateISO);
 
     setSelectedDate(localISOString.split('T')[0]);
     hideDatePicker();
-    setTimeout(() => {
-      Log.info(isoDate);
-    }, 5000);
+    // setTimeout(() => {
+    //   console.log('====================================');
+    //   console.log(isoDate);
+    //   console.log('====================================');
+    // }, 10000);
   };
 
   const convertToLocaleTimeString = isoDateString => {
@@ -68,9 +77,11 @@ function ScheduleRideScreen() {
 
   const handleTimeConfirm = time => {
     setIsoTime(time.toISOString().split('T')[1]);
-    setSelectedTime(
-      time.toLocaleTimeString([], {hour: 'numeric', minute: 'numeric'}),
-    );
+    const formattedTime = time.toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    setSelectedTime(formattedTime);
     hideTimePicker();
   };
 
@@ -91,13 +102,20 @@ function ScheduleRideScreen() {
       selectedCar,
       occupants,
     };
+    console.log('====================================');
     console.log(trip);
-    try {
-      const res = await axios.post('http://localhost:4000/trips/', trip);
-    } catch (error) {
-      console.log(error);
+    console.log('====================================');
+    if (trip.startDate != '') {
+      try {
+        const res = await axios.post('http://localhost:4000/trips/', trip);
+        console.log('res' + res);
+        if (res) {
+          setShowSuccessPage(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-    setShowSuccessPage(true);
 
     // console.log(res.data);
   };
