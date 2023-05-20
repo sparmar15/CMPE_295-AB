@@ -55,3 +55,11 @@ One way to introduce more transparency to carpooling services is to implement a 
 ## API documentation
 * [Carma API doc](https://metal-astronaut-ade.notion.site/Carma-API-Documentation-93d7093d01bb4c6a9624c629e81dfdda)
 
+##Steps to Reproduce Application
+* Clone the repository
+* Make sure to xCode downloaded
+* npm install or yarn add
+* cd pods
+* pods install
+* npm run ios or yarn run ios
+* App will build and open in simulator
