@@ -38,14 +38,12 @@ One way to introduce more transparency to carpooling services is to implement a 
 <img src="https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Architecture.png">
 
 ## System Design
-<img src="https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20System%20Design.png">
+
 
 ## Project Plan and Progress
 ![Gantt Chart](https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Tracker.png)
 
-## Sprint Details
-* [Sprint Task Sheet](https://docs.google.com/spreadsheets/d/1IDO-muoPfrz7nGbiX-NCL3QYRmmmM3Z5hmQhxfTsbh4/edit#gid=0)
-* [Burndown Chart](https://docs.google.com/spreadsheets/d/1IDO-muoPfrz7nGbiX-NCL3QYRmmmM3Z5hmQhxfTsbh4/edit#gid=500653002)
+
 
 </figure>
 
@@ -55,3 +53,18 @@ One way to introduce more transparency to carpooling services is to implement a 
 ## API documentation
 * [Carma API doc](https://metal-astronaut-ade.notion.site/Carma-API-Documentation-93d7093d01bb4c6a9624c629e81dfdda)
 
+## Steps to Reproduce
+Frontend
+* Clone the repository
+* Make sure to download xCode
+* npm install or yarn add
+* cd ios
+* pods install
+* npm run ios or yarn run ios
+* App will build and open in simulator
+
+Backend
+* cd Backend
+* Please create DB authentication and add the keys in process.env file
+* run node index.js
+* Server should start 
