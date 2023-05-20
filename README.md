@@ -38,7 +38,7 @@ One way to introduce more transparency to carpooling services is to implement a 
 <img src="https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Architecture.png">
 
 ## System Design
-
+<img src="https://github.com/sparmar15/CMPE_295-AB/blob/main/images/Architecture%20Diagram%20V2.png">
 
 ## Project Plan and Progress
 ![Gantt Chart](https://github.com/sparmar15/CMPE_295A/blob/main/images/295A%20Project%20Tracker.png)
