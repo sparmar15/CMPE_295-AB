@@ -1,4 +1,4 @@
-# CMPE_295A: Master's Project I
+# Carma Decentralized Carpooling Application
 
 ## Project Advisor
 Dr. Wencen Wu
